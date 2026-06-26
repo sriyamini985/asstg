@@ -56,96 +56,110 @@
         <!-- HERO SECTION -->
         <section id="home" class="hero hero-section">
             <!-- Fully Animated layered vector background -->
-            <div class="hero-bg">
-                <div class="radial-glow"></div>
-                <div class="depth-glow-navy"></div>
-                <div class="depth-glow-gold"></div>
-                <div class="medical-grid"></div>
-                <div class="dots-top-left"></div>
-                <div class="dots-top-right"></div>
-                <div class="dots-bottom-left"></div>
-                
-                <!-- Faint Spine Silhouette (Far Left) -->
-                <div class="spine-silhouette-bg">
-                    <svg viewBox="0 0 180 700" width="100%" height="100%" fill="none" stroke="#0A2F6B" stroke-width="1.5" opacity="0.3">
-                        <path d="M 90,40 Q 75,37 90,32 Q 105,37 90,40 Z"/>
-                        <path d="M 90,65 Q 76,62 90,57 Q 104,62 90,65 Z"/>
-                        <path d="M 90,90 Q 77,87 90,82 Q 103,87 90,90 Z"/>
-                        <path d="M 90,115 Q 77,112 90,107 Q 103,112 90,115 Z"/>
-                        <path d="M 90,140 Q 78,137 90,132 Q 102,137 90,140 Z"/>
-                        <path d="M 90,165 Q 78,162 90,157 Q 102,162 90,165 Z"/>
-                        
-                        <path d="M 88,195 Q 70,190 88,185 Q 106,190 88,195 Z"/>
-                        <path d="M 86,225 Q 67,220 86,215 Q 105,220 86,225 Z"/>
-                        <path d="M 84,255 Q 64,250 84,245 Q 104,250 84,255 Z"/>
-                        <path d="M 82,285 Q 60,280 82,275 Q 104,280 82,285 Z"/>
-                        <path d="M 81,315 Q 58,310 81,305 Q 104,310 81,315 Z"/>
-                        <path d="M 82,345 Q 60,340 82,335 Q 104,340 82,345 Z"/>
-                        <path d="M 84,375 Q 64,370 84,365 Q 104,370 84,375 Z"/>
-                        <path d="M 86,405 Q 67,400 86,395 Q 105,400 86,405 Z"/>
-                        
-                        <path d="M 90,440 Q 70,435 90,427 Q 110,435 90,440 Z"/>
-                        <path d="M 92,470 Q 71,465 92,457 Q 113,465 92,470 Z"/>
-                        <path d="M 94,500 Q 72,495 94,487 Q 116,495 94,500 Z"/>
-                        <path d="M 95,530 Q 73,525 95,517 Q 117,525 95,530 Z"/>
-                        <path d="M 94,560 Q 71,555 94,547 Q 117,555 94,560 Z"/>
-                        
-                        <path d="M 90,580 Q 72,585 90,610 Q 108,585 90,580 Z"/>
-                        <path d="M 90,20 L 90,630" stroke-dasharray="4 6" opacity="0.3"/>
+            <div class="hero-bg" aria-hidden="true">
+
+                <!-- LIGHTING: Soft radial glow center-right -->
+                <div class="hbg-glow-primary"></div>
+                <div class="hbg-glow-secondary"></div>
+
+                <!-- LEFT: Very faint spine silhouette -->
+                <div class="hbg-spine-ghost">
+                    <svg viewBox="0 0 120 620" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Vertebrae shapes, cervical region -->
+                        <ellipse cx="60" cy="38" rx="22" ry="7" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="62" rx="22" ry="7" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="86" rx="22" ry="7" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="110" rx="22" ry="7" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="134" rx="22" ry="7" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="158" rx="22" ry="7" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="182" rx="22" ry="7" stroke="#1a3f7a" stroke-width="1"/>
+                        <!-- thoracic region -->
+                        <ellipse cx="60" cy="214" rx="26" ry="8" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="244" rx="26" ry="8" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="274" rx="26" ry="8" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="304" rx="26" ry="8" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="334" rx="26" ry="8" stroke="#1a3f7a" stroke-width="1"/>
+                        <!-- lumbar region -->
+                        <ellipse cx="60" cy="370" rx="30" ry="10" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="404" rx="30" ry="10" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="438" rx="30" ry="10" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="472" rx="30" ry="10" stroke="#1a3f7a" stroke-width="1"/>
+                        <ellipse cx="60" cy="506" rx="30" ry="10" stroke="#1a3f7a" stroke-width="1"/>
+                        <!-- sacrum -->
+                        <path d="M 30,530 Q 60,520 90,530 Q 92,570 60,580 Q 28,570 30,530 Z" stroke="#1a3f7a" stroke-width="1" fill="none"/>
+                        <!-- central line -->
+                        <line x1="60" y1="20" x2="60" y2="580" stroke="#1a3f7a" stroke-width="0.6" stroke-dasharray="3 8" opacity="0.5"/>
                     </svg>
                 </div>
-                
-                <!-- Technical Blueprint Rings in the Background -->
-                <div class="blueprint-rings-bg">
-                    <svg viewBox="0 0 390 390" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g class="ring-group-slow">
-                            <circle cx="195" cy="195" r="125" stroke="#2C7DA0" stroke-width="1" stroke-dasharray="6 7"/>
-                            <circle cx="195" cy="195" r="86" stroke="#2C7DA0" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.6"/>
-                            <path d="M 195,55 L 195,67 M 195,323 L 195,335 M 55,195 L 67,195 M 323,195 L 335,195" stroke="#0A2F6B" stroke-width="1.2" opacity="0.8"/>
+
+                <!-- RIGHT: Partial blueprint rings — 30% visible, tucked behind spine -->
+                <div class="hbg-rings">
+                    <svg viewBox="0 0 500 500" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g class="hbg-ring-slow">
+                            <circle cx="250" cy="250" r="210" stroke="#2C7DA0" stroke-width="0.8" stroke-dasharray="6 9"/>
+                            <circle cx="250" cy="250" r="165" stroke="#0A2F6B" stroke-width="0.6" stroke-dasharray="4 8" opacity="0.7"/>
+                            <circle cx="250" cy="250" r="118" stroke="#2C7DA0" stroke-width="0.6" opacity="0.5"/>
                         </g>
-                        <g class="ring-group-counter">
-                            <circle cx="195" cy="195" r="105" stroke="#0A2F6B" stroke-width="0.8" opacity="0.7"/>
-                            <circle cx="195" cy="195" r="58" stroke="#0A2F6B" stroke-width="1.2" opacity="0.5"/>
-                            <path d="M 195,70 L 195,78 M 195,312 L 195,320 M 70,195 L 78,195 M 312,195 L 320,195" stroke="#C89B3C" stroke-width="1.6" opacity="0.7"/>
+                        <g class="hbg-ring-counter">
+                            <circle cx="250" cy="250" r="188" stroke="#0A2F6B" stroke-width="0.5" opacity="0.6"/>
+                            <circle cx="250" cy="250" r="140" stroke="#2C7DA0" stroke-width="0.5" stroke-dasharray="2 6" opacity="0.4"/>
                         </g>
+                        <!-- Faint tick marks -->
+                        <path d="M250,32 L250,44 M250,456 L250,468 M32,250 L44,250 M456,250 L468,250" stroke="#0A2F6B" stroke-width="0.8" opacity="0.5"/>
+                        <path d="M414,86 L408,92 M86,414 L92,408 M414,414 L408,408 M86,86 L92,92" stroke="#C89B3C" stroke-width="0.8" opacity="0.4"/>
                     </svg>
                 </div>
-                
-                <!-- Flowing Spine Curves (Waves) -->
-                <div class="flowing-curves-bg">
-                    <svg viewBox="0 0 1440 500" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path class="wave-curve curve-navy" d="M -100,300 C 200,200 400,450 720,320 C 1000,200 1200,420 1540,300" stroke="#0A2F6B" stroke-width="1.5" opacity="0.25"/>
-                        <path class="wave-curve curve-gold" d="M -100,330 C 210,240 390,480 730,340 C 990,220 1210,450 1540,320" stroke="#C89B3C" stroke-width="1" opacity="0.18"/>
-                        <path class="wave-curve curve-navy-dashed" d="M -100,270 C 190,160 410,420 710,300 C 1010,180 1190,390 1540,280" stroke="#2C7DA0" stroke-width="1.2" stroke-dasharray="6 6" opacity="0.12"/>
+
+                <!-- BOTTOM: Very thin wave lines -->
+                <div class="hbg-waves">
+                    <svg viewBox="0 0 1440 280" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path class="hbg-wave hbg-wave-1" d="M -60,200 C 180,130 360,240 620,190 C 880,140 1100,220 1500,180" stroke="#0A2F6B" stroke-width="0.9"/>
+                        <path class="hbg-wave hbg-wave-2" d="M -60,220 C 200,155 380,255 660,205 C 920,155 1140,238 1500,200" stroke="#C89B3C" stroke-width="0.7"/>
+                        <path class="hbg-wave hbg-wave-3" d="M -60,180 C 160,115 340,225 580,175 C 840,125 1060,200 1500,162" stroke="#2C7DA0" stroke-width="0.6" stroke-dasharray="5 8"/>
+                        <path class="hbg-wave hbg-wave-4" d="M -60,240 C 220,175 420,270 700,215 C 960,165 1180,250 1500,215" stroke="#0A2F6B" stroke-width="0.5" stroke-dasharray="3 10" opacity="0.7"/>
                     </svg>
                 </div>
-                
-                <!-- Molecular Network Hexagons -->
-                <div class="molecular-hexagons-bg">
-                    <svg viewBox="0 0 250 250" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <polygon points="125,20 215,72 215,178 125,230 35,178 35,72" stroke="#2C7DA0" stroke-width="1.2" opacity="0.4"/>
-                        <polygon points="125,45 190,82 190,158 125,195 60,158 60,82" stroke="#C89B3C" stroke-width="1" opacity="0.3"/>
-                        <polygon points="125,75 165,98 165,147 125,170 85,147 85,98" stroke="#0A2F6B" stroke-width="0.8" opacity="0.2"/>
-                        <line x1="125" y1="20" x2="125" y2="230" stroke="#2C7DA0" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.3"/>
-                        <line x1="35" y1="72" x2="215" y2="178" stroke="#2C7DA0" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.3"/>
+
+                <!-- CORNERS: Tiny dotted clusters + crosses -->
+                <div class="hbg-corner hbg-corner-tl">
+                    <svg viewBox="0 0 90 90" width="90" height="90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="10" r="1.2" fill="#0A2F6B"/><circle cx="24" cy="10" r="1.2" fill="#0A2F6B"/><circle cx="38" cy="10" r="1.2" fill="#0A2F6B"/>
+                        <circle cx="10" cy="24" r="1.2" fill="#0A2F6B"/><circle cx="24" cy="24" r="1.2" fill="#0A2F6B"/><circle cx="38" cy="24" r="1.2" fill="#0A2F6B"/>
+                        <circle cx="10" cy="38" r="1.2" fill="#0A2F6B"/><circle cx="24" cy="38" r="1.2" fill="#0A2F6B"/><circle cx="38" cy="38" r="1.2" fill="#0A2F6B"/>
+                        <!-- small cross -->
+                        <path d="M62,18 L62,30 M56,24 L68,24" stroke="#0A2F6B" stroke-width="0.8"/>
                     </svg>
                 </div>
-                
-                <!-- Floating Gold and Blue Accent Dots -->
-                <div class="floating-accent-dots">
-                    <div class="accent-dot dot-blue-1"></div>
-                    <div class="accent-dot dot-gold-1"></div>
-                    <div class="accent-dot dot-blue-2"></div>
-                    <div class="accent-dot dot-gold-2"></div>
-                </div>
-                
-                <!-- Hyderabad Skyline -->
-                <div class="hyderabad-skyline">
-                    <svg viewBox="0 0 200 120" width="100%" height="100%" fill="none" stroke="#0A2F6B" stroke-width="1.2" opacity="0.08">
-                        <path d="M20,110 L180,110 M30,110 L30,40 M170,110 L170,40 M40,110 L40,60 M160,110 L160,60 M50,110 L50,80 L150,80 L150,110 M30,40 L45,20 L45,40 Z M170,40 L155,20 L155,40 Z" />
-                        <path d="M70,80 Q100,50 130,80 M90,80 L90,110 M110,80 L110,110" />
+                <div class="hbg-corner hbg-corner-tr">
+                    <svg viewBox="0 0 90 90" width="90" height="90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="52" cy="10" r="1.2" fill="#0A2F6B"/><circle cx="66" cy="10" r="1.2" fill="#0A2F6B"/><circle cx="80" cy="10" r="1.2" fill="#0A2F6B"/>
+                        <circle cx="52" cy="24" r="1.2" fill="#0A2F6B"/><circle cx="66" cy="24" r="1.2" fill="#0A2F6B"/><circle cx="80" cy="24" r="1.2" fill="#0A2F6B"/>
+                        <circle cx="52" cy="38" r="1.2" fill="#0A2F6B"/><circle cx="66" cy="38" r="1.2" fill="#0A2F6B"/><circle cx="80" cy="38" r="1.2" fill="#0A2F6B"/>
+                        <!-- tiny molecule: triangle of dots + lines -->
+                        <circle cx="18" cy="62" r="2" stroke="#2C7DA0" stroke-width="0.6" fill="none"/>
+                        <circle cx="30" cy="74" r="2" stroke="#2C7DA0" stroke-width="0.6" fill="none"/>
+                        <circle cx="10" cy="74" r="2" stroke="#2C7DA0" stroke-width="0.6" fill="none"/>
+                        <line x1="18" y1="62" x2="30" y2="74" stroke="#2C7DA0" stroke-width="0.5"/>
+                        <line x1="18" y1="62" x2="10" y2="74" stroke="#2C7DA0" stroke-width="0.5"/>
+                        <line x1="10" y1="74" x2="30" y2="74" stroke="#2C7DA0" stroke-width="0.5"/>
                     </svg>
                 </div>
+                <div class="hbg-corner hbg-corner-bl">
+                    <svg viewBox="0 0 90 90" width="90" height="90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="52" r="1.2" fill="#0A2F6B"/><circle cx="24" cy="52" r="1.2" fill="#0A2F6B"/>
+                        <circle cx="10" cy="66" r="1.2" fill="#0A2F6B"/><circle cx="24" cy="66" r="1.2" fill="#0A2F6B"/>
+                        <circle cx="10" cy="80" r="1.2" fill="#0A2F6B"/><circle cx="24" cy="80" r="1.2" fill="#0A2F6B"/>
+                        <!-- small cross -->
+                        <path d="M60,20 L60,32 M54,26 L66,26" stroke="#C89B3C" stroke-width="0.8"/>
+                    </svg>
+                </div>
+
+                <!-- FLOAT PARTICLES: 4 ultra-tiny dots -->
+                <span class="hbg-particle p1"></span>
+                <span class="hbg-particle p2"></span>
+                <span class="hbg-particle p3"></span>
+                <span class="hbg-particle p4"></span>
+
             </div>
 
             <div class="container hero-container">
@@ -203,44 +217,9 @@
                 
                 <div class="hero-visual scroll-reveal">
                     <div class="tech-rings-layout">
-                        <!-- Concentric Rings Background SVG -->
-                        <svg class="tech-circles-svg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="400" cy="400" r="260" stroke="#2C7DA0" stroke-width="1.2" stroke-dasharray="8 8"/>
-                            <circle cx="400" cy="400" r="220" stroke="#0A2F6B" stroke-width="1" opacity="0.7"/>
-                            <circle cx="400" cy="400" r="170" stroke="#2C7DA0" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
-                            <circle cx="400" cy="400" r="120" stroke="#0A2F6B" stroke-width="1.5" opacity="0.5"/>
-                            <path d="M 400,110 L 400,130 M 400,670 L 400,690 M 110,400 L 130,400 M 670,400 L 690,400" stroke="#0A2F6B" stroke-width="1.5" opacity="0.8"/>
-                            <path d="M 400,150 L 400,160 M 400,640 L 400,650 M 150,400 L 160,400 M 640,400 L 650,400" stroke="#C89B3C" stroke-width="2" opacity="0.7"/>
-                        </svg>
-                        
-                        <!-- 3D Spine Model Wrapper -->
+                        <!-- 3D Spine Model — the only visual element here -->
                         <div class="spine-3d-model hero-spine">
                             <img src="assets/spine_model_3d.png" alt="3D Spine Model" class="spine-image-3d">
-                        </div>
-                        
-                        <!-- Floating interactive nodes (circles on the right) -->
-                        <div class="floating-action-node node-top-right" onclick="alert('Focusing on Spine Education & Training')">
-                            <div class="node-circle-content">
-                                <svg class="node-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                                    <path d="M12 2v20M8 6h8M6 10h12M6 14h12M8 18h8" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="floating-action-node node-middle-right" onclick="alert('Advancing Clinical Research & Projects')">
-                            <div class="node-circle-content">
-                                <svg class="node-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                                    <path d="M12 5v14M5 12h14" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="floating-action-node node-bottom-right" onclick="alert('Academic Collaborations & Fellowships')">
-                            <div class="node-circle-content">
-                                <svg class="node-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                                    <path d="M2 10l10-5 10 5-10 5z" />
-                                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
-                                    <path d="M20 10v4" />
-                                </svg>
-                            </div>
                         </div>
                     </div>
                 </div>

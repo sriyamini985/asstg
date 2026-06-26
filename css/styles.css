@@ -589,8 +589,6 @@ p:last-child {
     background-color: var(--primary-color);
     left: 0;
     transition: var(--transition-fast);
-}
-
 .hamburger::before { top: -8px; }
 .hamburger::after { bottom: -8px; }
 
@@ -607,12 +605,13 @@ p:last-child {
     background: #FFFFFF;
 }
 
-/* Layer containers */
 .hero::before, .hero-section::before {
     display: none !important;
 }
 
-/* Base Hero Background Layer Containment */
+/* ─────────────────────────────────────────────
+   HERO BACKGROUND CONTAINER
+   ───────────────────────────────────────────── */
 .hero-bg {
     position: absolute;
     inset: 0;
@@ -621,325 +620,180 @@ p:last-child {
     z-index: 1;
 }
 
-/* =============================================
-   LAYER 1 — Soft radial white-blue glow (12%)
-   ============================================= */
-.radial-glow {
+
+/* ─────────────────────────────────────────────
+   LIGHTING — Layered radial gradients
+   Soft white-blue atmosphere, no harsh contrast
+   ───────────────────────────────────────────── */
+.hbg-glow-primary {
     position: absolute;
-    right: 5%;
-    top: -10%;
-    width: 700px;
-    height: 700px;
+    right: 20%;
+    top: -8%;
+    width: 780px;
+    height: 780px;
     background: radial-gradient(ellipse at center,
-        rgba(219, 234, 254, 0.6) 0%,
-        rgba(191, 219, 254, 0.3) 40%,
+        rgba(209, 228, 252, 0.55) 0%,
+        rgba(219, 234, 254, 0.25) 40%,
+        transparent 70%);
+    filter: blur(90px);
+    opacity: 1;
+    pointer-events: none;
+    z-index: 1;
+    animation: hbgGlowBreathe 12s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+
+.hbg-glow-secondary {
+    position: absolute;
+    left: 5%;
+    top: 20%;
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(ellipse at center,
+        rgba(240, 245, 255, 0.5) 0%,
+        rgba(220, 232, 252, 0.15) 50%,
         transparent 72%);
-    filter: blur(80px);
-    opacity: 0.12;
-    pointer-events: none;
-    z-index: 1;
-    animation: glowPulse 12s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-    0%, 100% { transform: scale(1) translateY(0); opacity: 0.10; }
-    50% { transform: scale(1.06) translateY(-8px); opacity: 0.14; }
-}
-
-/* Secondary depth radial — left side */
-.depth-glow-navy {
-    position: absolute;
-    left: 8%;
-    top: 25%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(10, 47, 107, 0.04) 0%, transparent 70%);
-    filter: blur(80px);
+    filter: blur(100px);
+    opacity: 1;
     pointer-events: none;
     z-index: 1;
 }
 
-.depth-glow-gold {
-    position: absolute;
-    right: 28%;
-    bottom: 8%;
-    width: 380px;
-    height: 380px;
-    background: radial-gradient(circle, rgba(200, 155, 60, 0.025) 0%, transparent 75%);
-    filter: blur(70px);
-    pointer-events: none;
-    z-index: 1;
+@keyframes hbgGlowBreathe {
+    0%, 100% { transform: scale(1);    opacity: 0.85; }
+    50%       { transform: scale(1.04); opacity: 1;   }
 }
 
-/* =============================================
-   LAYER 4 — Subtle Medical Grid (Dotted pattern)
-   ============================================= */
-.medical-grid {
+/* ─────────────────────────────────────────────
+   LEFT — Ghost spine silhouette
+   Opacity 2.5% | Blur 2px | Far left edge
+   ───────────────────────────────────────────── */
+.hbg-spine-ghost {
     position: absolute;
-    inset: 0;
-    background-image:
-        radial-gradient(rgba(10, 47, 107, 0.028) 1px, transparent 1px);
-    background-size: 32px 32px;
-    opacity: 0.03;
-    -webkit-mask-image: radial-gradient(ellipse at 70% 50%, black 20%, transparent 70%);
-    mask-image: radial-gradient(ellipse at 70% 50%, black 20%, transparent 70%);
-    z-index: 1;
-}
-
-/* =============================================
-   LAYER 7 — Tiny corner dot clusters (3%)
-   ============================================= */
-.dots-top-left {
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    width: 80px;
-    height: 80px;
-    background-image: radial-gradient(rgba(10, 47, 107, 0.12) 1.2px, transparent 1.2px);
-    background-size: 14px 14px;
-    opacity: 0.3;
-    z-index: 2;
-}
-
-.dots-top-right {
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    width: 80px;
-    height: 80px;
-    background-image: radial-gradient(rgba(10, 47, 107, 0.12) 1.2px, transparent 1.2px);
-    background-size: 14px 14px;
-    opacity: 0.3;
-    z-index: 2;
-}
-
-.dots-bottom-left {
-    position: absolute;
-    bottom: 100px;
-    left: 50px;
-    width: 80px;
-    height: 80px;
-    background-image: radial-gradient(rgba(10, 47, 107, 0.12) 1.2px, transparent 1.2px);
-    background-size: 14px 14px;
-    opacity: 0.3;
-    z-index: 2;
-}
-
-/* =============================================
-   LAYER 5 — Faint Spine Silhouette (Far Left, 3%)
-   ============================================= */
-.spine-silhouette-bg {
-    position: absolute;
-    left: 2rem;
-    top: 12%;
-    width: 100px;
-    height: 65%;
-    opacity: 0.03;
+    left: 1.2rem;
+    top: 8%;
+    width: 72px;
+    height: 78%;
+    opacity: 0.025;
+    filter: blur(2px);
     pointer-events: none;
     z-index: 2;
 }
 
-/* =============================================
-   LAYER 2 — Medical Blueprint Rings (6%)
-   35% smaller, tucked top-right, 40% clipped
-   ============================================= */
-.blueprint-rings-bg {
+/* ─────────────────────────────────────────────
+   RIGHT — Blueprint rings  (30% visible, 4% opacity)
+   Tucked right: 70% of circles off-screen
+   Rotation: 150s CW / 200s CCW
+   ───────────────────────────────────────────── */
+.hbg-rings {
     position: absolute;
-    right: -12%;
-    top: -18%;
-    width: 390px;
-    height: 390px;
-    opacity: 0.06;
+    right: -35%;
+    top: -15%;
+    width: 600px;
+    height: 600px;
+    opacity: 0.04;
+    filter: blur(1.5px);
     pointer-events: none;
     z-index: 2;
     will-change: transform;
 }
 
-.ring-group-slow {
-    animation: rotateSlowGroup 120s linear infinite;
-    transform-origin: 195px 195px;
+.hbg-ring-slow {
+    animation: hbgRingCW 150s linear infinite;
+    transform-origin: 250px 250px;
 }
 
-.ring-group-counter {
-    animation: rotateCounterGroup 150s linear infinite;
-    transform-origin: 195px 195px;
+.hbg-ring-counter {
+    animation: hbgRingCCW 200s linear infinite;
+    transform-origin: 250px 250px;
 }
 
-@keyframes rotateSlowGroup {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
+@keyframes hbgRingCW  { to { transform: rotate(360deg);  } }
+@keyframes hbgRingCCW { to { transform: rotate(-360deg); } }
 
-@keyframes rotateCounterGroup {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(-360deg); }
-}
-
-/* =============================================
-   LAYER 4 — Flowing Wave Lines (8%)
-   ============================================= */
-.flowing-curves-bg {
+/* ─────────────────────────────────────────────
+   BOTTOM — Very thin medical wave lines
+   Stroke opacity ≤6% | Drift 15px | 20s duration
+   ───────────────────────────────────────────── */
+.hbg-waves {
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 85%;
+    height: 50%;
     pointer-events: none;
     z-index: 2;
     will-change: transform;
 }
 
-.wave-curve {
-    animation: waveShift 18s ease-in-out infinite alternate;
+.hbg-wave { animation: hbgWaveDrift 20s ease-in-out infinite alternate; }
+.hbg-wave-1 { animation-delay:  0s;  opacity: 0.055; }
+.hbg-wave-2 { animation-delay: -5s;  opacity: 0.040; }
+.hbg-wave-3 { animation-delay: -10s; opacity: 0.032; }
+.hbg-wave-4 { animation-delay: -15s; opacity: 0.025; }
+
+@keyframes hbgWaveDrift {
+    0%   { transform: translateX(0px); }
+    100% { transform: translateX(15px); }
 }
 
-.curve-navy { animation-delay: 0s; }
-.curve-gold { animation-delay: -5s; }
-.curve-navy-dashed { animation-delay: -10s; }
-
-@keyframes waveShift {
-    0% { transform: translateX(0) translateY(0); }
-    100% { transform: translateX(20px) translateY(-6px); }
-}
-
-/* =============================================
-   LAYER 3 — Hexagon Molecules (4%, blurred)
-   ============================================= */
-.molecular-hexagons-bg {
+/* ─────────────────────────────────────────────
+   CORNERS — Tiny dots, crosses & molecule outlines
+   Container opacity <4%
+   ───────────────────────────────────────────── */
+.hbg-corner {
     position: absolute;
-    left: 42%;
-    top: 22%;
-    width: 160px;
-    height: 160px;
+    opacity: 0.032;
     pointer-events: none;
     z-index: 2;
-    opacity: 0.04;
-    filter: blur(1.5px);
-    animation: hexFloat 20s ease-in-out infinite;
-    will-change: transform;
 }
 
-@keyframes hexFloat {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-6px) rotate(1deg); }
-}
+.hbg-corner-tl { top: 28px;    left: 28px;  }
+.hbg-corner-tr { top: 28px;    right: 28px; }
+.hbg-corner-bl { bottom: 90px; left: 28px;  }
 
-/* =============================================
-   LAYER 6 — Floating Accent Particles (5%)
-   ============================================= */
-.floating-accent-dots {
+/* ─────────────────────────────────────────────
+   PARTICLES — 4 ultra-tiny very slow drift dots
+   ───────────────────────────────────────────── */
+.hbg-particle {
     position: absolute;
-    inset: 0;
+    border-radius: 50%;
     pointer-events: none;
     z-index: 3;
 }
 
-.accent-dot {
-    position: absolute;
-    border-radius: 50%;
-}
+.hbg-particle.p1 { width:3px; height:3px; background:#2C7DA0; top:30%; left:18%; opacity:0.05; animation:hbgP1 28s ease-in-out infinite; }
+.hbg-particle.p2 { width:2px; height:2px; background:#C89B3C; top:60%; left:12%; opacity:0.05; animation:hbgP2 34s ease-in-out infinite; }
+.hbg-particle.p3 { width:3px; height:3px; background:#2C7DA0; top:22%; right:38%; opacity:0.04; animation:hbgP3 30s ease-in-out infinite; }
+.hbg-particle.p4 { width:2px; height:2px; background:#C89B3C; top:70%; right:28%; opacity:0.04; animation:hbgP4 36s ease-in-out infinite; }
 
-.dot-blue-1 {
-    width: 4px;
-    height: 4px;
-    background-color: var(--accent-blue);
-    box-shadow: 0 0 6px rgba(44, 125, 160, 0.4);
-    top: 28%;
-    left: 22%;
-    opacity: 0.05;
-    animation: dotDrift1 20s ease-in-out infinite;
-}
+@keyframes hbgP1 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(6px,-5px)} 66%{transform:translate(-4px,4px)} }
+@keyframes hbgP2 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-5px,-6px)} 66%{transform:translate(6px,3px)} }
+@keyframes hbgP3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-6px,4px)} 66%{transform:translate(4px,-5px)} }
+@keyframes hbgP4 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(5px,-4px)} 66%{transform:translate(-4px,5px)} }
 
-.dot-gold-1 {
-    width: 3px;
-    height: 3px;
-    background-color: var(--secondary-color);
-    box-shadow: 0 0 5px rgba(200, 155, 60, 0.4);
-    top: 58%;
-    left: 16%;
-    opacity: 0.05;
-    animation: dotDrift2 24s ease-in-out infinite;
-}
-
-.dot-blue-2 {
-    width: 5px;
-    height: 5px;
-    background-color: var(--accent-blue);
-    box-shadow: 0 0 8px rgba(44, 125, 160, 0.3);
-    top: 20%;
-    right: 34%;
-    opacity: 0.05;
-    animation: dotDrift3 22s ease-in-out infinite;
-}
-
-.dot-gold-2 {
-    width: 3px;
-    height: 3px;
-    background-color: var(--secondary-color);
-    box-shadow: 0 0 5px rgba(200, 155, 60, 0.3);
-    top: 75%;
-    right: 24%;
-    opacity: 0.05;
-    animation: dotDrift4 26s ease-in-out infinite;
-}
-
-@keyframes dotDrift1 {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(8px, -6px); }
-}
-
-@keyframes dotDrift2 {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(-6px, -8px); }
-}
-
-@keyframes dotDrift3 {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(-8px, 5px); }
-}
-
-@keyframes dotDrift4 {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(6px, -6px); }
-}
-
-/* =============================================
-   Hyderabad Skyline Silhouette
-   ============================================= */
-.hyderabad-skyline-bg {
-    position: absolute;
-    bottom: 55px;
-    right: 6%;
-    width: 200px;
-    height: auto;
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* =============================================
-   HERO SPINE FLOAT ANIMATION (10s, 1deg, 6-8px)
-   ============================================= */
+/* ─────────────────────────────────────────────
+   HERO SPINE — Float only. No surrounding rings.
+   ───────────────────────────────────────────── */
 .hero-spine {
     animation: floatSpine 10s ease-in-out infinite;
-    transform-origin: center;
+    transform-origin: center bottom;
     will-change: transform;
 }
 
 @keyframes floatSpine {
-    0%, 100% { transform: translateY(0) rotate(-0.8deg); }
-    50% { transform: translateY(-7px) rotate(0.8deg); }
+    0%, 100% { transform: translateY(0)    rotate(-0.6deg); }
+    50%       { transform: translateY(-7px) rotate(0.6deg);  }
 }
-
 
 @keyframes glowSpine {
-    0%, 100% {
-        filter: drop-shadow(0 0 20px rgba(44, 125, 160, 0.3));
-    }
-    50% {
-        filter: drop-shadow(0 0 30px rgba(212,175,55,.45));
-    }
+    0%, 100% { filter: drop-shadow(0 0 18px rgba(44,125,160,0.22)); }
+    50%       { filter: drop-shadow(0 0 28px rgba(200,155,60,0.30)); }
 }
 
+/* ─────────────────────────────────────────────
+   HERO LAYOUT & CONTENT
+   ───────────────────────────────────────────── */
 .hero-container {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
@@ -995,7 +849,7 @@ p:last-child {
     z-index: 5;
 }
 
-/* Hero Stats Bar Integrated Inline inside Left Column */
+/* Hero Stats */
 .hero-stats-inline {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1054,50 +908,32 @@ p:last-child {
     font-weight: 500;
 }
 
-/* 3D Spine and Technical Concentric Rings Container */
+/* ─────────────────────────────────────────────
+   SPINE VISUAL — Clean container, no HUD rings
+   ───────────────────────────────────────────── */
 .tech-rings-layout {
     position: relative;
-    width: 140%;
-    max-width: 720px;
-    margin-left: -20%;
-    aspect-ratio: 1 / 1;
+    width: 110%;
+    max-width: 560px;
+    margin-left: -5%;
+    aspect-ratio: 0.55 / 1;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
 }
 
-/* Concentric Rings Background SVG */
-.tech-circles-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Rotating ring SVG disabled */
+.tech-circles-svg { display: none; }
+
+.spine-3d-model {
+    position: relative;
     width: 100%;
     height: 100%;
-    z-index: 10;
-    pointer-events: none;
-    animation: ringsRotate 140s linear infinite;
-}
-
-@keyframes ringsRotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* 3D Spine Model Wrapper */
-.spine-3d-model {
-    position: absolute;
-    width: 52%;
-    height: 95%;
     z-index: 8;
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: auto;
 }
 
 .spine-image-3d {
@@ -1106,109 +942,24 @@ p:last-child {
     max-width: 100%;
     object-fit: contain;
     mix-blend-mode: multiply;
-    filter: drop-shadow(0 15px 30px rgba(10, 47, 107, 0.08));
-    transition: var(--transition-smooth);
+    filter: drop-shadow(0 20px 40px rgba(10, 47, 107, 0.10));
+    transition: filter 0.5s ease, transform 0.5s ease;
 }
 
-/* Hovering Glow effect on 3D Spine */
 .tech-rings-layout:hover .spine-image-3d {
-    filter: drop-shadow(0 20px 40px rgba(10, 47, 107, 0.15)) drop-shadow(0 0 20px rgba(200, 155, 60, 0.25));
-    transform: scale(1.03);
+    filter: drop-shadow(0 24px 48px rgba(10, 47, 107, 0.16))
+            drop-shadow(0 0 24px rgba(200, 155, 60, 0.18));
+    transform: scale(1.015);
 }
 
-/* Floating interactive nodes (Mockup circles on the right) */
-.floating-action-node {
-    position: absolute;
-    width: 48px;
-    height: 48px;
-    z-index: 20;
-    cursor: pointer;
-}
+/* Floating action nodes — removed from design */
+.floating-action-node,
+.node-circle-content,
+.node-svg-icon { display: none; }
 
-.node-top-right {
-    top: 20%;
-    right: 17%;
-    animation: floatN1 7s ease-in-out infinite;
-}
-
-.node-middle-right {
-    top: 42%;
-    right: 6%;
-    animation: floatN2 8s ease-in-out infinite;
-}
-
-.node-bottom-right {
-    top: 68%;
-    right: 17%;
-    animation: floatN3 9s ease-in-out infinite;
-}
-
-@keyframes floatN1 {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-7px) scale(1.05); }
-}
-
-@keyframes floatN2 {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(7px) scale(1.05); }
-}
-
-@keyframes floatN3 {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-6px) scale(1.05); }
-}
-
-.node-circle-content {
-    width: 100%;
-    height: 100%;
-    background-color: #FFFFFF;
-    border: 1.5px solid rgba(10, 47, 107, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary-color);
-    font-size: 1.6rem;
-    box-shadow: 0 6px 20px rgba(10, 47, 107, 0.06);
-    transition: var(--transition-smooth);
-}
-
-.node-circle-content i {
-    font-size: 1.5rem;
-    transition: var(--transition-smooth);
-}
-
-.node-svg-icon {
-    width: 18px;
-    height: 18px;
-    transition: var(--transition-smooth);
-}
-
-/* Hover effects for nodes */
-.floating-action-node:hover .node-circle-content {
-    border-color: var(--secondary-color);
-    color: var(--secondary-color);
-    box-shadow: 0 10px 25px rgba(200, 155, 60, 0.25);
-    transform: scale(1.08);
-}
-
-.floating-action-node:hover .node-svg-icon {
-    stroke: var(--secondary-color);
-}
-
-/* Hyderabad Identity Charminar Silhouette */
-.hyderabad-skyline {
-    position: absolute;
-    bottom: 80px;
-    right: 3rem;
-    width: 150px;
-    height: auto;
-    color: var(--primary-color);
-    opacity: 0.04; /* Opacity below 6% */
-    pointer-events: none;
-    z-index: 2;
-}
-
+/* ─────────────────────────────────────────────
+   CURVE DIVIDER
+   ───────────────────────────────────────────── */
 .curve-divider {
     position: absolute;
     bottom: -1px;
@@ -1222,6 +973,8 @@ p:last-child {
     width: 100%;
     height: 60px;
 }
+
+
 
 /* 8. FEATURED CONFERENCE (HORIZONTAL NAVY CARD) */
 .asstcon-section {
