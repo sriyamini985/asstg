@@ -77,6 +77,16 @@ a {
     transition: var(--transition-smooth);
 }
 
+/* Accessibility focus styling */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 3px;
+}
+
 ul {
     list-style: none;
 }
@@ -2151,6 +2161,16 @@ p:last-child {
     line-height: 1.6;
 }
 
+.contact-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.contact-link:hover {
+    color: var(--secondary-color);
+}
+
 .map-container {
     border-radius: var(--border-radius-md);
     overflow: hidden;
@@ -2375,6 +2395,23 @@ p:last-child {
 
 .footer-contact a:hover {
     text-decoration: underline;
+}
+
+.footer-contact-link {
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.footer-contact-link:hover {
+    color: var(--secondary-color);
+}
+
+/* Button loading state styles */
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.8;
 }
 
 .footer-bottom {
@@ -2703,23 +2740,7 @@ p:last-child {
     100% { transform: translateY(0px) rotate(0deg); }
 }
 
-@keyframes surgeonFloat1 {
-    0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-10px) translateX(3px) rotate(1deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
-}
-
-@keyframes surgeonFloat2 {
-    0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(12px) translateX(-4px) rotate(-1deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
-}
-
-@keyframes surgeonFloat3 {
-    0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-6px) translateX(-5px) rotate(0.8deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
-}
+/* surgeonFloat keyframes removed */
 
 @keyframes modalSlideUp {
     from { opacity: 0; transform: translateY(30px); }

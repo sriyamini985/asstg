@@ -29,7 +29,7 @@
                 </a>
             </div>
             
-            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-controls="navigation">
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-controls="navigation" aria-expanded="false">
                 <span class="hamburger"></span>
             </button>
 
@@ -335,14 +335,14 @@
                 
                 <div class="membership-layout scroll-reveal">
                     <!-- Tab Navigation -->
-                    <div class="membership-tabs">
-                        <button class="tab-btn active" data-tab="benefits">Membership Benefits</button>
-                        <button class="tab-btn" data-tab="eligibility">Eligibility Criteria</button>
-                        <button class="tab-btn" data-tab="categories">Categories & Process</button>
+                    <div class="membership-tabs" role="tablist" aria-label="Membership Details">
+                        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="benefits" id="tab-benefits" data-tab="benefits">Membership Benefits</button>
+                        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="eligibility" id="tab-eligibility" data-tab="eligibility">Eligibility Criteria</button>
+                        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="categories" id="tab-categories" data-tab="categories">Categories & Process</button>
                     </div>
                     
                     <!-- Tab Contents -->
-                    <div class="membership-tab-content active" id="benefits">
+                    <div class="membership-tab-content active" id="benefits" role="tabpanel" aria-labelledby="tab-benefits">
                         <div class="tab-grid">
                             <div class="tab-info">
                                 <h3>Why Join ASST?</h3>
@@ -359,13 +359,13 @@
                                 <p>Download the form, fill it out, and submit it, or complete your application online.</p>
                                 <div class="box-actions">
                                     <button class="btn btn-secondary btn-full" onclick="openMembershipFormModal()">Apply Online</button>
-                                    <a href="#" class="btn btn-outline-white btn-full"><i class="fa-solid fa-download"></i> Download Membership Form</a>
+                                    <a href="assets/asst_membership_form.pdf" download class="btn btn-outline-white btn-full"><i class="fa-solid fa-download"></i> Download Membership Form</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="membership-tab-content" id="eligibility">
+                    <div class="membership-tab-content" id="eligibility" role="tabpanel" aria-labelledby="tab-eligibility">
                         <div class="tab-grid">
                             <div class="tab-info">
                                 <h3>Who is Eligible?</h3>
@@ -390,7 +390,7 @@
                         </div>
                     </div>
                     
-                    <div class="membership-tab-content" id="categories">
+                    <div class="membership-tab-content" id="categories" role="tabpanel" aria-labelledby="tab-categories">
                         <div class="tab-grid">
                             <div class="tab-info">
                                 <h3>Membership Structure</h3>
@@ -504,7 +504,7 @@
                             <p>An interactive case-based CME addressing adolescent idiopathic scoliosis, sagittal alignment correction strategies, and pediatric deformity management.</p>
                             <div class="event-footer">
                                 <a href="#contact" class="btn btn-outline-primary-sm">Inquire</a>
-                                <button class="btn btn-link-sm" onclick="alert('Program schedule will be released soon.')">Read More</button>
+                                <button class="btn btn-link-sm" onclick="showToast('Program schedule will be released soon.')">Read More</button>
                             </div>
                         </div>
                     </div>
@@ -531,7 +531,7 @@
                             <p>Cadaveric training on percutaneous pedicle screw fixation, endoscopic lumbar discectomy, and micro-decompression approaches under fluoroscopy guidance.</p>
                             <div class="event-footer">
                                 <a href="#contact" class="btn btn-outline-primary-sm">Inquire</a>
-                                <button class="btn btn-link-sm" onclick="alert('Registration open details will be updated shortly.')">Read More</button>
+                                <button class="btn btn-link-sm" onclick="showToast('Registration open details will be updated shortly.')">Read More</button>
                             </div>
                         </div>
                     </div>
@@ -565,7 +565,7 @@
                         <!-- Dr. Raghava Dutt Mulkutla -->
                         <div class="bearer-card">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_raghava_dutt.jpg" alt="Dr. Raghava Dutt Mulkutla" class="bearer-img">
+                                <img src="assets/organizers/dr_raghava_dutt.jpg" alt="Dr. Raghava Dutt Mulkutla" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. Raghava Dutt Mulkutla</h4>
@@ -578,7 +578,7 @@
                         <!-- Dr. A Pavan Kumar -->
                         <div class="bearer-card">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_pavan_kumar.jpg" alt="Dr. A Pavan Kumar" class="bearer-img">
+                                <img src="assets/organizers/dr_pavan_kumar.jpg" alt="Dr. A Pavan Kumar" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. A Pavan Kumar</h4>
@@ -591,7 +591,7 @@
                         <!-- Dr. C Suresh -->
                         <div class="bearer-card">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_c_suresh.jpg" alt="Dr. C Suresh" class="bearer-img">
+                                <img src="assets/organizers/dr_c_suresh.jpg" alt="Dr. C Suresh" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. C Suresh</h4>
@@ -604,7 +604,7 @@
                         <!-- Dr. V Surya Prakash Rao -->
                         <div class="bearer-card">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_surya_prakash.jpg" alt="Dr. V Surya Prakash Rao" class="bearer-img">
+                                <img src="assets/organizers/dr_surya_prakash.jpg" alt="Dr. V Surya Prakash Rao" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. V Surya Prakash Rao</h4>
@@ -617,7 +617,7 @@
                         <!-- Dr. Raju Iyengar -->
                         <div class="bearer-card">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_raju_iyengar.jpg" alt="Dr. Raju Iyengar" class="bearer-img">
+                                <img src="assets/organizers/dr_raju_iyengar.jpg" alt="Dr. Raju Iyengar" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. Raju Iyengar</h4>
@@ -638,7 +638,7 @@
                         <!-- Dr. Devanand -->
                         <div class="bearer-card bearer-card-sm">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_devanand.jpg" alt="Dr. Devanand" class="bearer-img">
+                                <img src="assets/organizers/dr_devanand.jpg" alt="Dr. Devanand" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. Devanand</h4>
@@ -650,7 +650,7 @@
                         <!-- Dr. P V Satya Narayana Murthy -->
                         <div class="bearer-card bearer-card-sm">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_satya_narayana.jpg" alt="Dr. P V Satya Narayana Murthy" class="bearer-img">
+                                <img src="assets/organizers/dr_satya_narayana.jpg" alt="Dr. P V Satya Narayana Murthy" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. P V Satya Narayana Murthy</h4>
@@ -662,7 +662,7 @@
                         <!-- Dr. Kalyan Verma -->
                         <div class="bearer-card bearer-card-sm">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_kalyan_verma.jpg" alt="Dr. Kalyan Verma" class="bearer-img">
+                                <img src="assets/organizers/dr_kalyan_verma.jpg" alt="Dr. Kalyan Verma" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. Kalyan Verma</h4>
@@ -674,7 +674,7 @@
                         <!-- Dr. Abhinandan -->
                         <div class="bearer-card bearer-card-sm">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_abhinandan.jpg" alt="Dr. Abhinandan" class="bearer-img">
+                                <img src="assets/organizers/dr_abhinandan.jpg" alt="Dr. Abhinandan" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. Abhinandan</h4>
@@ -694,7 +694,7 @@
                         <!-- Dr. Ramdas Maloth -->
                         <div class="bearer-card bearer-card-sm">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_ramdas_maloth.jpg" alt="Dr. Ramdas Maloth" class="bearer-img">
+                                <img src="assets/organizers/dr_ramdas_maloth.jpg" alt="Dr. Ramdas Maloth" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. Ramdas Maloth</h4>
@@ -706,7 +706,7 @@
                         <!-- Dr. K. Sri Krishna Chaitanya -->
                         <div class="bearer-card bearer-card-sm">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_sri_krishna_chaitanya.jpg" alt="Dr. K. Sri Krishna Chaitanya" class="bearer-img">
+                                <img src="assets/organizers/dr_sri_krishna_chaitanya.jpg" alt="Dr. K. Sri Krishna Chaitanya" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. K. Sri Krishna Chaitanya</h4>
@@ -824,8 +824,8 @@
                                 <div class="detail-icon"><i class="fa-solid fa-phone"></i></div>
                                 <div class="detail-text">
                                     <h4>Phone / Secretariat</h4>
-                                    <p>+91-94927 59745 (Dr. A Pavan Kumar)<br>
-                                    +91-9440602168 (Conference Manager Mr. Sathyanarayana)</p>
+                                    <p><a href="tel:+919492759745" class="contact-link">+91-94927 59745</a> (Dr. A Pavan Kumar)<br>
+                                    <a href="tel:+919440602168" class="contact-link">+91-94406 02168</a> (Conference Manager Mr. Sathyanarayana)</p>
                                 </div>
                             </div>
                             
@@ -833,8 +833,8 @@
                                 <div class="detail-icon"><i class="fa-solid fa-envelope"></i></div>
                                 <div class="detail-text">
                                     <h4>Email Address</h4>
-                                    <p>info@asstg.in<br>
-                                    secretariat@asstg.in</p>
+                                    <p><a href="mailto:info@asstg.in" class="contact-link">info@asstg.in</a><br>
+                                    <a href="mailto:secretariat@asstg.in" class="contact-link">secretariat@asstg.in</a></p>
                                 </div>
                             </div>
                         </div>
@@ -908,9 +908,9 @@
                     The Association of Spine Surgeons of Telangana is the premier state organization fostering educational advancement, research publications, and clinical innovation in spinal medicine.
                 </p>
                 <div class="footer-socials">
-                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" onclick="showToast('ASST social media channels will be launched soon.'); return false;" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" onclick="showToast('ASST LinkedIn professional network will be launched soon.'); return false;" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" onclick="showToast('ASST YouTube media channel will be launched soon.'); return false;" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
             
@@ -930,16 +930,16 @@
                 <ul>
                     <li><a href="#" onclick="openRegistrationModal(); return false;">Online Registration</a></li>
                     <li><a href="#" onclick="openEventDetailsModal(); return false;">Scientific Program</a></li>
-                    <li><a href="#">Abstract Submission</a></li>
-                    <li><a href="#">Accommodation & Venue</a></li>
+                    <li><a href="#" onclick="showToast('Abstract submission portal will open in July 2026.'); return false;">Abstract Submission</a></li>
+                    <li><a href="#" onclick="showToast('Venue accommodation details and special rates will be published soon.'); return false;">Accommodation & Venue</a></li>
                 </ul>
             </div>
             
             <div class="footer-contact">
                 <h4>ASST Office</h4>
                 <p><i class="fa-solid fa-location-dot"></i> Udai Omni Hospitals, Chapel Road, Hyderabad, 500001</p>
-                <p><i class="fa-solid fa-phone"></i> +91-94927 59745</p>
-                <p><i class="fa-solid fa-envelope"></i> info@asstg.in</p>
+                <p><i class="fa-solid fa-phone"></i> <a href="tel:+919492759745" class="footer-contact-link">+91-94927 59745</a></p>
+                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@asstg.in" class="footer-contact-link">info@asstg.in</a></p>
                 <p><i class="fa-solid fa-globe"></i> <a href="http://www.asstg.in" target="_blank">www.asstg.in</a></p>
             </div>
         </div>
@@ -958,7 +958,7 @@
     <!-- 1. ASSTCON 2026 REGISTRATION MODAL -->
     <div class="modal-overlay" id="registrationModal">
         <div class="modal-box">
-            <button class="modal-close" onclick="closeRegistrationModal()">&times;</button>
+            <button class="modal-close" onclick="closeRegistrationModal()" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h3>ASSTCON 2026 Registration</h3>
                 <p>1st Annual Conference of ASST | 27 September 2026</p>
@@ -1029,7 +1029,7 @@
     <!-- 2. MEMBERSHIP FORM MODAL -->
     <div class="modal-overlay" id="membershipModal">
         <div class="modal-box">
-            <button class="modal-close" onclick="closeMembershipModal()">&times;</button>
+            <button class="modal-close" onclick="closeMembershipModal()" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h3>ASST Membership Application</h3>
                 <p>Apply for life or associate membership of the association</p>
@@ -1092,19 +1092,19 @@
     <!-- 3. CONFERENCE DETAILS MODAL -->
     <div class="modal-overlay" id="detailsModal">
         <div class="modal-box modal-box-large">
-            <button class="modal-close" onclick="closeEventDetailsModal()">&times;</button>
+            <button class="modal-close" onclick="closeEventDetailsModal()" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h3>ASSTCON 2026 Program & Details</h3>
                 <p>1st Annual Conference of the Association of Spine Surgeons of Telangana</p>
             </div>
             <div class="modal-body">
-                <div class="details-tabs">
-                    <button class="details-tab-btn active" data-details-tab="welcome">Welcome Message</button>
-                    <button class="details-tab-btn" data-details-tab="schedule">Scientific Program</button>
-                    <button class="details-tab-btn" data-details-tab="secretariat">Secretariat Info</button>
+                <div class="details-tabs" role="tablist" aria-label="Conference details">
+                    <button class="details-tab-btn active" role="tab" aria-selected="true" aria-controls="details-welcome" id="tab-welcome" data-details-tab="welcome">Welcome Message</button>
+                    <button class="details-tab-btn" role="tab" aria-selected="false" aria-controls="details-schedule" id="tab-schedule" data-details-tab="schedule">Scientific Program</button>
+                    <button class="details-tab-btn" role="tab" aria-selected="false" aria-controls="details-secretariat" id="tab-secretariat" data-details-tab="secretariat">Secretariat Info</button>
                 </div>
                 
-                <div class="details-tab-content active" id="details-welcome">
+                <div class="details-tab-content active" id="details-welcome" role="tabpanel" aria-labelledby="tab-welcome">
                     <div class="message-box">
                         <h4>Dear Colleagues,</h4>
                         <p>It gives us immense pleasure to welcome you to ASSTCON 2026 – the 1st Annual Conference of the Association of Spine Surgeons of Telangana (ASST), scheduled to be held on 27th September 2026 at Hotel Taj Deccan, Hyderabad.</p>
@@ -1124,8 +1124,8 @@
                     </div>
                 </div>
                 
-                <div class="details-tab-content" id="details-schedule">
-                    <div class="schedule-timeline">
+                <div class="details-tab-content" id="details-schedule" role="tabpanel" aria-labelledby="tab-schedule">
+                    <div class="scientific-timeline">
                         <div class="timeline-item">
                             <span class="time">08:00 AM - 09:00 AM</span>
                             <div class="timeline-desc">
@@ -1176,7 +1176,7 @@
                     </div>
                 </div>
                 
-                <div class="details-tab-content" id="details-secretariat">
+                <div class="details-tab-content" id="details-secretariat" role="tabpanel" aria-labelledby="tab-secretariat">
                     <div class="secretariat-box">
                         <div class="sec-item">
                             <h5>Conference Secretariat</h5>
@@ -1184,12 +1184,12 @@
                             Udai Omni Hospitals,<br>
                             5-9-92/A/1, Chapel Road,<br>
                             Hyderabad, 500 001<br>
-                            Mobile: +91-94927 59745</p>
+                            Mobile: <a href="tel:+919492759745" class="contact-link">+91-94927 59745</a></p>
                         </div>
                         <div class="sec-item">
                             <h5>Conference Manager</h5>
                             <p><strong>Mr. Sathyanarayana</strong><br>
-                            Mobile: +91-9440602168</p>
+                            Mobile: <a href="tel:+919440602168" class="contact-link">+91-94406 02168</a></p>
                         </div>
                         <div class="sec-item">
                             <h5>Registration Fees</h5>
@@ -1221,7 +1221,7 @@
     <!-- 4. GENERAL ABOUT DETAILS MODAL -->
     <div class="modal-overlay" id="aboutDetailsModal">
         <div class="modal-box modal-box-large">
-            <button class="modal-close" onclick="closeAboutDetailsModal()">&times;</button>
+            <button class="modal-close" onclick="closeAboutDetailsModal()" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h3>About ASST</h3>
                 <p>Association of Spine Surgeons of Telangana</p>
@@ -1245,13 +1245,13 @@
 
     <!-- 5. GALLERY LIGHTBOX MODAL -->
     <div class="lightbox-overlay" id="lightboxModal">
-        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-        <button class="lightbox-prev" onclick="prevLightboxImage()"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close gallery lightbox">&times;</button>
+        <button class="lightbox-prev" onclick="prevLightboxImage()" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
         <div class="lightbox-content">
             <div id="lightbox-image-container"></div>
             <div class="lightbox-caption" id="lightbox-caption"></div>
         </div>
-        <button class="lightbox-next" onclick="nextLightboxImage()"><i class="fa-solid fa-chevron-right"></i></button>
+        <button class="lightbox-next" onclick="nextLightboxImage()" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
 
     <!-- Scripts -->
