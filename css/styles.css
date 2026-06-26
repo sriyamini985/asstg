@@ -178,100 +178,38 @@ p:last-child {
 
 /* Section dividers & backgrounds alternation */
 .about-section {
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .values-section {
+    background: linear-gradient(rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .membership-section {
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .events-section {
+    background: linear-gradient(rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .committee-section {
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .gallery-section {
+    background: linear-gradient(rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .contact-section {
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
-}
-
-/* Animated Slide Backgrounds (Using GPU-accelerated pseudo-elements for slow-drift floating effect) */
-.about-section, 
-.values-section, 
-.membership-section, 
-.events-section, 
-.committee-section, 
-.gallery-section, 
-.contact-section,
-.asstcon-section {
-    position: relative;
-    overflow: hidden;
-}
-
-.about-section > .container,
-.values-section > .container,
-.membership-section > .container,
-.events-section > .container,
-.committee-section > .container,
-.gallery-section > .container,
-.contact-section > .container,
-.asstcon-section > .container {
-    position: relative;
-    z-index: 2;
-}
-
-.about-section::before,
-.values-section::before,
-.membership-section::before,
-.events-section::before,
-.committee-section::before,
-.gallery-section::before,
-.contact-section::before,
-.asstcon-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    animation: bgSlowDrift 45s ease-in-out infinite alternate;
-}
-
-/* White background sections with 40% solid white overlay */
-.about-section::before,
-.membership-section::before,
-.committee-section::before,
-.contact-section::before,
-.asstcon-section::before {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png');
-}
-
-/* Light grey-blue background sections with 40% solid light grey-blue overlay */
-.values-section::before,
-.events-section::before,
-.gallery-section::before {
-    background-image: linear-gradient(rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.4)), url('../assets/spine_bg.png');
-}
-
-@keyframes bgSlowDrift {
-    0% {
-        transform: scale(1.05) translate(-1%, -1%);
-    }
-    100% {
-        transform: scale(1.1) translate(1%, 1%);
-    }
 }
 
 .section-divider {
@@ -594,27 +532,25 @@ p:last-child {
 .hamburger::before { top: -8px; }
 .hamburger::after { bottom: -8px; }
 
-
 /* 7. HERO SECTION */
 .hero-section {
-    padding-top: 18rem;
-    padding-bottom: 8rem;
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding-top: 19rem;
+    padding-bottom: 15rem;
     position: relative;
-    overflow-x: hidden;   /* allow spine to extend, prevent horizontal scroll */
-    background: #FFFFFF;
+    overflow: hidden;
+    background-image: url('../assets/hero_bg.jpg');
+    background-size: cover;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-color: #FFFFFF;
 }
 
+/* Premium Gradient Overlay Fade disabled for background image */
 .hero::before, .hero-section::before {
     display: none !important;
 }
 
-/* ─────────────────────────────────────────────
-   HERO BACKGROUND CONTAINER
-   ───────────────────────────────────────────── */
+/* Base Hero Background Layer Containment */
 .hero-bg {
     position: absolute;
     inset: 0;
@@ -623,170 +559,303 @@ p:last-child {
     z-index: 1;
 }
 
-/* ─────────────────────────────────────────────
-   LIGHTING — Very subtle radial glows
-   Kept on the LEFT half only — never behind the spine
-   Low opacity so they never break mix-blend-mode:multiply
-   ───────────────────────────────────────────── */
-.hbg-glow-primary {
+/* Layer 1 — Radial Light */
+.radial-glow {
     position: absolute;
-    left: -5%;           /* left side — behind text, not behind spine */
-    top: 0;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(ellipse at center,
-        rgba(209, 228, 252, 0.18) 0%,
-        rgba(219, 234, 254, 0.08) 45%,
+    right: 8%;
+    top: 5%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle,
+        rgba(219, 234, 254, 0.4) 0%,
+        rgba(191, 219, 254, 0.15) 45%,
         transparent 70%);
     filter: blur(100px);
-    opacity: 1;
+    opacity: 0.12; /* Soft 12% opacity */
     pointer-events: none;
     z-index: 1;
-    animation: hbgGlowBreathe 12s ease-in-out infinite;
-    will-change: opacity;
+    animation: glowPulse 12s ease-in-out infinite;
 }
 
-.hbg-glow-secondary {
+@keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.1; }
+    50% { transform: scale(1.08); opacity: 0.15; }
+}
+
+/* Layer 9 — Depth Glows */
+.depth-glow-navy {
     position: absolute;
-    left: 20%;
-    bottom: 0;
-    width: 500px;
-    height: 400px;
-    background: radial-gradient(ellipse at center,
-        rgba(240, 245, 255, 0.12) 0%,
-        transparent 70%);
-    filter: blur(120px);
-    opacity: 1;
-    pointer-events: none;
-    z-index: 1;
-}
-
-@keyframes hbgGlowBreathe {
-    0%, 100% { opacity: 0.7; }
-    50%       { opacity: 1;   }
-}
-
-/* .hbg-spine-ghost removed from design */
-.hbg-spine-ghost { display: none; }
-
-/* ─────────────────────────────────────────────
-   RIGHT — Blueprint rings  (30% visible, 4% opacity)
-   Tucked right: 70% of circles off-screen
-   Rotation: 150s CW / 200s CCW
-   ───────────────────────────────────────────── */
-.hbg-rings {
-    position: absolute;
-    right: -35%;
-    top: -15%;
+    left: 15%;
+    top: 20%;
     width: 600px;
     height: 600px;
-    opacity: 0.04;
-    filter: blur(1.5px);
+    background: radial-gradient(circle, rgba(10, 47, 107, 0.05) 0%, transparent 70%);
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.depth-glow-gold {
+    position: absolute;
+    right: 25%;
+    bottom: 10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(200, 155, 60, 0.03) 0%, transparent 75%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Layer 4 — Subtle Medical Grid */
+.medical-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(10, 47, 107, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10, 47, 107, 0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.8; /* Subtle below 8% total visual density */
+    -webkit-mask-image: radial-gradient(circle at 75% 50%, black 30%, transparent 80%);
+    mask-image: radial-gradient(circle at 75% 50%, black 30%, transparent 80%);
+    z-index: 1;
+}
+
+/* Layer 7 — Dotted Corner Patterns */
+.dots-top-left {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    width: 96px;
+    height: 96px;
+    background-image: radial-gradient(rgba(10, 47, 107, 0.08) 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+    opacity: 0.6;
+    z-index: 2;
+}
+
+.dots-top-right {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 96px;
+    height: 96px;
+    background-image: radial-gradient(rgba(10, 47, 107, 0.08) 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+    opacity: 0.6;
+    z-index: 2;
+}
+
+.dots-bottom-left {
+    position: absolute;
+    bottom: 120px;
+    left: 40px;
+    width: 96px;
+    height: 96px;
+    background-image: radial-gradient(rgba(10, 47, 107, 0.08) 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+    opacity: 0.6;
+    z-index: 2;
+}
+
+/* Layer 5 — Faint Spine Silhouette (Far Left) */
+.spine-silhouette-bg {
+    position: absolute;
+    left: 3rem;
+    top: 15%;
+    width: 140px;
+    height: 70%;
+    opacity: 0.04; /* Very faint 4% opacity */
     pointer-events: none;
     z-index: 2;
-    will-change: transform;
 }
 
-.hbg-ring-slow {
-    animation: hbgRingCW 150s linear infinite;
+/* Layer 2 — Technical Blueprint Rings */
+.blueprint-rings-bg {
+    position: absolute;
+    right: 7%;
+    top: 5%;
+    width: 600px;
+    height: 600px;
+    opacity: 0.08; /* Soft blueprint lines between 5% and 10% */
+    pointer-events: none;
+    z-index: 2;
+}
+
+.ring-group-slow {
+    animation: rotateSlowGroup 90s linear infinite;
     transform-origin: 250px 250px;
 }
 
-.hbg-ring-counter {
-    animation: hbgRingCCW 200s linear infinite;
+.ring-group-counter {
+    animation: rotateCounterGroup 120s linear infinite;
     transform-origin: 250px 250px;
 }
 
-@keyframes hbgRingCW  { to { transform: rotate(360deg);  } }
-@keyframes hbgRingCCW { to { transform: rotate(-360deg); } }
+@keyframes rotateSlowGroup {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
 
-/* ─────────────────────────────────────────────
-   BOTTOM — Very thin medical wave lines
-   Stroke opacity ≤6% | Drift 15px | 20s duration
-   ───────────────────────────────────────────── */
-.hbg-waves {
+@keyframes rotateCounterGroup {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+/* Layer 3 — Flowing Spine Curves (Wave lines from bottom-left) */
+.flowing-curves-bg {
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 50%;
-    pointer-events: none;
-    z-index: 2;
-    will-change: transform;
-}
-
-.hbg-wave { animation: hbgWaveDrift 20s ease-in-out infinite alternate; }
-.hbg-wave-1 { animation-delay:  0s;  opacity: 0.055; }
-.hbg-wave-2 { animation-delay: -5s;  opacity: 0.040; }
-.hbg-wave-3 { animation-delay: -10s; opacity: 0.032; }
-.hbg-wave-4 { animation-delay: -15s; opacity: 0.025; }
-
-@keyframes hbgWaveDrift {
-    0%   { transform: translateX(0px); }
-    100% { transform: translateX(15px); }
-}
-
-/* ─────────────────────────────────────────────
-   CORNERS — Tiny dots, crosses & molecule outlines
-   Container opacity <4%
-   ───────────────────────────────────────────── */
-.hbg-corner {
-    position: absolute;
-    opacity: 0.032;
+    height: 90%;
     pointer-events: none;
     z-index: 2;
 }
 
-.hbg-corner-tl { top: 28px;    left: 28px;  }
-.hbg-corner-tr { top: 28px;    right: 28px; }
-.hbg-corner-bl { bottom: 90px; left: 28px;  }
+.wave-curve {
+    animation: curveShift 18s ease-in-out infinite alternate;
+}
 
-/* ─────────────────────────────────────────────
-   PARTICLES — 4 ultra-tiny very slow drift dots
-   ───────────────────────────────────────────── */
-.hbg-particle {
+.curve-navy { animation-delay: 0s; }
+.curve-gold { animation-delay: -4s; }
+.curve-navy-dashed { animation-delay: -8s; }
+
+@keyframes curveShift {
+    0% { transform: translateY(0) scaleY(1); }
+    100% { transform: translateY(-12px) scaleY(1.03); }
+}
+
+/* Layer 4 — Molecular Network Hexagons */
+.molecular-hexagons-bg {
     position: absolute;
-    border-radius: 50%;
+    left: 38%;
+    top: 18%;
+    width: 300px;
+    height: 300px;
+    pointer-events: none;
+    z-index: 2;
+    animation: floatMolecules 15s ease-in-out infinite;
+}
+
+@keyframes floatMolecules {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1.5deg); opacity: 0.8; }
+}
+
+/* Layer 8 — Floating Accent Dots (Subtle motion) */
+.floating-accent-dots {
+    position: absolute;
+    inset: 0;
     pointer-events: none;
     z-index: 3;
 }
 
-.hbg-particle.p1 { width:3px; height:3px; background:#2C7DA0; top:30%; left:18%; opacity:0.05; animation:hbgP1 28s ease-in-out infinite; }
-.hbg-particle.p2 { width:2px; height:2px; background:#C89B3C; top:60%; left:12%; opacity:0.05; animation:hbgP2 34s ease-in-out infinite; }
-.hbg-particle.p3 { width:3px; height:3px; background:#2C7DA0; top:22%; right:38%; opacity:0.04; animation:hbgP3 30s ease-in-out infinite; }
-.hbg-particle.p4 { width:2px; height:2px; background:#C89B3C; top:70%; right:28%; opacity:0.04; animation:hbgP4 36s ease-in-out infinite; }
+.accent-dot {
+    position: absolute;
+    border-radius: 50%;
+}
 
-@keyframes hbgP1 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(6px,-5px)} 66%{transform:translate(-4px,4px)} }
-@keyframes hbgP2 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-5px,-6px)} 66%{transform:translate(6px,3px)} }
-@keyframes hbgP3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-6px,4px)} 66%{transform:translate(4px,-5px)} }
-@keyframes hbgP4 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(5px,-4px)} 66%{transform:translate(-4px,5px)} }
+.dot-blue-1 {
+    width: 5px;
+    height: 5px;
+    background-color: var(--accent-blue);
+    box-shadow: 0 0 8px var(--accent-blue);
+    top: 25%;
+    left: 20%;
+    animation: dotDrift1 26s ease-in-out infinite;
+}
 
-/* ─────────────────────────────────────────────
-   HERO SPINE — Float only. No surrounding rings.
-   ───────────────────────────────────────────── */
+.dot-gold-1 {
+    width: 4px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 6px var(--secondary-color);
+    top: 55%;
+    left: 14%;
+    animation: dotDrift2 30s ease-in-out infinite;
+}
+
+.dot-blue-2 {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-blue);
+    box-shadow: 0 0 10px var(--accent-blue);
+    top: 18%;
+    right: 32%;
+    animation: dotDrift3 34s ease-in-out infinite;
+}
+
+.dot-gold-2 {
+    width: 4px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 6px var(--secondary-color);
+    top: 72%;
+    right: 22%;
+    animation: dotDrift4 28s ease-in-out infinite;
+}
+
+@keyframes dotDrift1 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.25; }
+    50% { transform: translate(70px, -35px); opacity: 0.65; }
+}
+
+@keyframes dotDrift2 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.15; }
+    50% { transform: translate(-50px, -50px); opacity: 0.55; }
+}
+
+@keyframes dotDrift3 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+    50% { transform: translate(-60px, 45px); opacity: 0.6; }
+}
+
+@keyframes dotDrift4 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.25; }
+    50% { transform: translate(45px, -45px); opacity: 0.7; }
+}
+
+/* Layer 6 — Hyderabad Skyline (thin line art, bottom right behind spine) */
+.hyderabad-skyline-bg {
+    position: absolute;
+    bottom: 55px;
+    right: 6%;
+    width: 250px;
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Layer 10 — Main Spine Integration Float and Glow */
 .hero-spine {
-    animation: floatSpine 10s ease-in-out infinite;
-    transform-origin: center bottom;
-    will-change: transform;
+    animation:
+        floatSpine 9s ease-in-out infinite;
+    transform-origin: center;
 }
 
 @keyframes floatSpine {
-    0%, 100% { transform: translateY(0)    rotate(-0.6deg); }
-    50%       { transform: translateY(-7px) rotate(0.6deg);  }
+    0%, 100% {
+        transform: translateY(0) rotate(-1.5deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(1.5deg);
+    }
 }
 
 @keyframes glowSpine {
-    0%, 100% { filter: drop-shadow(0 0 18px rgba(44,125,160,0.22)); }
-    50%       { filter: drop-shadow(0 0 28px rgba(200,155,60,0.30)); }
+    0%, 100% {
+        filter: drop-shadow(0 0 20px rgba(44, 125, 160, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 30px rgba(212,175,55,.45));
+    }
 }
 
-/* ─────────────────────────────────────────────
-   HERO LAYOUT & CONTENT
-   ───────────────────────────────────────────── */
 .hero-container {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 5rem;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 6rem;
     align-items: center;
     position: relative;
     z-index: 5;
@@ -794,8 +863,7 @@ p:last-child {
 
 .hero-content {
     position: relative;
-    z-index: 20;
-    max-width: 52%;
+    z-index: 10;
 }
 
 .hero-tagline {
@@ -819,14 +887,13 @@ p:last-child {
 .hero-description {
     font-size: 1.9rem;
     line-height: 1.6;
-    margin-bottom: 3.5rem;
-    max-width: 520px;
+    margin-bottom: 4rem;
+    max-width: 580px;
 }
 
 .hero-actions {
     display: flex;
     gap: 2rem;
-    margin-top: 3.5rem;
 }
 
 .hero-visual {
@@ -835,10 +902,10 @@ p:last-child {
     justify-content: center;
     align-items: center;
     width: 100%;
-    z-index: 5;
+    z-index: 10;
 }
 
-/* Hero Stats */
+/* Hero Stats Bar Integrated Inline inside Left Column */
 .hero-stats-inline {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -897,14 +964,11 @@ p:last-child {
     font-weight: 500;
 }
 
-/* ─────────────────────────────────────────────
-   SPINE VISUAL — Original size, no HUD rings
-   ───────────────────────────────────────────── */
+/* 3D Spine and Technical Concentric Rings Container */
 .tech-rings-layout {
     position: relative;
-    width: 140%;
-    max-width: 720px;
-    margin-left: -20%;
+    width: 100%;
+    max-width: 500px;
     aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
@@ -912,17 +976,36 @@ p:last-child {
     z-index: 10;
 }
 
-/* Rotating ring SVG removed */
-.tech-circles-svg { display: none; }
+/* Concentric Rings Background SVG */
+.tech-circles-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    animation: rotateTech ringsRotate 140s linear infinite;
+}
 
+@keyframes ringsRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 3D Spine Model Wrapper */
 .spine-3d-model {
     position: absolute;
-    width: 52%;
-    height: 95%;
-    z-index: 8;
+    width: 32%;
+    height: 82%;
+    z-index: 12;
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: auto;
 }
 
 .spine-image-3d {
@@ -930,25 +1013,109 @@ p:last-child {
     height: 100%;
     max-width: 100%;
     object-fit: contain;
-    mix-blend-mode: multiply;
-    filter: drop-shadow(0 20px 40px rgba(10, 47, 107, 0.10));
-    transition: filter 0.5s ease, transform 0.5s ease;
+    filter: drop-shadow(0 15px 30px rgba(10, 47, 107, 0.08));
+    transition: var(--transition-smooth);
 }
 
+/* Hovering Glow effect on 3D Spine */
 .tech-rings-layout:hover .spine-image-3d {
-    filter: drop-shadow(0 24px 48px rgba(10, 47, 107, 0.16))
-            drop-shadow(0 0 24px rgba(200, 155, 60, 0.18));
-    transform: scale(1.015);
+    filter: drop-shadow(0 20px 40px rgba(10, 47, 107, 0.15)) drop-shadow(0 0 20px rgba(200, 155, 60, 0.25));
+    transform: scale(1.03);
 }
 
-/* Floating action nodes — removed from design */
-.floating-action-node,
-.node-circle-content,
-.node-svg-icon { display: none; }
+/* Floating interactive nodes (Mockup circles on the right) */
+.floating-action-node {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    z-index: 20;
+    cursor: pointer;
+}
 
-/* ─────────────────────────────────────────────
-   CURVE DIVIDER
-   ───────────────────────────────────────────── */
+.node-top-right {
+    top: 20%;
+    right: 17%;
+    animation: floatN1 7s ease-in-out infinite;
+}
+
+.node-middle-right {
+    top: 42%;
+    right: 6%;
+    animation: floatN2 8s ease-in-out infinite;
+}
+
+.node-bottom-right {
+    top: 68%;
+    right: 17%;
+    animation: floatN3 9s ease-in-out infinite;
+}
+
+@keyframes floatN1 {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-7px) scale(1.05); }
+}
+
+@keyframes floatN2 {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(7px) scale(1.05); }
+}
+
+@keyframes floatN3 {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-6px) scale(1.05); }
+}
+
+.node-circle-content {
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    border: 1.5px solid rgba(10, 47, 107, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    box-shadow: 0 6px 20px rgba(10, 47, 107, 0.06);
+    transition: var(--transition-smooth);
+}
+
+.node-circle-content i {
+    font-size: 1.5rem;
+    transition: var(--transition-smooth);
+}
+
+.node-svg-icon {
+    width: 18px;
+    height: 18px;
+    transition: var(--transition-smooth);
+}
+
+/* Hover effects for nodes */
+.floating-action-node:hover .node-circle-content {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+    box-shadow: 0 10px 25px rgba(200, 155, 60, 0.25);
+    transform: scale(1.08);
+}
+
+.floating-action-node:hover .node-svg-icon {
+    stroke: var(--secondary-color);
+}
+
+/* Hyderabad Identity Charminar Silhouette */
+.hyderabad-skyline {
+    position: absolute;
+    bottom: 80px;
+    right: 3rem;
+    width: 150px;
+    height: auto;
+    color: var(--primary-color);
+    opacity: 0.04; /* Opacity below 6% */
+    pointer-events: none;
+    z-index: 2;
+}
+
 .curve-divider {
     position: absolute;
     bottom: -1px;
@@ -963,11 +1130,10 @@ p:last-child {
     height: 60px;
 }
 
-
-
 /* 8. FEATURED CONFERENCE (HORIZONTAL NAVY CARD) */
 .asstcon-section {
     padding: 6rem 0;
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
 }
 
 .asstcon-horizontal-card {
@@ -2599,26 +2765,21 @@ p:last-child {
     .hero-description { margin-left: auto; margin-right: auto; }
     .hero-actions { justify-content: center; }
     .hero-section {
+        background-image: none !important;
+        background-color: #FFFFFF;
         padding-top: 14rem;
         padding-bottom: 8rem;
-        background-color: #FFFFFF;
     }
     .hero-visual {
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
+        display: block !important;
         width: 100%;
-        height: auto;
+        height: 380px;
         max-width: 520px;
         margin: 0 auto;
-        border-radius: 0;
-        box-shadow: none;
-        border: none;
-    }
-    .tech-rings-layout {
-        width: 100% !important;
-        max-width: 420px !important;
-        margin-left: 0 !important;
+        background: url('../assets/hero_bg.jpg') no-repeat 80% center / cover;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-premium);
+        border: 1px solid rgba(10, 47, 107, 0.05);
     }
     .hero-stats-inline {
         grid-template-columns: repeat(2, 1fr);
@@ -2721,12 +2882,7 @@ p:last-child {
     }
     
     .hero-visual {
-        height: auto;
-    }
-    .tech-rings-layout {
-        width: 100% !important;
-        max-width: 300px !important;
-        margin-left: 0 !important;
+        height: 260px;
     }
     
     .asstcon-horizontal-card { padding: 3rem 2rem; }
