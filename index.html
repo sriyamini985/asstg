@@ -1321,6 +1321,39 @@
 
     <!-- Lightbox placeholder removed -->
 
+    <!-- FLOATING EVENT COUNTDOWN POPUP -->
+    <div id="countdownPopup" class="countdown-popup">
+        <button class="popup-close-btn" onclick="closeCountdownPopup()" aria-label="Close countdown popup">&times;</button>
+        <div class="popup-content">
+            <span class="popup-tag">ASSTCON 2026</span>
+            <h4>Flagship Conference Begins In:</h4>
+            <div class="popup-timer">
+                <div class="timer-unit">
+                    <span id="popup-days">00</span>
+                    <label>Days</label>
+                </div>
+                <div class="timer-divider">:</div>
+                <div class="timer-unit">
+                    <span id="popup-hours">00</span>
+                    <label>Hrs</label>
+                </div>
+                <div class="timer-divider">:</div>
+                <div class="timer-unit">
+                    <span id="popup-minutes">00</span>
+                    <label>Min</label>
+                </div>
+                <div class="timer-divider">:</div>
+                <div class="timer-unit">
+                    <span id="popup-seconds">00</span>
+                    <label>Sec</label>
+                </div>
+            </div>
+            <div class="popup-actions">
+                <a href="#events" class="btn btn-secondary-sm popup-cta-btn" onclick="handlePopupCta(event)">View Events <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="js/main.js?v=1.1"></script>
 </body>

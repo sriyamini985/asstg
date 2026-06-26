@@ -80,30 +80,43 @@ document.addEventListener('DOMContentLoaded', () => {
         const h = document.getElementById('hours');
         const m = document.getElementById('minutes');
         const s = document.getElementById('seconds');
+
+        const pd = document.getElementById('popup-days');
+        const ph = document.getElementById('popup-hours');
+        const pm = document.getElementById('popup-minutes');
+        const ps = document.getElementById('popup-seconds');
         
-        if (!d || !h || !m || !s) return;
-        
-        if (distance < 0) {
-            d.innerText = "00";
-            h.innerText = "00";
-            m.innerText = "00";
-            s.innerText = "00";
-            return;
+        let daysStr = "00";
+        let hoursStr = "00";
+        let minutesStr = "00";
+        let secondsStr = "00";
+
+        if (distance > 0) {
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            daysStr = String(days).padStart(2, '0');
+            hoursStr = String(hours).padStart(2, '0');
+            minutesStr = String(minutes).padStart(2, '0');
+            secondsStr = String(seconds).padStart(2, '0');
         }
         
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        d.innerText = String(days).padStart(2, '0');
-        h.innerText = String(hours).padStart(2, '0');
-        m.innerText = String(minutes).padStart(2, '0');
-        s.innerText = String(seconds).padStart(2, '0');
+        if (d) d.innerText = daysStr;
+        if (h) h.innerText = hoursStr;
+        if (m) m.innerText = minutesStr;
+        if (s) s.innerText = secondsStr;
+
+        if (pd) pd.innerText = daysStr;
+        if (ph) ph.innerText = hoursStr;
+        if (pm) pm.innerText = minutesStr;
+        if (ps) ps.innerText = secondsStr;
     };
     
     setInterval(updateCountdown, 1000);
     updateCountdown(); // Run immediately
+
 
     // =========================================================================
     // 5. MEMBERSHIP INTERACTIVE TABS
@@ -472,3 +485,33 @@ modalScrollStyle.innerText = `
     }
 `;
 document.head.appendChild(modalScrollStyle);
+
+// Floating Event Countdown Popup Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const popup = document.getElementById('countdownPopup');
+    if (!popup) return;
+    
+    // Check if user dismissed popup during this session
+    const isDismissed = sessionStorage.getItem('asstcon_popup_dismissed');
+    if (isDismissed !== 'true') {
+        setTimeout(() => {
+            popup.classList.add('active');
+        }, 1500); // Slide in after 1.5 seconds
+    }
+});
+
+window.closeCountdownPopup = () => {
+    const popup = document.getElementById('countdownPopup');
+    if (popup) {
+        popup.classList.remove('active');
+        sessionStorage.setItem('asstcon_popup_dismissed', 'true');
+    }
+};
+
+window.handlePopupCta = (e) => {
+    // Dismiss the popup (will set session flag)
+    closeCountdownPopup();
+    
+    // Smooth scroll using native smooth scrolling (handled via browser href target)
+};
+
