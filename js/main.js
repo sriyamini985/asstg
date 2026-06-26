@@ -489,29 +489,47 @@ document.head.appendChild(modalScrollStyle);
 // Floating Event Countdown Popup Logic
 document.addEventListener('DOMContentLoaded', () => {
     const popup = document.getElementById('countdownPopup');
-    if (!popup) return;
+    const miniBtn = document.getElementById('countdownMiniBtn');
+    if (!popup || !miniBtn) return;
     
-    // Check if user dismissed popup during this session
-    const isDismissed = sessionStorage.getItem('asstcon_popup_dismissed');
-    if (isDismissed !== 'true') {
-        setTimeout(() => {
-            popup.classList.add('active');
-        }, 1500); // Slide in after 1.5 seconds
-    }
+    // Show main popup automatically on website open after 1.5s
+    setTimeout(() => {
+        if (!popup.classList.contains('active') && !miniBtn.classList.contains('active')) {
+            window.openCountdownPopup();
+        }
+    }, 1500);
+
+    // Mouse hover (mouseover) on mini button triggers popup open
+    miniBtn.addEventListener('mouseover', () => {
+        window.openCountdownPopup();
+    });
+
+    // Mouse leaves popup collapses it back to mini button
+    popup.addEventListener('mouseleave', () => {
+        window.closeCountdownPopup();
+    });
 });
+
+window.openCountdownPopup = () => {
+    const popup = document.getElementById('countdownPopup');
+    const miniBtn = document.getElementById('countdownMiniBtn');
+    if (popup && miniBtn) {
+        popup.classList.add('active');
+        miniBtn.classList.remove('active');
+    }
+};
 
 window.closeCountdownPopup = () => {
     const popup = document.getElementById('countdownPopup');
-    if (popup) {
+    const miniBtn = document.getElementById('countdownMiniBtn');
+    if (popup && miniBtn) {
         popup.classList.remove('active');
-        sessionStorage.setItem('asstcon_popup_dismissed', 'true');
+        miniBtn.classList.add('active');
     }
 };
 
 window.handlePopupCta = (e) => {
-    // Dismiss the popup (will set session flag)
-    closeCountdownPopup();
-    
-    // Smooth scroll using native smooth scrolling (handled via browser href target)
+    window.closeCountdownPopup();
 };
+
 

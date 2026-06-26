@@ -3632,3 +3632,50 @@ p:last-child {
     }
 }
 
+/* Circular Mini Toggle Button */
+.countdown-mini-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    border: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+    font-size: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(10, 47, 107, 0.3);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: scale(0.7);
+    pointer-events: none;
+}
+
+.countdown-mini-btn.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: all;
+}
+
+.countdown-mini-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 28px rgba(200, 155, 60, 0.4);
+    background-color: #082452;
+}
+
+@media (max-width: 576px) {
+    .countdown-mini-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+    }
+}
+
+
