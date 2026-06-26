@@ -178,38 +178,100 @@ p:last-child {
 
 /* Section dividers & backgrounds alternation */
 .about-section {
-    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .values-section {
-    background: linear-gradient(rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .membership-section {
-    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .events-section {
-    background: linear-gradient(rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .committee-section {
-    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .gallery-section {
-    background: linear-gradient(rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
 }
 
 .contact-section {
-    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
     padding: var(--section-padding);
+}
+
+/* Animated Slide Backgrounds (Using GPU-accelerated pseudo-elements for slow-drift floating effect) */
+.about-section, 
+.values-section, 
+.membership-section, 
+.events-section, 
+.committee-section, 
+.gallery-section, 
+.contact-section,
+.asstcon-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-section > .container,
+.values-section > .container,
+.membership-section > .container,
+.events-section > .container,
+.committee-section > .container,
+.gallery-section > .container,
+.contact-section > .container,
+.asstcon-section > .container {
+    position: relative;
+    z-index: 2;
+}
+
+.about-section::before,
+.values-section::before,
+.membership-section::before,
+.events-section::before,
+.committee-section::before,
+.gallery-section::before,
+.contact-section::before,
+.asstcon-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    animation: bgSlowDrift 45s ease-in-out infinite alternate;
+}
+
+/* White background sections with 40% solid white overlay */
+.about-section::before,
+.membership-section::before,
+.committee-section::before,
+.contact-section::before,
+.asstcon-section::before {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png');
+}
+
+/* Light grey-blue background sections with 40% solid light grey-blue overlay */
+.values-section::before,
+.events-section::before,
+.gallery-section::before {
+    background-image: linear-gradient(rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.4)), url('../assets/spine_bg.png');
+}
+
+@keyframes bgSlowDrift {
+    0% {
+        transform: scale(1.05) translate(-1%, -1%);
+    }
+    100% {
+        transform: scale(1.1) translate(1%, 1%);
+    }
 }
 
 .section-divider {
@@ -1133,7 +1195,6 @@ p:last-child {
 /* 8. FEATURED CONFERENCE (HORIZONTAL NAVY CARD) */
 .asstcon-section {
     padding: 6rem 0;
-    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
 }
 
 .asstcon-horizontal-card {
