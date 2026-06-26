@@ -1057,8 +1057,8 @@ p:last-child {
 /* 3D Spine Model Wrapper */
 .spine-3d-model {
     position: absolute;
-    width: 32%;
-    height: 82%;
+    width: 55%;
+    height: 95%;
     z-index: 12;
     display: flex;
     justify-content: center;
@@ -1071,6 +1071,7 @@ p:last-child {
     height: 100%;
     max-width: 100%;
     object-fit: contain;
+    mix-blend-mode: multiply;
     filter: drop-shadow(0 15px 30px rgba(10, 47, 107, 0.08));
     transition: var(--transition-smooth);
 }
