@@ -238,6 +238,7 @@ p:last-child {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
     font-family: var(--font-body);
     font-size: 1.5rem;
     font-weight: 600;
@@ -1604,17 +1605,19 @@ p:last-child {
 
 .benefits-list li {
     font-size: 1.55rem;
-    display: flex;
-    gap: 1.2rem;
+    position: relative;
+    padding-left: 2rem;
+    line-height: 1.6;
 }
 
 .list-bullet {
+    position: absolute;
+    left: 0;
+    top: 1rem;
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background-color: var(--secondary-color);
-    margin-top: 1rem;
-    flex-shrink: 0;
 }
 
 .tab-cta-box {
