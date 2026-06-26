@@ -1849,6 +1849,429 @@ p:last-child {
     padding-top: 2rem;
 }
 
+/* ========================================================================
+   12b. ASSTCON 2026 Restructured Sections & Layout
+   ======================================================================== */
+
+.asstcon-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.asstcon-poster-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.asstcon-landscape-poster {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-premium);
+    border: 1px solid var(--border-color);
+    display: block;
+}
+
+.poster-placeholder-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(10, 47, 107, 0.02) 0%, rgba(200, 155, 60, 0.02) 100%);
+    border: 2px dashed rgba(200, 155, 60, 0.25);
+    border-radius: var(--border-radius-lg);
+    padding: 6rem 4rem;
+    min-height: 380px;
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.poster-placeholder-card:hover {
+    border-color: var(--secondary-color);
+    background: linear-gradient(135deg, rgba(10, 47, 107, 0.04) 0%, rgba(200, 155, 60, 0.04) 100%);
+}
+
+.placeholder-icon {
+    font-size: 5.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+    animation: placeholderPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes placeholderPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.06); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+.placeholder-tag {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.2rem;
+    background-color: rgba(200, 155, 60, 0.08);
+    padding: 0.5rem 1.4rem;
+    border-radius: 50px;
+    border: 1px solid rgba(200, 155, 60, 0.15);
+}
+
+.poster-placeholder-card h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.poster-placeholder-card p {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.6;
+}
+
+.poster-placeholder-card code {
+    background-color: rgba(10, 47, 107, 0.06);
+    color: var(--primary-color);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--border-radius-sm);
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+/* Welcome Message Card */
+.welcome-message-card {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 6rem 5.5rem;
+    box-shadow: var(--shadow-premium);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-message-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--secondary-color);
+}
+
+.welcome-card-header {
+    margin-bottom: 3.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2.2rem;
+}
+
+.welcome-subtitle {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.8rem;
+}
+
+.welcome-card-header h3 {
+    font-size: 2.6rem;
+    color: var(--primary-color);
+    font-family: var(--font-heading);
+}
+
+.welcome-card-body {
+    font-size: 1.55rem;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+.welcome-card-body p {
+    margin-bottom: 2.2rem;
+}
+
+.welcome-card-body p:last-child {
+    margin-bottom: 0;
+}
+
+.welcome-card-body .salutation {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 2.5rem;
+}
+
+.welcome-card-signatures {
+    display: flex;
+    gap: 6rem;
+    margin-top: 4.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 3.5rem;
+}
+
+.sig-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.sig-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--secondary-color);
+    box-shadow: 0 4px 12px rgba(10, 47, 107, 0.08);
+}
+
+.sig-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sig-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.sig-details strong {
+    font-size: 1.55rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.sig-role {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+
+/* Committee Rows & Hierarchy */
+.committee-hierarchy-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.committee-row {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-bottom: 4.5rem;
+}
+
+.bearer-card-lg {
+    max-width: 440px;
+    width: 100%;
+}
+
+.bearer-card-lg .bearer-avatar-wrap {
+    width: 140px;
+    height: 140px;
+}
+
+.bearer-card-md {
+    max-width: 380px;
+    width: 100%;
+}
+
+.bearer-card-md .bearer-avatar-wrap {
+    width: 120px;
+    height: 120px;
+}
+
+.executive-grid-new {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Registration Fees Section */
+.fees-section {
+    background: linear-gradient(rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.4)), url('../assets/spine_bg.png') no-repeat center / cover;
+    padding: var(--section-padding);
+    position: relative;
+}
+
+.fees-rows-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.fee-row-item {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-subtle);
+}
+
+.fee-row-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-premium);
+    border-color: rgba(200, 155, 60, 0.15);
+}
+
+.fee-row-badge {
+    flex-shrink: 0;
+    width: 130px;
+}
+
+.fee-badge-pill {
+    display: block;
+    padding: 0.7rem 1.4rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.fee-row-item:nth-child(odd) .fee-badge-pill {
+    background-color: rgba(10, 47, 107, 0.08);
+    color: var(--primary-color);
+    border: 1px solid rgba(10, 47, 107, 0.12);
+}
+
+.fee-row-item:nth-child(even) .fee-badge-pill {
+    background-color: rgba(200, 155, 60, 0.1);
+    color: var(--secondary-color);
+    border: 1px solid rgba(200, 155, 60, 0.15);
+}
+
+.fee-row-title {
+    flex-grow: 1;
+}
+
+.fee-row-title h3 {
+    font-size: 1.9rem;
+    color: var(--primary-color);
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+}
+
+.fee-row-title p {
+    font-size: 1.35rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.fee-row-price {
+    flex-shrink: 0;
+    text-align: right;
+    padding: 0 2rem;
+}
+
+.price-val {
+    font-size: 3.4rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    font-family: var(--font-heading);
+    letter-spacing: -0.5px;
+}
+
+.fee-row-btn {
+    flex-shrink: 0;
+}
+
+.fee-row-btn .btn {
+    padding: 1.3rem 3rem;
+    font-size: 1.45rem;
+    font-weight: 600;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.fee-row-btn .btn i {
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+.fee-row-btn .btn:hover i {
+    transform: translateX(3px);
+}
+
+/* Responsive overrides for new components */
+@media (max-width: 992px) {
+    .executive-grid-new {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 720px;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-message-card {
+        padding: 4rem 3rem;
+    }
+    .welcome-card-signatures {
+        flex-direction: column;
+        gap: 3rem;
+        padding-top: 3rem;
+    }
+    .committee-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+    }
+    .fee-row-item {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 3.5rem 3rem;
+        gap: 2.2rem;
+    }
+    .fee-row-badge {
+        width: auto;
+        margin: 0 auto;
+    }
+    .fee-row-price {
+        text-align: center;
+        padding: 1rem 0;
+    }
+    .fee-row-btn .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .poster-placeholder-card {
+        padding: 4rem 2rem;
+        min-height: 320px;
+    }
+    .poster-placeholder-card h3 {
+        font-size: 1.9rem;
+    }
+    .welcome-message-card {
+        padding: 3rem 2.2rem;
+    }
+    .welcome-card-header h3 {
+        font-size: 2.2rem;
+    }
+    .executive-grid-new {
+        grid-template-columns: 1fr;
+        max-width: 340px;
+    }
+}
+
 /* 13. COMMITTEE SECTION (POLISHED & FACE-CROPPED INDIVIDUAL CARDS) */
 .committee-subgroup {
     margin-bottom: 8rem;

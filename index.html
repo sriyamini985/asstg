@@ -445,93 +445,61 @@
         <!-- EVENTS & NEWS SECTION -->
         <section id="events" class="events-section">
             <div class="container">
-                <div class="section-header-split scroll-reveal">
-                    <div>
-                        <span class="section-subtitle">Academic Calendar</span>
-                        <h2 class="section-title">Upcoming Scientific Programs & News</h2>
-                    </div>
-                    <div class="filter-controls">
-                        <button class="filter-btn active" data-filter="all">All</button>
-                        <button class="filter-btn" data-filter="conference">Conferences</button>
-                        <button class="filter-btn" data-filter="cme">CME Programs</button>
-                        <button class="filter-btn" data-filter="workshop">Workshops</button>
-                    </div>
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-subtitle">Flagship Announcement</span>
+                    <h2 class="section-title">1st Annual Conference of ASST</h2>
+                    <p class="section-description">
+                        Join the landmark scientific session bringing together leading spine surgeons, clinical excellence, and innovation.
+                    </p>
                 </div>
                 
-                <div class="events-grid">
-                    <!-- Event 1: ASSTCON 2026 -->
-                    <div class="event-card scroll-reveal" data-category="conference">
-                        <div class="event-img-wrap">
-                            <img src="assets/asstcon_logo.png" alt="ASSTCON 2026 Poster" class="event-poster-placeholder">
-                            <span class="event-type-badge">Annual Conference</span>
-                        </div>
-                        <div class="event-details">
-                            <div class="event-date-loc">
-                                <span class="event-date"><i class="fa-regular fa-calendar"></i> 27 Sept 2026</span>
-                                <span class="event-loc"><i class="fa-solid fa-map-pin"></i> Taj Deccan, Hyd</span>
-                            </div>
-                            <h3>ASSTCON 2026: 1st Annual Conference of ASST</h3>
-                            <p>Announcing the landmark inauguration and flagship conference focusing on spine excellence, academic lectures, and collaborative discussions.</p>
-                            <div class="event-footer">
-                                <button class="btn btn-secondary-sm" onclick="openRegistrationModal()">Register Now</button>
-                                <button class="btn btn-link-sm" onclick="openEventDetailsModal()">Details</button>
-                            </div>
+                <div class="asstcon-details-container scroll-reveal">
+                    <!-- Landscape Poster Placeholder -->
+                    <div class="asstcon-poster-wrapper">
+                        <img src="assets/asstcon_landscape_poster.png" alt="ASSTCON 2026 Landscape Poster" class="asstcon-landscape-poster" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="poster-placeholder-card" style="display:flex;">
+                            <div class="placeholder-icon"><i class="fa-regular fa-image"></i></div>
+                            <span class="placeholder-tag">ASSTCON 2026</span>
+                            <h3>Landscape Poster Placeholder</h3>
+                            <p>Place your ASSTCON landscape poster image at <code>assets/asstcon_landscape_poster.png</code> to display it here.</p>
                         </div>
                     </div>
-                    
-                    <!-- Event 2: CME Program -->
-                    <div class="event-card scroll-reveal" data-category="cme">
-                        <div class="event-img-wrap">
-                            <!-- SVG Abstract CME Graphics -->
-                            <div class="event-svg-placeholder">
-                                <svg viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" class="event-svg">
-                                    <rect width="400" height="250" fill="#F7F9FC"/>
-                                    <circle cx="200" cy="125" r="70" fill="#0A2F6B" opacity="0.05"/>
-                                    <!-- Drawing of skull/cervical alignment -->
-                                    <path d="M 170,90 Q 200,80 230,90 Q 220,130 200,160 Q 180,130 170,90" fill="none" stroke="#2C7DA0" stroke-width="2" opacity="0.3"/>
-                                    <path d="M 200,160 L 200,200" stroke="#C89B3C" stroke-width="3" opacity="0.5"/>
-                                    <text x="200" y="225" fill="#1B2430" font-family="'Poppins', sans-serif" font-weight="700" font-size="16" text-anchor="middle">Clinical CME Program</text>
-                                </svg>
-                            </div>
-                            <span class="event-type-badge">CME Program</span>
+
+                    <!-- Welcome Message Block -->
+                    <div class="welcome-message-card">
+                        <div class="welcome-card-header">
+                            <span class="welcome-subtitle">ASSTCON 2026 Invitation</span>
+                            <h3>Welcome Message</h3>
                         </div>
-                        <div class="event-details">
-                            <div class="event-date-loc">
-                                <span class="event-date"><i class="fa-regular fa-calendar"></i> 14 Nov 2026</span>
-                                <span class="event-loc"><i class="fa-solid fa-map-pin"></i> Apollo Hospitals, Hyd</span>
-                            </div>
-                            <h3>Spinal Deformities & Alignment Masterclass</h3>
-                            <p>An interactive case-based CME addressing adolescent idiopathic scoliosis, sagittal alignment correction strategies, and pediatric deformity management.</p>
-                            <div class="event-footer">
-                                <a href="#contact" class="btn btn-outline-primary-sm">Inquire</a>
-                                <button class="btn btn-link-sm" onclick="showToast('Program schedule will be released soon.')">Read More</button>
-                            </div>
+                        <div class="welcome-card-body">
+                            <p class="salutation">Dear Colleagues,</p>
+                            
+                            <p>It gives us immense pleasure to welcome you to <strong>ASSTCON 2026</strong> – the 1st Annual Conference of the Association of Spine Surgeons of Telangana (ASST), scheduled to be held on <strong>27th September 2026</strong> at Hotel Taj Deccan, Hyderabad.</p>
+                            
+                            <p>On behalf of the Organizing Committee, we are delighted to invite you to this landmark academic gathering, which marks the beginning of a new journey for our state chapter. ASST has been established with a vision to bring together spine surgeons dedicated to excellence in spine care, education, research, and innovation.</p>
+                            
+                            <p>The scientific program of ASSTCON 2026 has been carefully designed to provide an enriching academic experience through expert lectures, video sessions, interactive case discussions, and exchange of clinical knowledge by eminent national and local faculty. This conference aims to encourage learning, inspire young surgeons, promote research, and strengthen collaboration among spine specialists while upholding the highest standards of ethical patient care.</p>
                         </div>
-                    </div>
-                    
-                    <!-- Event 3: Cadaveric Workshop -->
-                    <div class="event-card scroll-reveal" data-category="workshop">
-                        <div class="event-img-wrap">
-                            <div class="event-svg-placeholder">
-                                <svg viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" class="event-svg">
-                                    <rect width="400" height="250" fill="#F7F9FC"/>
-                                    <rect x="130" y="80" width="140" height="90" rx="8" stroke="#2C7DA0" stroke-width="2" opacity="0.2"/>
-                                    <line x1="200" y1="60" x2="200" y2="190" stroke="#C89B3C" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.5"/>
-                                    <text x="200" y="225" fill="#1B2430" font-family="'Poppins', sans-serif" font-weight="700" font-size="16" text-anchor="middle">Advanced Workshop</text>
-                                </svg>
+                        
+                        <div class="welcome-card-signatures">
+                            <div class="sig-item">
+                                <div class="sig-avatar">
+                                    <img src="assets/organizers/dr_raghava_dutt.jpg" alt="Dr. Raghava Dutt Mulkutla" class="sig-img" loading="lazy">
+                                </div>
+                                <div class="sig-details">
+                                    <strong>Dr. Raghava Dutt M</strong>
+                                    <span class="sig-role">Organising Chairman</span>
+                                </div>
                             </div>
-                            <span class="event-type-badge">Cadaveric Workshop</span>
-                        </div>
-                        <div class="event-details">
-                            <div class="event-date-loc">
-                                <span class="event-date"><i class="fa-regular fa-calendar"></i> 18 Jan 2027</span>
-                                <span class="event-loc"><i class="fa-solid fa-map-pin"></i> Osmania Medical College</span>
-                            </div>
-                            <h3>Minimally Invasive Spine Surgery (MISS) Hands-on</h3>
-                            <p>Cadaveric training on percutaneous pedicle screw fixation, endoscopic lumbar discectomy, and micro-decompression approaches under fluoroscopy guidance.</p>
-                            <div class="event-footer">
-                                <a href="#contact" class="btn btn-outline-primary-sm">Inquire</a>
-                                <button class="btn btn-link-sm" onclick="showToast('Registration open details will be updated shortly.')">Read More</button>
+                            
+                            <div class="sig-item">
+                                <div class="sig-avatar">
+                                    <img src="assets/organizers/dr_pavan_kumar.jpg" alt="Dr. A Pavan Kumar" class="sig-img" loading="lazy">
+                                </div>
+                                <div class="sig-details">
+                                    <strong>Dr. A Pavan Kumar</strong>
+                                    <span class="sig-role">Organising Secretary</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -549,172 +517,203 @@
         <!-- COMMITTEE SECTION -->
         <section id="committee" class="committee-section">
             <div class="container">
-                <div class="section-header text-center">
+                <div class="section-header text-center scroll-reveal">
                     <span class="section-subtitle">Leadership</span>
-                    <h2 class="section-title">ASST Committee & Office Bearers</h2>
+                    <h2 class="section-title">ASST Committee & Bearers</h2>
                     <p class="section-description">
                         Meet the eminent spine surgeons guiding the academic policies and professional excellence standards of our state association.
                     </p>
                 </div>
                 
-                <!-- Organizing Committee -->
-                <div class="committee-subgroup scroll-reveal">
-                    <h3 class="group-title">Organizing Committee</h3>
-                    <div class="office-bearers-grid">
-                        
+                <div class="committee-hierarchy-container">
+                    
+                    <!-- Row 1: Heads (President & Secretary) -->
+                    <div class="committee-row row-heads scroll-reveal">
                         <!-- Dr. Raghava Dutt Mulkutla -->
-                        <div class="bearer-card">
+                        <div class="bearer-card bearer-card-lg">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_raghava_dutt.jpg" alt="Dr. Raghava Dutt Mulkutla" class="bearer-img" loading="lazy">
+                                <img src="assets/organizers/dr_raghava_dutt.jpg" alt="Dr. Raghava Dutt M" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
-                                <h4>Dr. Raghava Dutt Mulkutla</h4>
-                                <span class="designation">Organising Chairman</span>
+                                <h4>Dr. Raghava Dutt M</h4>
+                                <span class="designation">President (Organising Chairman)</span>
                                 <span class="affiliation">Medicity / Yashoda Hospitals</span>
                                 <span class="location">Hyderabad</span>
                             </div>
                         </div>
                         
                         <!-- Dr. A Pavan Kumar -->
-                        <div class="bearer-card">
+                        <div class="bearer-card bearer-card-lg">
                             <div class="bearer-avatar-wrap">
                                 <img src="assets/organizers/dr_pavan_kumar.jpg" alt="Dr. A Pavan Kumar" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
                                 <h4>Dr. A Pavan Kumar</h4>
-                                <span class="designation">Organising Secretary</span>
+                                <span class="designation">Secretary (Organising Secretary)</span>
                                 <span class="affiliation">Udai Omni Hospitals</span>
                                 <span class="location">Hyderabad</span>
                             </div>
                         </div>
-                        
-                        <!-- Dr. C Suresh -->
-                        <div class="bearer-card">
+                    </div>
+                    
+                    <!-- Row 2: Treasurer & Joint Secretary -->
+                    <div class="committee-row row-officers scroll-reveal">
+                        <!-- Dr. Suresh Cheekatla -->
+                        <div class="bearer-card bearer-card-md">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_c_suresh.jpg" alt="Dr. C Suresh" class="bearer-img" loading="lazy">
+                                <img src="assets/organizers/dr_c_suresh.jpg" alt="Dr. Suresh Cheekatla" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
-                                <h4>Dr. C Suresh</h4>
+                                <h4>Dr. Suresh Cheekatla</h4>
                                 <span class="designation">Treasurer</span>
                                 <span class="affiliation">NIMS</span>
                                 <span class="location">Hyderabad</span>
                             </div>
                         </div>
                         
-                        <!-- Dr. V Surya Prakash Rao -->
-                        <div class="bearer-card">
+                        <!-- Dr. D Devanand -->
+                        <div class="bearer-card bearer-card-md">
                             <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_surya_prakash.jpg" alt="Dr. V Surya Prakash Rao" class="bearer-img" loading="lazy">
+                                <img src="assets/organizers/dr_devanand.jpg" alt="Dr. D Devanand" class="bearer-img" loading="lazy">
                             </div>
                             <div class="bearer-info">
-                                <h4>Dr. V Surya Prakash Rao</h4>
-                                <span class="designation">President, TCSA</span>
+                                <h4>Dr. D Devanand</h4>
+                                <span class="designation">Joint Secretary</span>
                                 <span class="affiliation">Care Hospitals</span>
                                 <span class="location">Hyderabad</span>
                             </div>
                         </div>
-                        
-                        <!-- Dr. Raju Iyengar -->
-                        <div class="bearer-card">
-                            <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_raju_iyengar.jpg" alt="Dr. Raju Iyengar" class="bearer-img" loading="lazy">
+                    </div>
+                    
+                    <!-- Executive Committee (6 members in 2 rows of 3) -->
+                    <div class="committee-subgroup scroll-reveal">
+                        <h3 class="group-title">Executive Committee Members</h3>
+                        <div class="executive-grid-new">
+                            
+                            <!-- Card 1: Dr. V Surya Prakash Rao -->
+                            <div class="bearer-card bearer-card-sm">
+                                <div class="bearer-avatar-wrap">
+                                    <img src="assets/organizers/dr_surya_prakash.jpg" alt="Dr. V Surya Prakash Rao" class="bearer-img" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4>Dr. V Surya Prakash Rao</h4>
+                                    <span class="designation">Executive Member (President, TCSA)</span>
+                                    <span class="affiliation">Care Hospitals</span>
+                                    <span class="location">Hyderabad</span>
+                                </div>
                             </div>
-                            <div class="bearer-info">
-                                <h4>Dr. Raju Iyengar</h4>
-                                <span class="designation">Secretary, TCSA</span>
-                                <span class="affiliation">Apollo Hospitals</span>
-                                <span class="location">Hyderabad</span>
+                            
+                            <!-- Card 2: Dr. Raju Iyengar -->
+                            <div class="bearer-card bearer-card-sm">
+                                <div class="bearer-avatar-wrap">
+                                    <img src="assets/organizers/dr_raju_iyengar.jpg" alt="Dr. Raju Iyengar" class="bearer-img" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4>Dr. Raju Iyengar</h4>
+                                    <span class="designation">Executive Member (Secretary, TCSA)</span>
+                                    <span class="affiliation">Apollo Hospitals</span>
+                                    <span class="location">Hyderabad</span>
+                                </div>
                             </div>
+                            
+                            <!-- Card 3: Dr. Ram Das M -->
+                            <div class="bearer-card bearer-card-sm">
+                                <div class="bearer-avatar-wrap">
+                                    <img src="assets/organizers/dr_ramdas_maloth.jpg" alt="Dr. Ram Das M" class="bearer-img" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4>Dr. Ram Das M</h4>
+                                    <span class="designation">Executive Member</span>
+                                    <span class="location">Hyderabad</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 4: Dr. PVSN Murthy -->
+                            <div class="bearer-card bearer-card-sm">
+                                <div class="bearer-avatar-wrap">
+                                    <img src="assets/organizers/dr_satya_narayana.jpg" alt="Dr. PVSN Murthy" class="bearer-img" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4>Dr. PVSN Murthy</h4>
+                                    <span class="designation">Executive Member</span>
+                                    <span class="location">Hyderabad</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 5: Dr. Krishna Chaitanya -->
+                            <div class="bearer-card bearer-card-sm">
+                                <div class="bearer-avatar-wrap">
+                                    <img src="assets/organizers/dr_sri_krishna_chaitanya.jpg" alt="Dr. Krishna Chaitanya" class="bearer-img" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4>Dr. Krishna Chaitanya</h4>
+                                    <span class="designation">Executive Member</span>
+                                    <span class="location">Hyderabad</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 6: Dr. M. Abinandan Reddy -->
+                            <div class="bearer-card bearer-card-sm">
+                                <div class="bearer-avatar-wrap">
+                                    <img src="assets/organizers/dr_abhinandan.jpg" alt="Dr. M. Abinandan Reddy" class="bearer-img" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4>Dr. M. Abinandan Reddy</h4>
+                                    <span class="designation">Executive Member</span>
+                                    <span class="location">Hyderabad</span>
+                                </div>
+                            </div>
+                            
                         </div>
-                        
                     </div>
                 </div>
-                
-                <!-- Scientific Committee -->
-                <div class="committee-subgroup scroll-reveal">
-                    <h3 class="group-title">Scientific Committee</h3>
-                    <div class="scientific-committee-grid">
-                        
-                        <!-- Dr. Devanand -->
-                        <div class="bearer-card bearer-card-sm">
-                            <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_devanand.jpg" alt="Dr. Devanand" class="bearer-img" loading="lazy">
-                            </div>
-                            <div class="bearer-info">
-                                <h4>Dr. Devanand</h4>
-                                <span class="designation">Committee Member</span>
-                                <span class="location">Hyderabad</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Dr. P V Satya Narayana Murthy -->
-                        <div class="bearer-card bearer-card-sm">
-                            <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_satya_narayana.jpg" alt="Dr. P V Satya Narayana Murthy" class="bearer-img" loading="lazy">
-                            </div>
-                            <div class="bearer-info">
-                                <h4>Dr. P V Satya Narayana Murthy</h4>
-                                <span class="designation">Committee Member</span>
-                                <span class="location">Hyderabad</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Dr. Kalyan Verma -->
-                        <div class="bearer-card bearer-card-sm">
-                            <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_kalyan_verma.jpg" alt="Dr. Kalyan Verma" class="bearer-img" loading="lazy">
-                            </div>
-                            <div class="bearer-info">
-                                <h4>Dr. Kalyan Verma</h4>
-                                <span class="designation">Committee Member</span>
-                                <span class="location">Hyderabad</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Dr. Abhinandan -->
-                        <div class="bearer-card bearer-card-sm">
-                            <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_abhinandan.jpg" alt="Dr. Abhinandan" class="bearer-img" loading="lazy">
-                            </div>
-                            <div class="bearer-info">
-                                <h4>Dr. Abhinandan</h4>
-                                <span class="designation">Committee Member</span>
-                                <span class="location">Hyderabad</span>
-                            </div>
-                        </div>
-                        
-                    </div>
+            </div>
+        </section>
+
+        <!-- REGISTRATION FEES SECTION -->
+        <section id="asstcon-fees" class="fees-section">
+            <div class="container">
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-subtitle">Conference Registration</span>
+                    <h2 class="section-title">ASSTCON 2026 Registration Fees</h2>
+                    <p class="section-description">
+                        Select your pricing category below and secure your participation at the 1st Annual Conference of ASST.
+                    </p>
                 </div>
                 
-                <!-- Executive Members -->
-                <div class="committee-subgroup scroll-reveal">
-                    <h3 class="group-title">Executive Members</h3>
-                    <div class="executive-committee-grid">
-                        
-                        <!-- Dr. Ramdas Maloth -->
-                        <div class="bearer-card bearer-card-sm">
-                            <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_ramdas_maloth.jpg" alt="Dr. Ramdas Maloth" class="bearer-img" loading="lazy">
-                            </div>
-                            <div class="bearer-info">
-                                <h4>Dr. Ramdas Maloth</h4>
-                                <span class="designation">Executive Member</span>
-                                <span class="location">Hyderabad</span>
-                            </div>
+                <div class="fees-rows-wrapper scroll-reveal">
+                    <!-- Consultant Fee Row -->
+                    <div class="fee-row-item">
+                        <div class="fee-row-badge">
+                            <span class="fee-badge-pill">Consultant</span>
                         </div>
-                        
-                        <!-- Dr. K. Sri Krishna Chaitanya -->
-                        <div class="bearer-card bearer-card-sm">
-                            <div class="bearer-avatar-wrap">
-                                <img src="assets/organizers/dr_sri_krishna_chaitanya.jpg" alt="Dr. K. Sri Krishna Chaitanya" class="bearer-img" loading="lazy">
-                            </div>
-                            <div class="bearer-info">
-                                <h4>Dr. K. Sri Krishna Chaitanya</h4>
-                                <span class="designation">Executive Member</span>
-                                <span class="location">Hyderabad</span>
-                            </div>
+                        <div class="fee-row-title">
+                            <h3>Delegate Fee</h3>
+                            <p>For certified orthopedic, neuro, and spine surgery consultants.</p>
                         </div>
-                        
+                        <div class="fee-row-price">
+                            <span class="price-val">₹3,000</span>
+                        </div>
+                        <div class="fee-row-btn">
+                            <button class="btn btn-secondary" onclick="openRegistrationModal()">Register Now <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- PG Student / DNB Fee Row -->
+                    <div class="fee-row-item">
+                        <div class="fee-row-badge">
+                            <span class="fee-badge-pill">PG Student</span>
+                        </div>
+                        <div class="fee-row-title">
+                            <h3>PG Student / DNB Fee</h3>
+                            <p>Valid student ID or letter from Head of Department required at registration.</p>
+                        </div>
+                        <div class="fee-row-price">
+                            <span class="price-val">₹1,000</span>
+                        </div>
+                        <div class="fee-row-btn">
+                            <button class="btn btn-secondary" onclick="openRegistrationModal()">Register Now <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
