@@ -209,67 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // =========================================================================
-    // 9. LIGHTBOX GALLERY SYSTEM
-    // =========================================================================
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const lightboxModal = document.getElementById('lightboxModal');
-    const imageContainer = document.getElementById('lightbox-image-container');
-    const captionEl = document.getElementById('lightbox-caption');
-    
-    let currentImageIndex = 0;
-    
-    // Extract SVG codes from items to represent full-screen content
-    const galleryContents = [];
-    galleryItems.forEach(item => {
-        const svgElement = item.querySelector('.gallery-svg').cloneNode(true);
-        const title = item.querySelector('.overlay-title').innerText;
-        const desc = item.querySelector('.overlay-desc').innerText;
-        galleryContents.push({
-            svgMarkup: svgElement.outerHTML,
-            caption: `${title} - ${desc}`
-        });
-        
-        item.addEventListener('click', () => {
-            const index = parseInt(item.getAttribute('data-image-index'));
-            openLightbox(index);
-        });
-    });
-    
-    window.openLightbox = (index) => {
-        currentImageIndex = index;
-        const item = galleryContents[currentImageIndex];
-        imageContainer.innerHTML = item.svgMarkup;
-        captionEl.innerText = item.caption;
-        lightboxModal.style.display = 'flex';
-        body.classList.add('no-scroll');
-    };
-    
-    window.closeLightbox = () => {
-        lightboxModal.style.display = 'none';
-        body.classList.remove('no-scroll');
-    };
-    
-    window.nextLightboxImage = () => {
-        currentImageIndex = (currentImageIndex + 1) % galleryContents.length;
-        const item = galleryContents[currentImageIndex];
-        imageContainer.innerHTML = item.svgMarkup;
-        captionEl.innerText = item.caption;
-    };
-    
-    window.prevLightboxImage = () => {
-        currentImageIndex = (currentImageIndex - 1 + galleryContents.length) % galleryContents.length;
-        const item = galleryContents[currentImageIndex];
-        imageContainer.innerHTML = item.svgMarkup;
-        captionEl.innerText = item.caption;
-    };
-    
-    // Close lightbox on clicking dark overlay background
-    lightboxModal.addEventListener('click', (e) => {
-        if (e.target === lightboxModal) {
-            closeLightbox();
-        }
-    });
+    // Lightbox system removed
 
     // Close modal overlays on backdrop click
     const modalOverlays = document.querySelectorAll('.modal-overlay');

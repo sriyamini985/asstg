@@ -41,7 +41,8 @@
                     <li><a href="#events" class="nav-link">Events & News</a></li>
                     <li><a href="#committee" class="nav-link">Committee</a></li>
                     <li><a href="#asstcon-fees" class="nav-link">Registrations</a></li>
-                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#venue" class="nav-link">Venue</a></li>
+                    <li><a href="#places" class="nav-link">Places to Visit</a></li>
                     <li><a href="#contact" class="nav-link">Contact Us</a></li>
                 </ul>
                 <div class="header-cta">
@@ -716,80 +717,159 @@
             </div>
         </section>
 
-        <!-- Wave divider -->
+        <!-- Wave divider leading to Venue -->
         <div class="section-divider">
             <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,30 Q360,0 720,30 Q1080,60 1440,30 L1440,60 L0,60 Z" fill="#F8FAFC"/>
+                <path d="M0,30 Q360,0 720,30 Q1080,60 1440,30 L1440,60 L0,60 Z" fill="#FFFFFF"/>
             </svg>
         </div>
 
-        <!-- GALLERY SECTION -->
-        <section id="gallery" class="gallery-section">
+        <!-- VENUE SECTION -->
+        <section id="venue" class="venue-section">
             <div class="container">
                 <div class="section-header text-center">
-                    <span class="section-subtitle">Visual Highlights</span>
-                    <h2 class="section-title">Academic & Session Gallery</h2>
+                    <span class="section-subtitle">Location & Logistics</span>
+                    <h2 class="section-title">Conference Venue</h2>
                     <p class="section-description">
-                        Moments from clinical discussion panels, hands-on instrumentation workshops, and state-wide surgical symposia.
+                        ASSTCON 2026 will be hosted at one of Hyderabad's most iconic and premium hospitality landmarks.
                     </p>
                 </div>
                 
-                <div class="gallery-grid scroll-reveal">
-                    <!-- Gallery Item 1: Conference Session -->
-                    <div class="gallery-item" data-image-index="0">
-                        <div class="gallery-img-wrap">
-                            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="gallery-svg">
-                                <rect width="400" height="300" fill="#0A2F6B"/>
-                                <path d="M 50,150 L 350,150" stroke="#2C7DA0" stroke-width="2" opacity="0.3"/>
-                                <circle cx="200" cy="150" r="40" fill="#C89B3C" opacity="0.8"/>
-                                <text x="200" y="155" fill="#FFFFFF" font-family="'Poppins', sans-serif" font-weight="700" font-size="14" text-anchor="middle">ASST Inauguration</text>
-                            </svg>
-                            <div class="gallery-overlay">
-                                <span class="overlay-title">ASST Inaugural Meeting</span>
-                                <span class="overlay-desc">Hyderabad, 2026</span>
+                <div class="venue-grid scroll-reveal">
+                    <!-- Venue Details Card -->
+                    <div class="venue-details-card">
+                        <div class="venue-badge">Official Venue</div>
+                        <h3 class="venue-name">Hotel Taj Deccan</h3>
+                        <p class="venue-city">Banjara Hills, Hyderabad, India</p>
+                        
+                        <p class="venue-intro">
+                            Taj Deccan is spread over six acres of landscaped gardens in Banjara Hills, Hyderabad's prime residential and commercial district. It offers a perfect blend of luxury hospitality and premium academic conference facilities.
+                        </p>
+                        
+                        <div class="venue-amenities">
+                            <div class="amenity-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span><strong>Grand Ballroom:</strong> Dedicated main hall for ASSTCON scientific sessions.</span>
                             </div>
+                            <div class="amenity-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span><strong>Exhibition Foyer:</strong> Spacious area for medical device displays and networking.</span>
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span><strong>Accommodation:</strong> Specially discounted luxury rooms for registered delegates.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="venue-actions">
+                            <a href="#" onclick="showToast('Venue booking portals and discounted tariff rates will open in July 2026.'); return false;" class="btn btn-secondary">Book Accommodation <i class="fa-solid fa-chevron-right"></i></a>
                         </div>
                     </div>
                     
-                    <!-- Gallery Item 2: Cadaver Workshop -->
-                    <div class="gallery-item" data-image-index="1">
-                        <div class="gallery-img-wrap">
-                            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="gallery-svg">
-                                <rect width="400" height="300" fill="#1B2430"/>
-                                <circle cx="200" cy="150" r="60" fill="#2C7DA0" opacity="0.2"/>
-                                <rect x="150" y="120" width="100" height="60" rx="4" stroke="#C89B3C" stroke-width="2" fill="none"/>
-                                <text x="200" y="155" fill="#FFFFFF" font-family="'Poppins', sans-serif" font-weight="700" font-size="14" text-anchor="middle">MISS Workshop</text>
-                            </svg>
-                            <div class="gallery-overlay">
-                                <span class="overlay-title">Hands-on MISS Session</span>
-                                <span class="overlay-desc">Instrumentation Workshop</span>
+                    <!-- Venue Map / Photo -->
+                    <div class="venue-map-wrap">
+                        <div class="map-overlay-badge"><i class="fa-solid fa-location-dot"></i> Banjara Hills</div>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.0371424759604!2d78.4475459!3d17.4107871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9737b8d4c965%3A0x6b4f74d084323282!2sTaj%20Deccan%2C%20Hyderabad!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wave divider leading to Places -->
+        <div class="section-divider">
+            <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,30 Q360,60 720,30 Q1080,0 1440,30 L1440,60 L0,60 Z" fill="#F8FAFC"/>
+            </svg>
+        </div>
+
+        <!-- PLACES TO VISIT SECTION -->
+        <section id="places" class="places-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle">City Highlights</span>
+                    <h2 class="section-title">Places to Visit in Hyderabad</h2>
+                    <p class="section-description">
+                        Explore the rich history, magnificent monuments, and vibrant culture of the historic City of Pearls.
+                    </p>
+                </div>
+                
+                <div class="places-grid scroll-reveal">
+                    <!-- Place 1: Charminar -->
+                    <div class="place-card">
+                        <div class="place-image-wrapper">
+                            <div class="place-image-placeholder charminar-bg">
+                                <i class="fa-solid fa-gopuran"></i>
                             </div>
+                            <div class="place-tag">Featured in Brochure</div>
+                        </div>
+                        <div class="place-info">
+                            <h3>Charminar</h3>
+                            <p>
+                                Constructed in 1591, this iconic mosque and monument is the global signature of Hyderabad. Marvel at its four ornate minarets and explore the surrounding historic bazaars.
+                            </p>
                         </div>
                     </div>
                     
-                    <!-- Gallery Item 3: Clinical Presentation -->
-                    <div class="gallery-item" data-image-index="2">
-                        <div class="gallery-img-wrap">
-                            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="gallery-svg">
-                                <rect width="400" height="300" fill="#2C7DA0"/>
-                                <path d="M 100,50 L 300,250" stroke="#0A2F6B" stroke-width="3" opacity="0.3"/>
-                                <path d="M 300,50 L 100,250" stroke="#C89B3C" stroke-width="3" opacity="0.3"/>
-                                <text x="200" y="155" fill="#FFFFFF" font-family="'Poppins', sans-serif" font-weight="700" font-size="14" text-anchor="middle">Academic Presentation</text>
-                            </svg>
-                            <div class="gallery-overlay">
-                                <span class="overlay-title">Scientific Oral Presentations</span>
-                                <span class="overlay-desc">Young Surgeons Forum</span>
+                    <!-- Place 2: Golconda Fort -->
+                    <div class="place-card">
+                        <div class="place-image-wrapper">
+                            <div class="place-image-placeholder golconda-bg">
+                                <i class="fa-solid fa-fort-awesome"></i>
                             </div>
+                        </div>
+                        <div class="place-info">
+                            <h3>Golconda Fort</h3>
+                            <p>
+                                A majestic hilltop fortress complex renowned for its rich history, acoustics (a clap at the gates can be heard at the top), and Qutb Shahi royal tombs.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Place 3: Birla Mandir -->
+                    <div class="place-card">
+                        <div class="place-image-wrapper">
+                            <div class="place-image-placeholder birla-bg">
+                                <i class="fa-solid fa-place-of-worship"></i>
+                            </div>
+                        </div>
+                        <div class="place-info">
+                            <h3>Birla Mandir</h3>
+                            <p>
+                                Constructed entirely of 2,000 tons of pure white Rajasthani marble, this peaceful Hindu temple sits atop a hill and offers sweeping views of Hussain Sagar Lake.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Place 4: Salar Jung Museum -->
+                    <div class="place-card">
+                        <div class="place-image-wrapper">
+                            <div class="place-image-placeholder museum-bg">
+                                <i class="fa-solid fa-landmark"></i>
+                            </div>
+                        </div>
+                        <div class="place-info">
+                            <h3>Salar Jung Museum</h3>
+                            <p>
+                                One of India's three National Museums, housing a magnificent collection of art, antiques, and historic manuscripts curated by the Salar Jung family.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Wave divider -->
+        <!-- Wave divider leading to Contact -->
         <div class="section-divider">
             <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,30 Q360,60 720,30 Q1080,0 1440,30 L1440,60 L0,60 Z" fill="#FFFFFF"/>
+                <path d="M0,30 Q360,0 720,30 Q1080,60 1440,30 L1440,60 L0,60 Z" fill="#FFFFFF"/>
             </svg>
         </div>
 
@@ -925,9 +1005,9 @@
                 <h4>ASSTCON 2026</h4>
                 <ul>
                     <li><a href="#" onclick="openRegistrationModal(); return false;">Online Registration</a></li>
-                    <li><a href="#" onclick="openEventDetailsModal(); return false;">Scientific Program</a></li>
+                    <li><a href="#venue">Conference Venue</a></li>
+                    <li><a href="#places">Places to Visit</a></li>
                     <li><a href="#" onclick="showToast('Abstract submission portal will open in July 2026.'); return false;">Abstract Submission</a></li>
-                    <li><a href="#" onclick="showToast('Venue accommodation details and special rates will be published soon.'); return false;">Accommodation & Venue</a></li>
                 </ul>
             </div>
             
@@ -1239,16 +1319,7 @@
         </div>
     </div>
 
-    <!-- 5. GALLERY LIGHTBOX MODAL -->
-    <div class="lightbox-overlay" id="lightboxModal">
-        <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close gallery lightbox">&times;</button>
-        <button class="lightbox-prev" onclick="prevLightboxImage()" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
-        <div class="lightbox-content">
-            <div id="lightbox-image-container"></div>
-            <div class="lightbox-caption" id="lightbox-caption"></div>
-        </div>
-        <button class="lightbox-next" onclick="nextLightboxImage()" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
+    <!-- Lightbox placeholder removed -->
 
     <!-- Scripts -->
     <script src="js/main.js?v=1.1"></script>
