@@ -600,10 +600,6 @@ p:last-child {
     padding-bottom: 15rem;
     position: relative;
     overflow: hidden;
-    background-image: url('../assets/hero_bg.jpg');
-    background-size: cover;
-    background-position: right center;
-    background-repeat: no-repeat;
     background-color: #FFFFFF;
 }
 
@@ -1046,7 +1042,7 @@ p:last-child {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    animation: rotateTech ringsRotate 140s linear infinite;
+    animation: ringsRotate 140s linear infinite;
 }
 
 @keyframes ringsRotate {
@@ -2826,21 +2822,21 @@ p:last-child {
     .hero-description { margin-left: auto; margin-right: auto; }
     .hero-actions { justify-content: center; }
     .hero-section {
-        background-image: none !important;
-        background-color: #FFFFFF;
         padding-top: 14rem;
         padding-bottom: 8rem;
+        background-color: #FFFFFF;
     }
     .hero-visual {
-        display: block !important;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
         width: 100%;
-        height: 380px;
+        height: auto;
         max-width: 520px;
         margin: 0 auto;
-        background: url('../assets/hero_bg.jpg') no-repeat 80% center / cover;
-        border-radius: var(--border-radius-lg);
-        box-shadow: var(--shadow-premium);
-        border: 1px solid rgba(10, 47, 107, 0.05);
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
     }
     .hero-stats-inline {
         grid-template-columns: repeat(2, 1fr);
@@ -2943,7 +2939,7 @@ p:last-child {
     }
     
     .hero-visual {
-        height: 260px;
+        height: auto;
     }
     
     .asstcon-horizontal-card { padding: 3rem 2rem; }
