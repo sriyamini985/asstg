@@ -912,27 +912,27 @@ p:last-child {
 }
 
 /* ─────────────────────────────────────────────
-   SPINE VISUAL — Clean container, no HUD rings
+   SPINE VISUAL — Original size, no HUD rings
    ───────────────────────────────────────────── */
 .tech-rings-layout {
     position: relative;
-    width: 110%;
-    max-width: 560px;
-    margin-left: -5%;
-    aspect-ratio: 0.55 / 1;
+    width: 140%;
+    max-width: 720px;
+    margin-left: -20%;
+    aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
 }
 
-/* Rotating ring SVG disabled */
+/* Rotating ring SVG removed */
 .tech-circles-svg { display: none; }
 
 .spine-3d-model {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    width: 52%;
+    height: 95%;
     z-index: 8;
     display: flex;
     justify-content: center;
