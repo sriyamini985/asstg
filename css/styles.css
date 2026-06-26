@@ -589,8 +589,11 @@ p:last-child {
     background-color: var(--primary-color);
     left: 0;
     transition: var(--transition-fast);
+}
+
 .hamburger::before { top: -8px; }
 .hamburger::after { bottom: -8px; }
+
 
 /* 7. HERO SECTION */
 .hero-section {
