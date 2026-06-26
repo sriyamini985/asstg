@@ -596,14 +596,18 @@ p:last-child {
 
 /* 7. HERO SECTION */
 .hero-section {
-    padding-top: 19rem;
-    padding-bottom: 15rem;
+    padding-top: 18rem;
+    padding-bottom: 8rem;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
     overflow: hidden;
-    background-color: #FFFFFF;
+    background: #FFFFFF;
 }
 
-/* Premium Gradient Overlay Fade disabled for background image */
+/* Layer containers */
 .hero::before, .hero-section::before {
     display: none !important;
 }
@@ -617,137 +621,148 @@ p:last-child {
     z-index: 1;
 }
 
-/* Layer 1 — Radial Light */
+/* =============================================
+   LAYER 1 — Soft radial white-blue glow (12%)
+   ============================================= */
 .radial-glow {
     position: absolute;
-    right: 8%;
-    top: 5%;
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle,
-        rgba(219, 234, 254, 0.4) 0%,
-        rgba(191, 219, 254, 0.15) 45%,
-        transparent 70%);
-    filter: blur(100px);
-    opacity: 0.12; /* Soft 12% opacity */
+    right: 5%;
+    top: -10%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(ellipse at center,
+        rgba(219, 234, 254, 0.6) 0%,
+        rgba(191, 219, 254, 0.3) 40%,
+        transparent 72%);
+    filter: blur(80px);
+    opacity: 0.12;
     pointer-events: none;
     z-index: 1;
     animation: glowPulse 12s ease-in-out infinite;
 }
 
 @keyframes glowPulse {
-    0%, 100% { transform: scale(1); opacity: 0.1; }
-    50% { transform: scale(1.08); opacity: 0.15; }
+    0%, 100% { transform: scale(1) translateY(0); opacity: 0.10; }
+    50% { transform: scale(1.06) translateY(-8px); opacity: 0.14; }
 }
 
-/* Layer 9 — Depth Glows */
+/* Secondary depth radial — left side */
 .depth-glow-navy {
     position: absolute;
-    left: 15%;
-    top: 20%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(10, 47, 107, 0.05) 0%, transparent 70%);
-    filter: blur(90px);
+    left: 8%;
+    top: 25%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(10, 47, 107, 0.04) 0%, transparent 70%);
+    filter: blur(80px);
     pointer-events: none;
     z-index: 1;
 }
 
 .depth-glow-gold {
     position: absolute;
-    right: 25%;
-    bottom: 10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(200, 155, 60, 0.03) 0%, transparent 75%);
-    filter: blur(80px);
+    right: 28%;
+    bottom: 8%;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(200, 155, 60, 0.025) 0%, transparent 75%);
+    filter: blur(70px);
     pointer-events: none;
     z-index: 1;
 }
 
-/* Layer 4 — Subtle Medical Grid */
+/* =============================================
+   LAYER 4 — Subtle Medical Grid (Dotted pattern)
+   ============================================= */
 .medical-grid {
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(rgba(10, 47, 107, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(10, 47, 107, 0.015) 1px, transparent 1px);
-    background-size: 80px 80px;
-    opacity: 0.8; /* Subtle below 8% total visual density */
-    -webkit-mask-image: radial-gradient(circle at 75% 50%, black 30%, transparent 80%);
-    mask-image: radial-gradient(circle at 75% 50%, black 30%, transparent 80%);
+        radial-gradient(rgba(10, 47, 107, 0.028) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.03;
+    -webkit-mask-image: radial-gradient(ellipse at 70% 50%, black 20%, transparent 70%);
+    mask-image: radial-gradient(ellipse at 70% 50%, black 20%, transparent 70%);
     z-index: 1;
 }
 
-/* Layer 7 — Dotted Corner Patterns */
+/* =============================================
+   LAYER 7 — Tiny corner dot clusters (3%)
+   ============================================= */
 .dots-top-left {
     position: absolute;
-    top: 40px;
-    left: 40px;
-    width: 96px;
-    height: 96px;
-    background-image: radial-gradient(rgba(10, 47, 107, 0.08) 1.5px, transparent 1.5px);
-    background-size: 16px 16px;
-    opacity: 0.6;
+    top: 50px;
+    left: 50px;
+    width: 80px;
+    height: 80px;
+    background-image: radial-gradient(rgba(10, 47, 107, 0.12) 1.2px, transparent 1.2px);
+    background-size: 14px 14px;
+    opacity: 0.3;
     z-index: 2;
 }
 
 .dots-top-right {
     position: absolute;
-    top: 40px;
-    right: 40px;
-    width: 96px;
-    height: 96px;
-    background-image: radial-gradient(rgba(10, 47, 107, 0.08) 1.5px, transparent 1.5px);
-    background-size: 16px 16px;
-    opacity: 0.6;
+    top: 50px;
+    right: 50px;
+    width: 80px;
+    height: 80px;
+    background-image: radial-gradient(rgba(10, 47, 107, 0.12) 1.2px, transparent 1.2px);
+    background-size: 14px 14px;
+    opacity: 0.3;
     z-index: 2;
 }
 
 .dots-bottom-left {
     position: absolute;
-    bottom: 120px;
-    left: 40px;
-    width: 96px;
-    height: 96px;
-    background-image: radial-gradient(rgba(10, 47, 107, 0.08) 1.5px, transparent 1.5px);
-    background-size: 16px 16px;
-    opacity: 0.6;
+    bottom: 100px;
+    left: 50px;
+    width: 80px;
+    height: 80px;
+    background-image: radial-gradient(rgba(10, 47, 107, 0.12) 1.2px, transparent 1.2px);
+    background-size: 14px 14px;
+    opacity: 0.3;
     z-index: 2;
 }
 
-/* Layer 5 — Faint Spine Silhouette (Far Left) */
+/* =============================================
+   LAYER 5 — Faint Spine Silhouette (Far Left, 3%)
+   ============================================= */
 .spine-silhouette-bg {
     position: absolute;
-    left: 3rem;
-    top: 15%;
-    width: 140px;
-    height: 70%;
-    opacity: 0.04; /* Very faint 4% opacity */
+    left: 2rem;
+    top: 12%;
+    width: 100px;
+    height: 65%;
+    opacity: 0.03;
     pointer-events: none;
     z-index: 2;
 }
 
-/* Layer 2 — Technical Blueprint Rings */
+/* =============================================
+   LAYER 2 — Medical Blueprint Rings (6%)
+   35% smaller, tucked top-right, 40% clipped
+   ============================================= */
 .blueprint-rings-bg {
     position: absolute;
-    right: 7%;
-    top: 5%;
-    width: 600px;
-    height: 600px;
-    opacity: 0.08; /* Soft blueprint lines between 5% and 10% */
+    right: -12%;
+    top: -18%;
+    width: 390px;
+    height: 390px;
+    opacity: 0.06;
     pointer-events: none;
     z-index: 2;
+    will-change: transform;
 }
 
 .ring-group-slow {
-    animation: rotateSlowGroup 90s linear infinite;
-    transform-origin: 250px 250px;
+    animation: rotateSlowGroup 120s linear infinite;
+    transform-origin: 195px 195px;
 }
 
 .ring-group-counter {
-    animation: rotateCounterGroup 120s linear infinite;
-    transform-origin: 250px 250px;
+    animation: rotateCounterGroup 150s linear infinite;
+    transform-origin: 195px 195px;
 }
 
 @keyframes rotateSlowGroup {
@@ -760,48 +775,58 @@ p:last-child {
     to { transform: rotate(-360deg); }
 }
 
-/* Layer 3 — Flowing Spine Curves (Wave lines from bottom-left) */
+/* =============================================
+   LAYER 4 — Flowing Wave Lines (8%)
+   ============================================= */
 .flowing-curves-bg {
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 90%;
+    height: 85%;
     pointer-events: none;
     z-index: 2;
+    will-change: transform;
 }
 
 .wave-curve {
-    animation: curveShift 18s ease-in-out infinite alternate;
+    animation: waveShift 18s ease-in-out infinite alternate;
 }
 
 .curve-navy { animation-delay: 0s; }
-.curve-gold { animation-delay: -4s; }
-.curve-navy-dashed { animation-delay: -8s; }
+.curve-gold { animation-delay: -5s; }
+.curve-navy-dashed { animation-delay: -10s; }
 
-@keyframes curveShift {
-    0% { transform: translateY(0) scaleY(1); }
-    100% { transform: translateY(-12px) scaleY(1.03); }
+@keyframes waveShift {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(20px) translateY(-6px); }
 }
 
-/* Layer 4 — Molecular Network Hexagons */
+/* =============================================
+   LAYER 3 — Hexagon Molecules (4%, blurred)
+   ============================================= */
 .molecular-hexagons-bg {
     position: absolute;
-    left: 38%;
-    top: 18%;
-    width: 300px;
-    height: 300px;
+    left: 42%;
+    top: 22%;
+    width: 160px;
+    height: 160px;
     pointer-events: none;
     z-index: 2;
-    animation: floatMolecules 15s ease-in-out infinite;
+    opacity: 0.04;
+    filter: blur(1.5px);
+    animation: hexFloat 20s ease-in-out infinite;
+    will-change: transform;
 }
 
-@keyframes floatMolecules {
+@keyframes hexFloat {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-8px) rotate(1.5deg); opacity: 0.8; }
+    50% { transform: translateY(-6px) rotate(1deg); }
 }
 
-/* Layer 8 — Floating Accent Dots (Subtle motion) */
+/* =============================================
+   LAYER 6 — Floating Accent Particles (5%)
+   ============================================= */
 .floating-accent-dots {
     position: absolute;
     inset: 0;
@@ -815,91 +840,96 @@ p:last-child {
 }
 
 .dot-blue-1 {
-    width: 5px;
-    height: 5px;
+    width: 4px;
+    height: 4px;
     background-color: var(--accent-blue);
-    box-shadow: 0 0 8px var(--accent-blue);
-    top: 25%;
-    left: 20%;
-    animation: dotDrift1 26s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(44, 125, 160, 0.4);
+    top: 28%;
+    left: 22%;
+    opacity: 0.05;
+    animation: dotDrift1 20s ease-in-out infinite;
 }
 
 .dot-gold-1 {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
     background-color: var(--secondary-color);
-    box-shadow: 0 0 6px var(--secondary-color);
-    top: 55%;
-    left: 14%;
-    animation: dotDrift2 30s ease-in-out infinite;
+    box-shadow: 0 0 5px rgba(200, 155, 60, 0.4);
+    top: 58%;
+    left: 16%;
+    opacity: 0.05;
+    animation: dotDrift2 24s ease-in-out infinite;
 }
 
 .dot-blue-2 {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background-color: var(--accent-blue);
-    box-shadow: 0 0 10px var(--accent-blue);
-    top: 18%;
-    right: 32%;
-    animation: dotDrift3 34s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(44, 125, 160, 0.3);
+    top: 20%;
+    right: 34%;
+    opacity: 0.05;
+    animation: dotDrift3 22s ease-in-out infinite;
 }
 
 .dot-gold-2 {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
     background-color: var(--secondary-color);
-    box-shadow: 0 0 6px var(--secondary-color);
-    top: 72%;
-    right: 22%;
-    animation: dotDrift4 28s ease-in-out infinite;
+    box-shadow: 0 0 5px rgba(200, 155, 60, 0.3);
+    top: 75%;
+    right: 24%;
+    opacity: 0.05;
+    animation: dotDrift4 26s ease-in-out infinite;
 }
 
 @keyframes dotDrift1 {
-    0%, 100% { transform: translate(0, 0); opacity: 0.25; }
-    50% { transform: translate(70px, -35px); opacity: 0.65; }
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(8px, -6px); }
 }
 
 @keyframes dotDrift2 {
-    0%, 100% { transform: translate(0, 0); opacity: 0.15; }
-    50% { transform: translate(-50px, -50px); opacity: 0.55; }
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-6px, -8px); }
 }
 
 @keyframes dotDrift3 {
-    0%, 100% { transform: translate(0, 0); opacity: 0.2; }
-    50% { transform: translate(-60px, 45px); opacity: 0.6; }
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-8px, 5px); }
 }
 
 @keyframes dotDrift4 {
-    0%, 100% { transform: translate(0, 0); opacity: 0.25; }
-    50% { transform: translate(45px, -45px); opacity: 0.7; }
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(6px, -6px); }
 }
 
-/* Layer 6 — Hyderabad Skyline (thin line art, bottom right behind spine) */
+/* =============================================
+   Hyderabad Skyline Silhouette
+   ============================================= */
 .hyderabad-skyline-bg {
     position: absolute;
     bottom: 55px;
     right: 6%;
-    width: 250px;
+    width: 200px;
     height: auto;
     pointer-events: none;
     z-index: 2;
 }
 
-/* Layer 10 — Main Spine Integration Float and Glow */
+/* =============================================
+   HERO SPINE FLOAT ANIMATION (10s, 1deg, 6-8px)
+   ============================================= */
 .hero-spine {
-    animation:
-        floatSpine 9s ease-in-out infinite;
+    animation: floatSpine 10s ease-in-out infinite;
     transform-origin: center;
+    will-change: transform;
 }
 
 @keyframes floatSpine {
-    0%, 100% {
-        transform: translateY(0) rotate(-1.5deg);
-    }
-    50% {
-        transform: translateY(-8px) rotate(1.5deg);
-    }
+    0%, 100% { transform: translateY(0) rotate(-0.8deg); }
+    50% { transform: translateY(-7px) rotate(0.8deg); }
 }
+
 
 @keyframes glowSpine {
     0%, 100% {
@@ -912,8 +942,8 @@ p:last-child {
 
 .hero-container {
     display: grid;
-    grid-template-columns: 1.25fr 0.75fr;
-    gap: 6rem;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 5rem;
     align-items: center;
     position: relative;
     z-index: 5;
@@ -922,6 +952,7 @@ p:last-child {
 .hero-content {
     position: relative;
     z-index: 20;
+    max-width: 52%;
 }
 
 .hero-tagline {
@@ -945,13 +976,14 @@ p:last-child {
 .hero-description {
     font-size: 1.9rem;
     line-height: 1.6;
-    margin-bottom: 4rem;
-    max-width: 580px;
+    margin-bottom: 3.5rem;
+    max-width: 520px;
 }
 
 .hero-actions {
     display: flex;
     gap: 2rem;
+    margin-top: 3.5rem;
 }
 
 .hero-visual {
