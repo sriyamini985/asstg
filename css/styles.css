@@ -2505,121 +2505,98 @@ p:last-child {
 }
 
 /* =========================================================================
-   15. PLACES TO VISIT SECTION
+   15. PLACES TO VISIT SECTION – Oval Image Grid (Brochure Layout)
    ========================================================================= */
-.places-grid {
+.places-oval-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 3rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem 3rem;
+    max-width: 1000px;
     margin: 0 auto;
+    justify-items: center;
 }
 
-.place-card {
-    background: #FFFFFF;
-    border: 1px solid var(--border-color);
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+/* Center the last row when it has fewer items (2 out of 3 columns) */
+.places-oval-grid .place-oval-item:nth-child(7) {
+    grid-column: 1 / 2;
+    justify-self: end;
+    margin-right: 2rem;
+}
+
+.places-oval-grid .place-oval-item:nth-child(8) {
+    grid-column: 2 / 3;
+    justify-self: start;
+    margin-left: 2rem;
+}
+
+.place-oval-item {
     display: flex;
     flex-direction: column;
-}
-
-.place-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-md);
-}
-
-.place-image-wrapper {
-    position: relative;
-    height: 180px;
-    width: 100%;
-    background: var(--primary-color);
-    overflow: hidden;
-}
-
-.place-image-placeholder {
-    height: 100%;
-    width: 100%;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 5rem;
-    color: rgba(255, 255, 255, 0.15);
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-
-.place-image-placeholder::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(10, 47, 107, 0.85) 0%, rgba(44, 125, 160, 0.7) 100%);
-    z-index: 1;
-}
-
-.place-image-placeholder i {
-    position: relative;
-    z-index: 2;
-    color: var(--secondary-color);
-    opacity: 0.9;
+    gap: 1.6rem;
     transition: transform 0.4s ease;
 }
 
-.place-card:hover .place-image-placeholder i {
-    transform: scale(1.15) rotate(5deg);
+.place-oval-item:hover {
+    transform: translateY(-8px);
 }
 
-/* Background representations for placeholders using our assets */
-.charminar-bg {
-    background-image: url('../assets/about_visual.png');
-}
-.golconda-bg {
-    background-image: url('../assets/clean_bg.png');
-}
-.birla-bg {
-    background-image: url('../assets/spine_bg.png');
-}
-.museum-bg {
-    background-image: url('../assets/about_visual.png');
+.place-oval-img {
+    width: 200px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--secondary-color);
+    box-shadow: 0 8px 30px rgba(10, 47, 107, 0.15), 0 2px 8px rgba(200, 155, 60, 0.2);
+    transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+    position: relative;
 }
 
-.place-tag {
+.place-oval-img::after {
+    content: '';
     position: absolute;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    background: var(--secondary-color);
-    color: #FFFFFF;
-    font-size: 1.1rem;
-    font-weight: 700;
-    padding: 0.4rem 1.2rem;
-    border-radius: 4px;
-    z-index: 5;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(180deg, transparent 40%, rgba(10, 47, 107, 0.15) 100%);
+    pointer-events: none;
+    transition: opacity 0.4s ease;
 }
 
-.place-info {
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+.place-oval-item:hover .place-oval-img {
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 40px rgba(10, 47, 107, 0.25), 0 4px 12px rgba(200, 155, 60, 0.3);
+    transform: scale(1.05);
 }
 
-.place-info h3 {
-    font-size: 1.9rem;
-    color: var(--primary-color);
-    font-weight: 700;
-    margin-bottom: 1.2rem;
+.place-oval-item:hover .place-oval-img::after {
+    opacity: 0;
+}
+
+.place-oval-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.place-oval-item:hover .place-oval-img img {
+    transform: scale(1.1);
+}
+
+.place-oval-label {
     font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    letter-spacing: 0.02em;
+    transition: color 0.3s ease;
+    margin: 0;
+    line-height: 1.3;
 }
 
-.place-info p {
-    font-size: 1.4rem;
-    line-height: 1.6;
-    color: var(--text-color-light);
-    margin: 0;
+.place-oval-item:hover .place-oval-label {
+    color: var(--secondary-color);
 }
 
 /* 15. CONTACT SECTION */
@@ -3410,7 +3387,10 @@ p:last-child {
     
     .venue-grid { grid-template-columns: 1fr; gap: 3rem; }
     .venue-map-wrap { height: 350px; }
-    .places-grid { grid-template-columns: repeat(2, 1fr); }
+    .places-oval-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem 2rem; }
+    .places-oval-grid .place-oval-item:nth-child(7) { grid-column: auto; justify-self: center; margin-right: 0; }
+    .places-oval-grid .place-oval-item:nth-child(8) { grid-column: auto; justify-self: center; margin-left: 0; }
+    .place-oval-img { width: 170px; height: 140px; }
     .contact-form-wrap { padding: 4rem 3rem; }
 }
 
@@ -3450,7 +3430,8 @@ p:last-child {
     .executive-committee-grid { grid-template-columns: 1fr; }
     .bearer-card { padding: 3.5rem 2rem; }
     
-    .places-grid { grid-template-columns: 1fr; }
+    .places-oval-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; }
+    .place-oval-img { width: 140px; height: 115px; border-width: 3px; }
     
     .form-row.split-2 { grid-template-columns: 1fr; gap: 0; }
     .form-row.split-2 .form-group { margin-bottom: 2rem; }
