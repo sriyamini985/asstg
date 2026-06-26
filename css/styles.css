@@ -2756,92 +2756,94 @@ p:last-child {
 }
 
 /* 16. FOOTER (DARK NAVY WITH GOLD DIVIDER & MEDICAL GRID LINES) */
+/* 16. FOOTER (LIGHT GRAY/SLATE THEME WITH GOLD ACCENTS) */
 .main-footer {
-    background-color: #08101a; /* Dark Navy Background */
-    color: rgba(255, 255, 255, 0.7);
-    padding-top: 9rem;
-    border-top: 4px solid var(--secondary-color); /* Premium Gold Top Divider */
+    background-color: #F8FAFC;
+    color: #475569;
+    padding-top: 7rem;
+    border-top: 1px solid #E2E8F0;
     position: relative;
     overflow: hidden;
 }
 
-/* Subtle Medical Grid Background Pattern in Footer */
-.main-footer::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-    background-size: 30px 30px;
-    pointer-events: none;
-    z-index: 1;
-}
-
 .footer-container {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr 0.8fr 1.2fr;
-    gap: 6rem;
-    padding-bottom: 6rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    grid-template-columns: 1.1fr 0.8fr 1.2fr 1.2fr;
+    gap: 5rem;
+    padding-bottom: 5rem;
+    border-bottom: 1px solid #E2E8F0;
     position: relative;
     z-index: 5;
 }
 
-.footer-brand {
+.footer-col {
     display: flex;
     flex-direction: column;
 }
 
-.footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
+.footer-logo-wrap {
     margin-bottom: 2rem;
 }
 
 .footer-logo-img {
-    height: 52px; /* Larger Footer Logo */
+    height: 52px;
     width: auto;
 }
 
-.footer-logo-title {
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: 2.2rem;
-    color: var(--bg-color);
-    display: block;
-    line-height: 1;
-}
-
-.footer-logo-subtitle {
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.footer-about-text {
-    font-size: 1.4rem;
-    color: rgba(255, 255, 255, 0.55);
-    margin-bottom: 3rem;
-    line-height: 1.6;
-}
-
-.footer-socials {
+.footer-meta-items, .footer-contact-details {
     display: flex;
+    flex-direction: column;
     gap: 1.6rem;
 }
 
-.footer-socials a {
-    width: 38px;
-    height: 38px;
+.footer-meta-item, .footer-contact-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+}
+
+.footer-meta-icon {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.03);
-    color: var(--bg-color);
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.footer-meta-text {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: #334155;
+    font-weight: 500;
+}
+
+.footer-meta-text a {
+    color: #334155;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.footer-meta-text a:hover {
+    color: var(--secondary-color);
+}
+
+.footer-social-row {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+}
+
+.footer-social-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2849,78 +2851,79 @@ p:last-child {
     transition: var(--transition-smooth);
 }
 
-.footer-socials a:hover {
+.footer-social-badge:hover {
     background-color: var(--secondary-color);
     transform: translateY(-2px);
+    color: #FFFFFF;
 }
 
-.footer-links h4, .footer-contact h4 {
-    color: var(--bg-color);
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin-bottom: 2.4rem;
+.footer-col h4 {
+    color: var(--primary-color);
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 2.2rem;
+    font-family: var(--font-heading);
 }
 
-.footer-links ul {
+.footer-links-list {
+    list-style: none;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    padding: 0;
+    margin: 0;
 }
 
-.footer-links a {
+.footer-links-list a {
     font-size: 1.4rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: #475569;
+    font-weight: 500;
     transition: var(--transition-smooth);
+    text-decoration: none;
 }
 
-.footer-links a:hover {
+.footer-links-list a:hover {
     color: var(--secondary-color);
     padding-left: 6px;
 }
 
-.footer-contact p {
+.footer-gold-label {
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    display: block;
+    margin-bottom: 1.2rem;
+}
+
+.footer-address {
     font-size: 1.4rem;
-    color: rgba(255, 255, 255, 0.55);
-    margin-bottom: 1.6rem;
-    display: flex;
-    gap: 1.2rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0 0 2rem 0;
 }
 
-.footer-contact p i {
-    margin-top: 0.4rem;
-    color: var(--secondary-color);
+.cmc-logo-wrap {
+    margin-bottom: 1.8rem;
+    background-color: #FFFFFF;
+    padding: 1.2rem 1.6rem;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    display: inline-block;
+    align-self: flex-start;
 }
 
-.footer-contact a {
-    color: var(--secondary-color);
-    transition: var(--transition-smooth);
-}
-
-.footer-contact a:hover {
-    text-decoration: underline;
-}
-
-.footer-contact-link {
-    color: rgba(255, 255, 255, 0.55);
-    text-decoration: none;
-    transition: var(--transition-fast);
-}
-
-.footer-contact-link:hover {
-    color: var(--secondary-color);
-}
-
-/* Button loading state styles */
-.btn-loading {
-    position: relative;
-    pointer-events: none;
-    opacity: 0.8;
+.cmc-logo-svg {
+    width: 140px;
+    height: auto;
+    display: block;
 }
 
 .footer-bottom {
-    padding: 3rem 0;
-    font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.35);
+    padding: 2.5rem 0;
+    font-size: 1.35rem;
+    color: #64748B;
     position: relative;
     z-index: 5;
 }
@@ -2929,6 +2932,27 @@ p:last-child {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.copyright {
+    margin: 0;
+}
+
+.designer-credit {
+    margin: 0;
+}
+
+.credit-gold {
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+/* Tablet footer grid adjustment */
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5rem;
+    }
 }
 
 /* 17. MODALS STYLING */
