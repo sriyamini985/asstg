@@ -1,10 +1,262 @@
-document.addEventListener('DOMContentLoaded', () => {
+// =========================================================================
+// ASST Website Client-Side SPA Engine
+// =========================================================================
+
+// Global modal and toast controllers (defined outside DOMContentLoaded to be globally accessible)
+window.showToast = (message) => {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        `;
+        document.body.appendChild(container);
+    }
     
-    // =========================================================================
+    const toast = document.createElement('div');
+    toast.className = 'custom-toast';
+    toast.style.cssText = `
+        background-color: var(--primary-color, #0A2F6B);
+        color: #FFFFFF;
+        padding: 1.6rem 2.4rem;
+        border-radius: var(--border-radius-md, 10px);
+        box-shadow: 0 10px 30px rgba(10, 47, 107, 0.2);
+        font-family: var(--font-body, 'Inter', sans-serif);
+        font-size: 1.4rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-left: 4px solid var(--secondary-color, #C89B3C);
+        pointer-events: auto;
+    `;
+    
+    toast.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--secondary-color, #C89B3C); font-size: 1.6rem;"></i> <span>${message}</span>`;
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.transform = 'translateY(0)';
+        toast.style.opacity = '1';
+    }, 50);
+    
+    setTimeout(() => {
+        toast.style.transform = 'translateY(-20px)';
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            toast.remove();
+        }, 400);
+    }, 4000);
+};
+
+const toggleBodyScroll = (lock) => {
+    if (lock) {
+        document.body.classList.add('no-scroll');
+    } else {
+        document.body.classList.remove('no-scroll');
+    }
+};
+
+window.openRegistrationModal = () => {
+    const modal = document.getElementById('registrationModal');
+    if (modal) {
+        modal.classList.add('active');
+        toggleBodyScroll(true);
+    }
+};
+
+window.closeRegistrationModal = () => {
+    const modal = document.getElementById('registrationModal');
+    if (modal) {
+        modal.classList.remove('active');
+        toggleBodyScroll(false);
+    }
+};
+
+window.openMembershipFormModal = () => {
+    const modal = document.getElementById('membershipModal');
+    if (modal) {
+        modal.classList.add('active');
+        toggleBodyScroll(true);
+    }
+};
+
+window.closeMembershipFormModal = () => {
+    const modal = document.getElementById('membershipModal');
+    if (modal) {
+        modal.classList.remove('active');
+        toggleBodyScroll(false);
+    }
+};
+
+// Global escape key handler for modals
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const activeModals = document.querySelectorAll('.modal-overlay.active');
+        activeModals.forEach(modal => modal.classList.remove('active'));
+        toggleBodyScroll(false);
+    }
+});
+
+// Global form submit handlers
+window.handleContactSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button.innerHTML;
+    
+    button.disabled = true;
+    button.classList.add('btn-loading');
+    button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...`;
+    
+    setTimeout(() => {
+        const successMsg = form.querySelector('.form-success-msg') || document.getElementById('contactSuccess');
+        if (successMsg) {
+            successMsg.style.display = 'flex';
+            successMsg.style.opacity = '0';
+            setTimeout(() => {
+                successMsg.style.transition = 'opacity 0.4s ease';
+                successMsg.style.opacity = '1';
+            }, 50);
+        }
+        
+        form.reset();
+        button.disabled = false;
+        button.classList.remove('btn-loading');
+        button.innerHTML = originalText;
+        
+        setTimeout(() => {
+            if (successMsg) {
+                successMsg.style.opacity = '0';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 400);
+            }
+        }, 6000);
+    }, 1500);
+};
+
+window.handleRegistrationSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button.innerHTML;
+    
+    button.disabled = true;
+    button.classList.add('btn-loading');
+    button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Processing...`;
+    
+    setTimeout(() => {
+        const successMsg = form.querySelector('.form-success-msg') || document.getElementById('regSuccess');
+        if (successMsg) {
+            successMsg.style.display = 'flex';
+            successMsg.style.opacity = '0';
+            setTimeout(() => {
+                successMsg.style.transition = 'opacity 0.4s ease';
+                successMsg.style.opacity = '1';
+            }, 50);
+        }
+        
+        form.reset();
+        button.disabled = false;
+        button.classList.remove('btn-loading');
+        button.innerHTML = originalText;
+        
+        setTimeout(() => {
+            if (successMsg) {
+                successMsg.style.opacity = '0';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                    if (form.id === 'regForm') {
+                        closeRegistrationModal();
+                    }
+                }, 400);
+            }
+        }, 4000);
+    }, 1500);
+};
+
+window.handleMembershipSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button.innerHTML;
+    
+    button.disabled = true;
+    button.classList.add('btn-loading');
+    button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...`;
+    
+    setTimeout(() => {
+        const successMsg = form.querySelector('.form-success-msg') || document.getElementById('memSuccess');
+        if (successMsg) {
+            successMsg.style.display = 'flex';
+            successMsg.style.opacity = '0';
+            setTimeout(() => {
+                successMsg.style.transition = 'opacity 0.4s ease';
+                successMsg.style.opacity = '1';
+            }, 50);
+        }
+        
+        form.reset();
+        button.disabled = false;
+        button.classList.remove('btn-loading');
+        button.innerHTML = originalText;
+        
+        setTimeout(() => {
+            if (successMsg) {
+                successMsg.style.opacity = '0';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                    closeMembershipFormModal();
+                }, 400);
+            }
+        }, 4000);
+    }, 1500);
+};
+
+// =========================================================================
+// MAIN RUNTIME INITIALIZATION FUNCTION
+// =========================================================================
+const initApp = () => {
+    
+    // Add CSS utility class for body scroll locking dynamically
+    if (!document.getElementById('modal-scroll-lock-style')) {
+        const modalScrollStyle = document.createElement("style");
+        modalScrollStyle.id = "modal-scroll-lock-style";
+        modalScrollStyle.innerText = `body.no-scroll { overflow: hidden; }`;
+        document.head.appendChild(modalScrollStyle);
+    }
+
+    // Add Scroll Reveal animation CSS utility
+    if (!document.getElementById('scroll-reveal-style')) {
+        const styleSheet = document.createElement("style");
+        styleSheet.id = "scroll-reveal-style";
+        styleSheet.innerText = `
+            .scroll-reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .scroll-reveal.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    }
+
     // 1. SHRINKING & STICKY HEADER
-    // =========================================================================
     const header = document.getElementById('header');
-    
     const handleScroll = () => {
         if (window.scrollY > 50) {
             header.classList.add('shrink');
@@ -12,13 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
             header.classList.remove('shrink');
         }
     };
-    
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check on load
 
-    // =========================================================================
     // 2. SPA ROUTER WITH FILE PROTOCOL FALLBACK & STATE MANAGEMENT
-    // =========================================================================
     const routes = {
         '/': 'page-home',
         '/about': 'page-about',
@@ -43,7 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentPath.endsWith('/index.html')) {
                 currentPath = '/';
             } else {
-                const lastPart = '/' + currentPath.split('/').pop();
+                const pathParts = currentPath.split('/').filter(Boolean);
+                const lastPart = pathParts.length ? '/' + pathParts[pathParts.length - 1] : '/';
+                
                 if (routes[lastPart]) {
                     currentPath = lastPart;
                 } else if (currentPath !== '/') {
@@ -57,7 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.navigateTo = (url) => {
-        // url can be "/about" or "/events?tab=details"
         try {
             history.pushState(null, null, url);
         } catch (e) {
@@ -83,7 +333,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const router = () => {
-        // targetViewId matches currentPath
         const targetViewId = routes[currentPath] || 'page-home';
         
         // Hide all views
@@ -177,9 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initRouteFromLocation();
     router();
 
-    // =========================================================================
     // 3. MOBILE MENU TOGGLE
-    // =========================================================================
     const mobileToggle = document.querySelector('.mobile-nav-toggle');
     const navMenu = document.querySelector('.navigation-menu');
     const body = document.body;
@@ -193,11 +440,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // =========================================================================
     // 4. COUNTDOWN TIMER (ASSTCON 2026: 27 September 2026 09:00:00)
-    // =========================================================================
     const countdownDate = new Date('September 27, 2026 09:00:00').getTime();
-    
     const updateCountdown = () => {
         const now = new Date().getTime();
         const distance = countdownDate - now;
@@ -239,13 +483,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pm) pm.innerText = minutesStr;
         if (ps) ps.innerText = secondsStr;
     };
-    
     setInterval(updateCountdown, 1000);
     updateCountdown(); // Run immediately
 
-    // =========================================================================
     // 5. MEMBERSHIP INTERACTIVE TABS
-    // =========================================================================
     const tabBtns = document.querySelectorAll('.membership-tabs .tab-btn');
     const tabContents = document.querySelectorAll('.membership-tab-content');
     
@@ -266,9 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // =========================================================================
     // 6. EVENTS INNER SUB-TABS INTERACTIVE HANDLERS
-    // =========================================================================
     document.querySelectorAll('.event-tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const tabName = btn.getAttribute('data-tab').replace('event-', '');
@@ -286,9 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // =========================================================================
     // 7. INTERSECTION OBSERVER FOR SCROLL REVEAL
-    // =========================================================================
     const revealCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -297,34 +534,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     };
-    
     const revealObserver = new IntersectionObserver(revealCallback, {
         root: null,
         threshold: 0.1,
         rootMargin: '0px 0px -40px 0px'
     });
-    
     const revealCheck = () => {
         const revealElements = document.querySelectorAll('.scroll-reveal');
         revealElements.forEach(el => revealObserver.observe(el));
     };
-
     revealCheck();
-    
-    // Add visible class styling via inline styles to handle cases before style loads
-    const styleSheet = document.createElement("style");
-    styleSheet.innerText = `
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    `;
-    document.head.appendChild(styleSheet);
+
+    // 8. FLOATING EVENT COUNTDOWN POPUP LOGIC
+    const popup = document.getElementById('countdownPopup');
+    const miniBtn = document.getElementById('countdownMiniBtn');
+    if (popup && miniBtn) {
+        // Show main popup automatically on website open after 1.5s
+        setTimeout(() => {
+            if (!popup.classList.contains('active') && !miniBtn.classList.contains('active')) {
+                window.openCountdownPopup();
+            }
+        }, 1500);
+
+        // Mouse hover (mouseover) on mini button triggers popup open
+        miniBtn.addEventListener('mouseover', () => {
+            window.openCountdownPopup();
+        });
+
+        // Mouse leaves popup collapses it back to mini button
+        popup.addEventListener('mouseleave', () => {
+            window.closeCountdownPopup();
+        });
+    }
 
     // Close modal overlays on backdrop click
     const modalOverlays = document.querySelectorAll('.modal-overlay');
@@ -336,269 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-});
-
-// =============================================================================
-// 8. PREMIUM TOAST NOTIFICATION SYSTEM
-// =============================================================================
-window.showToast = (message) => {
-    let container = document.getElementById('toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.id = 'toast-container';
-        container.style.cssText = `
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            pointer-events: none;
-        `;
-        document.body.appendChild(container);
-    }
-    
-    const toast = document.createElement('div');
-    toast.className = 'custom-toast';
-    toast.style.cssText = `
-        background-color: var(--primary-color, #0A2F6B);
-        color: #FFFFFF;
-        padding: 1.6rem 2.4rem;
-        border-radius: var(--border-radius-md, 10px);
-        box-shadow: 0 10px 30px rgba(10, 47, 107, 0.2);
-        font-family: var(--font-body, 'Inter', sans-serif);
-        font-size: 1.4rem;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 1.2rem;
-        transform: translateY(20px);
-        opacity: 0;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border-left: 4px solid var(--secondary-color, #C89B3C);
-        pointer-events: auto;
-    `;
-    
-    toast.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--secondary-color, #C89B3C); font-size: 1.6rem;"></i> <span>${message}</span>`;
-    container.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.style.transform = 'translateY(0)';
-        toast.style.opacity = '1';
-    }, 50);
-    
-    setTimeout(() => {
-        toast.style.transform = 'translateY(-20px)';
-        toast.style.opacity = '0';
-        setTimeout(() => {
-            toast.remove();
-        }, 400);
-    }, 4000);
 };
-
-// =============================================================================
-// 9. GLOBAL MODAL CONTROLLER FUNCTIONS
-// =============================================================================
-const toggleBodyScroll = (lock) => {
-    if (lock) {
-        document.body.classList.add('no-scroll');
-    } else {
-        document.body.classList.remove('no-scroll');
-    }
-};
-
-window.openRegistrationModal = () => {
-    const modal = document.getElementById('registrationModal');
-    if (modal) {
-        modal.classList.add('active');
-        toggleBodyScroll(true);
-    }
-};
-window.closeRegistrationModal = () => {
-    const modal = document.getElementById('registrationModal');
-    if (modal) {
-        modal.classList.remove('active');
-        toggleBodyScroll(false);
-    }
-};
-
-window.openMembershipFormModal = () => {
-    const modal = document.getElementById('membershipModal');
-    if (modal) {
-        modal.classList.add('active');
-        toggleBodyScroll(true);
-    }
-};
-window.closeMembershipFormModal = () => {
-    const modal = document.getElementById('membershipModal');
-    if (modal) {
-        modal.classList.remove('active');
-        toggleBodyScroll(false);
-    }
-};
-
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        const activeModals = document.querySelectorAll('.modal-overlay.active');
-        activeModals.forEach(modal => modal.classList.remove('active'));
-        toggleBodyScroll(false);
-    }
-});
-
-// =============================================================================
-// 10. FORM HANDLERS (VALIDATION & RETURNING NOTIFICATION SUCCESS)
-// =============================================================================
-window.handleContactSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const button = form.querySelector('button[type="submit"]');
-    const originalText = button.innerHTML;
-    
-    button.disabled = true;
-    button.classList.add('btn-loading');
-    button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...`;
-    
-    setTimeout(() => {
-        const successMsg = form.querySelector('.form-success-msg') || document.getElementById('contactSuccess');
-        if (successMsg) {
-            successMsg.style.display = 'flex';
-            successMsg.style.opacity = '0';
-            setTimeout(() => {
-                successMsg.style.transition = 'opacity 0.4s ease';
-                successMsg.style.opacity = '1';
-            }, 50);
-        }
-        
-        form.reset();
-        
-        button.disabled = false;
-        button.classList.remove('btn-loading');
-        button.innerHTML = originalText;
-        
-        setTimeout(() => {
-            if (successMsg) {
-                successMsg.style.opacity = '0';
-                setTimeout(() => {
-                    successMsg.style.display = 'none';
-                }, 400);
-            }
-        }, 6000);
-    }, 1500);
-};
-
-window.handleRegistrationSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const button = form.querySelector('button[type="submit"]');
-    const originalText = button.innerHTML;
-    
-    button.disabled = true;
-    button.classList.add('btn-loading');
-    button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Processing...`;
-    
-    setTimeout(() => {
-        const successMsg = form.querySelector('.form-success-msg') || document.getElementById('regSuccess');
-        if (successMsg) {
-            successMsg.style.display = 'flex';
-            successMsg.style.opacity = '0';
-            setTimeout(() => {
-                successMsg.style.transition = 'opacity 0.4s ease';
-                successMsg.style.opacity = '1';
-            }, 50);
-        }
-        
-        form.reset();
-        
-        button.disabled = false;
-        button.classList.remove('btn-loading');
-        button.innerHTML = originalText;
-        
-        setTimeout(() => {
-            if (successMsg) {
-                successMsg.style.opacity = '0';
-                setTimeout(() => {
-                    successMsg.style.display = 'none';
-                    if (form.id === 'regForm') {
-                        closeRegistrationModal();
-                    }
-                }, 400);
-            }
-        }, 4000);
-    }, 1500);
-};
-
-window.handleMembershipSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const button = form.querySelector('button[type="submit"]');
-    const originalText = button.innerHTML;
-    
-    button.disabled = true;
-    button.classList.add('btn-loading');
-    button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...`;
-    
-    setTimeout(() => {
-        const successMsg = form.querySelector('.form-success-msg') || document.getElementById('memSuccess');
-        if (successMsg) {
-            successMsg.style.display = 'flex';
-            successMsg.style.opacity = '0';
-            setTimeout(() => {
-                successMsg.style.transition = 'opacity 0.4s ease';
-                successMsg.style.opacity = '1';
-            }, 50);
-        }
-        
-        form.reset();
-        
-        button.disabled = false;
-        button.classList.remove('btn-loading');
-        button.innerHTML = originalText;
-        
-        setTimeout(() => {
-            if (successMsg) {
-                successMsg.style.opacity = '0';
-                setTimeout(() => {
-                    successMsg.style.display = 'none';
-                    closeMembershipFormModal();
-                }, 400);
-            }
-        }, 4000);
-    }, 1500);
-};
-
-// Add CSS utility class for body scroll locking dynamically
-const modalScrollStyle = document.createElement("style");
-modalScrollStyle.innerText = `
-    body.no-scroll {
-        overflow: hidden;
-    }
-`;
-document.head.appendChild(modalScrollStyle);
-
-// Floating Event Countdown Popup Logic
-document.addEventListener('DOMContentLoaded', () => {
-    const popup = document.getElementById('countdownPopup');
-    const miniBtn = document.getElementById('countdownMiniBtn');
-    if (!popup || !miniBtn) return;
-    
-    // Show main popup automatically on website open after 1.5s
-    setTimeout(() => {
-        if (!popup.classList.contains('active') && !miniBtn.classList.contains('active')) {
-            window.openCountdownPopup();
-        }
-    }, 1500);
-
-    // Mouse hover (mouseover) on mini button triggers popup open
-    miniBtn.addEventListener('mouseover', () => {
-        window.openCountdownPopup();
-    });
-
-    // Mouse leaves popup collapses it back to mini button
-    popup.addEventListener('mouseleave', () => {
-        window.closeCountdownPopup();
-    });
-});
 
 window.openCountdownPopup = () => {
     const popup = document.getElementById('countdownPopup');
@@ -621,3 +600,12 @@ window.closeCountdownPopup = () => {
 window.handlePopupCta = (e) => {
     window.closeCountdownPopup();
 };
+
+// =========================================================================
+// RUN INITIALIZATION (BULLETPROOF EXECUTION SAFETY CHECK)
+// =========================================================================
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
