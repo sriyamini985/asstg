@@ -752,56 +752,55 @@
 
                     <!-- Tab 3: Registration -->
                     <div class="event-tab-pane" id="event-registration">
-                        <!-- Row 1: Pricing & Payment Information -->
-                        <div class="registration-row-1" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; margin-bottom: 5rem; align-items: stretch;">
-                            <!-- Fee details with separate buttons -->
-                            <div class="registration-pricing-info" style="display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 4rem; box-shadow: var(--shadow-sm);">
+                        <!-- Row 1: Registration Tiers (2 horizontal cards) -->
+                        <div class="registration-tiers-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem;">
+                            <!-- Consultant -->
+                            <div class="fee-card-horizontal" style="display: flex; align-items: center; justify-content: space-between; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm);">
                                 <div>
-                                    <h3 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--primary-color); margin-bottom: 1.5rem; font-weight: 700;">Registration Tiers</h3>
-                                    <p style="font-size: 1.45rem; color: var(--text-muted); margin-bottom: 3rem;">Please select the appropriate tier to proceed with your registration. Click the button to select the category and fill out the registration form below.</p>
-                                    
-                                    <div class="fees-rows-wrapper" style="display: flex; flex-direction: column; gap: 2rem;">
-                                        <!-- Consultant -->
-                                        <div class="fee-row-item" style="display: flex; align-items: center; justify-content: space-between; background: var(--section-bg-color); padding: 2rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-color);">
-                                            <div>
-                                                <h4 style="font-size: 1.65rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.4rem;">Consultant Delegate</h4>
-                                                <span class="price-val" style="font-size: 2.2rem; font-weight: 700; color: var(--secondary-color);">₹1,000</span>
-                                            </div>
-                                            <button class="btn btn-secondary-sm" onclick="selectTierAndScroll('consultant')" style="padding: 1rem 2rem; font-size: 1.25rem;">Register as Consultant</button>
-                                        </div>
-                                        
-                                        <!-- PG / Trainee -->
-                                        <div class="fee-row-item" style="display: flex; align-items: center; justify-content: space-between; background: var(--section-bg-color); padding: 2rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-color);">
-                                            <div>
-                                                <h4 style="font-size: 1.65rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.4rem;">PG Student / Trainee</h4>
-                                                <span class="price-val" style="font-size: 2.2rem; font-weight: 700; color: var(--secondary-color);">₹500</span>
-                                            </div>
-                                            <button class="btn btn-secondary-sm" onclick="selectTierAndScroll('pg')" style="padding: 1rem 2rem; font-size: 1.25rem;">Register as PG/Trainee</button>
-                                        </div>
-                                    </div>
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.5rem;">Consultant Delegate</h4>
+                                    <span class="price-val" style="font-size: 2.4rem; font-weight: 800; color: var(--secondary-color);">₹3,000</span>
                                 </div>
+                                <button class="btn btn-secondary-sm" onclick="selectTierAndScroll('consultant')" style="padding: 1.2rem 2.4rem; font-size: 1.3rem;">Register as Consultant</button>
                             </div>
                             
-                            <!-- Payment / Bank details + QR Code -->
-                            <div class="payment-bank-info" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 4rem; box-shadow: var(--shadow-sm); align-items: center;">
-                                <div class="bank-details-text">
-                                    <h3 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--primary-color); margin-bottom: 2rem; font-weight: 700;">Account Details</h3>
-                                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 1.45rem; line-height: 1.8; color: var(--text-color);">
-                                        <li style="margin-bottom: 1rem;"><strong>Bank</strong>: Union Bank of India</li>
-                                        <li style="margin-bottom: 1rem;"><strong>Branch</strong>: PBB - Nampally</li>
-                                        <li style="margin-bottom: 1rem;"><strong>Account Name</strong>: Twin Cities Spine Association</li>
-                                        <li style="margin-bottom: 1rem;"><strong>Account No.</strong>: 520101264844341</li>
-                                        <li style="margin-bottom: 1rem;"><strong>IFSC Code</strong>: UBIN0905241</li>
-                                    </ul>
+                            <!-- PG / Trainee -->
+                            <div class="fee-card-horizontal" style="display: flex; align-items: center; justify-content: space-between; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm);">
+                                <div>
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.5rem;">PG Student / Trainee</h4>
+                                    <span class="price-val" style="font-size: 2.4rem; font-weight: 800; color: var(--secondary-color);">₹1,000</span>
                                 </div>
-                                <div class="payment-qr-wrap" style="text-align: center;">
-                                    <img src="assets/registration_qr_code.png" alt="Scan and Pay QR Code" style="max-width: 140px; border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; background: #FFF; margin-bottom: 1rem;">
-                                    <span style="display: block; font-size: 1.25rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px;">Scan & Pay</span>
+                                <button class="btn btn-secondary-sm" onclick="selectTierAndScroll('pg')" style="padding: 1.2rem 2.4rem; font-size: 1.3rem;">Register as PG/Trainee</button>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Account Details (Full Width Card) -->
+                        <div class="payment-bank-fullwidth" style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem 4rem; box-shadow: var(--shadow-sm); margin-bottom: 5rem;">
+                            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--primary-color); margin-bottom: 2rem; font-weight: 700; text-align: center;">Bank Account Details for Registration Fee Payment</h3>
+                            <div class="bank-details-horizontal" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; font-size: 1.45rem; color: var(--text-color);">
+                                <div style="flex: 1; min-width: 200px; text-align: center;">
+                                    <strong style="display: block; color: var(--secondary-color); margin-bottom: 0.4rem; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 0.5px;">Bank</strong>
+                                    <span>Union Bank of India</span>
+                                </div>
+                                <div style="flex: 1; min-width: 200px; text-align: center; border-left: 1px solid var(--border-color);">
+                                    <strong style="display: block; color: var(--secondary-color); margin-bottom: 0.4rem; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 0.5px;">Branch</strong>
+                                    <span>PBB - Nampally</span>
+                                </div>
+                                <div style="flex: 1; min-width: 280px; text-align: center; border-left: 1px solid var(--border-color);">
+                                    <strong style="display: block; color: var(--secondary-color); margin-bottom: 0.4rem; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 0.5px;">Account Name</strong>
+                                    <span>Twin Cities Spine Association</span>
+                                </div>
+                                <div style="flex: 1; min-width: 220px; text-align: center; border-left: 1px solid var(--border-color);">
+                                    <strong style="display: block; color: var(--secondary-color); margin-bottom: 0.4rem; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 0.5px;">Account No.</strong>
+                                    <span style="font-weight: 600;">520101264844341</span>
+                                </div>
+                                <div style="flex: 1; min-width: 180px; text-align: center; border-left: 1px solid var(--border-color);">
+                                    <strong style="display: block; color: var(--secondary-color); margin-bottom: 0.4rem; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 0.5px;">IFSC Code</strong>
+                                    <span style="font-weight: 600;">UBIN0905241</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Row 2: Inline Registration Form -->
+                        <!-- Row 3: Inline Registration Form -->
                         <div class="registration-row-2 scroll-reveal" id="registration-form-row" style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 5rem 6rem; box-shadow: var(--shadow-sm);">
                             <div class="form-header" style="text-align: center; margin-bottom: 4rem; border-bottom: 1px solid var(--border-color); padding-bottom: 2rem;">
                                 <h3 style="font-family: var(--font-heading); font-size: 2.4rem; color: var(--primary-color); font-weight: 700; margin-bottom: 1rem;">1st Annual Conference of ASST</h3>
@@ -898,8 +897,8 @@
                                         <label for="reg-category-inline">Registration Category *</label>
                                         <select id="reg-category-inline" name="reg_category" required>
                                             <option value="" disabled selected>Select category</option>
-                                            <option value="consultant">Consultant Delegate - ₹1,000</option>
-                                            <option value="pg">PG Student / Trainee - ₹500</option>
+                                            <option value="consultant">Consultant Delegate - ₹3,000</option>
+                                            <option value="pg">PG Student / Trainee - ₹1,000</option>
                                         </select>
                                     </div>
                                     <div class="form-group" style="display: flex; align-items: flex-end;">
@@ -1422,6 +1421,6 @@
     </button>
 
     <!-- Scripts -->
-    <script src="js/main.js?v=1.8" defer></script>
+    <script src="js/main.js?v=1.9" defer></script>
 </body>
 </html>
