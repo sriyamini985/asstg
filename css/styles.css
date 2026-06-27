@@ -2701,6 +2701,12 @@ p:last-child {
     gap: 2rem;
 }
 
+.form-row.split-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -3451,6 +3457,10 @@ p:last-child {
     .form-row.split-2 { grid-template-columns: 1fr; gap: 0; }
     .form-row.split-2 .form-group { margin-bottom: 2rem; }
     .form-row.split-2 .form-group:last-child { margin-bottom: 0; }
+    
+    .form-row.split-3 { grid-template-columns: 1fr; gap: 0; }
+    .form-row.split-3 .form-group { margin-bottom: 2rem; }
+    .form-row.split-3 .form-group:last-child { margin-bottom: 0; }
     
     .footer-container { grid-template-columns: 1fr; gap: 4rem; }
     .footer-bottom-container { flex-direction: column; text-align: center; gap: 1.6rem; }

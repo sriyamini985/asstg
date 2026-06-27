@@ -752,78 +752,165 @@
 
                     <!-- Tab 3: Registration -->
                     <div class="event-tab-pane" id="event-registration">
-                        <div class="event-registration-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
-                            <!-- Pricing info -->
-                            <div class="registration-pricing-info">
-                                <h3 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--primary-color); margin-bottom: 2rem;">Registration Tiers</h3>
-                                <p style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 3rem;">Please select the appropriate tier to proceed with your registration. Registrants will get full access to scientific sessions, networking lunch, conference kits, and CME credits.</p>
-                                
-                                <div class="fees-rows-wrapper" style="display: flex; flex-direction: column; gap: 2rem;">
-                                    <div class="fee-row-item" style="display: flex; align-items: center; justify-content: space-between; background: var(--section-bg-color); padding: 2rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-color);">
-                                        <div>
-                                            <h4 style="font-size: 1.65rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.4rem;">Consultant Delegate</h4>
-                                            <p style="font-size: 1.35rem; color: var(--text-muted); margin-bottom: 0;">For certified orthopedic & neuro spine specialists.</p>
+                        <!-- Row 1: Pricing & Payment Information -->
+                        <div class="registration-row-1" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; margin-bottom: 5rem; align-items: stretch;">
+                            <!-- Fee details with separate buttons -->
+                            <div class="registration-pricing-info" style="display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 4rem; box-shadow: var(--shadow-sm);">
+                                <div>
+                                    <h3 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--primary-color); margin-bottom: 1.5rem; font-weight: 700;">Registration Tiers</h3>
+                                    <p style="font-size: 1.45rem; color: var(--text-muted); margin-bottom: 3rem;">Please select the appropriate tier to proceed with your registration. Click the button to select the category and fill out the registration form below.</p>
+                                    
+                                    <div class="fees-rows-wrapper" style="display: flex; flex-direction: column; gap: 2rem;">
+                                        <!-- Consultant -->
+                                        <div class="fee-row-item" style="display: flex; align-items: center; justify-content: space-between; background: var(--section-bg-color); padding: 2rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-color);">
+                                            <div>
+                                                <h4 style="font-size: 1.65rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.4rem;">Consultant Delegate</h4>
+                                                <span class="price-val" style="font-size: 2.2rem; font-weight: 700; color: var(--secondary-color);">₹1,000</span>
+                                            </div>
+                                            <button class="btn btn-secondary-sm" onclick="selectTierAndScroll('consultant')" style="padding: 1rem 2rem; font-size: 1.25rem;">Register as Consultant</button>
                                         </div>
-                                        <span class="price-val" style="font-size: 2.2rem; font-weight: 700; color: var(--secondary-color);">₹3,000</span>
-                                    </div>
-                                    <div class="fee-row-item" style="display: flex; align-items: center; justify-content: space-between; background: var(--section-bg-color); padding: 2rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-color);">
-                                        <div>
-                                            <h4 style="font-size: 1.65rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.4rem;">PG Student / DNB</h4>
-                                            <p style="font-size: 1.35rem; color: var(--text-muted); margin-bottom: 0;">Valid ID or head endorsement required.</p>
+                                        
+                                        <!-- PG / Trainee -->
+                                        <div class="fee-row-item" style="display: flex; align-items: center; justify-content: space-between; background: var(--section-bg-color); padding: 2rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-color);">
+                                            <div>
+                                                <h4 style="font-size: 1.65rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.4rem;">PG Student / Trainee</h4>
+                                                <span class="price-val" style="font-size: 2.2rem; font-weight: 700; color: var(--secondary-color);">₹500</span>
+                                            </div>
+                                            <button class="btn btn-secondary-sm" onclick="selectTierAndScroll('pg')" style="padding: 1rem 2rem; font-size: 1.25rem;">Register as PG/Trainee</button>
                                         </div>
-                                        <span class="price-val" style="font-size: 2.2rem; font-weight: 700; color: var(--secondary-color);">₹1,000</span>
                                     </div>
                                 </div>
                             </div>
                             
-                            <!-- Inline Registration Form -->
-                            <div class="contact-form-wrap" style="padding: 4rem 3rem;">
-                                <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;">Register Online</h3>
-                                <p style="font-size: 1.35rem; color: var(--text-muted); margin-bottom: 2.5rem;">Fill out the form below to initiate your registration.</p>
-                                
-                                <form id="regFormInline" onsubmit="handleRegistrationSubmit(event)">
-                                    <div class="form-row split-2">
-                                        <div class="form-group">
-                                            <label for="reg-name-inline">Full Name *</label>
-                                            <input type="text" id="reg-name-inline" required placeholder="Dr. First Last">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="reg-category-inline">Registration Tier *</label>
-                                            <select id="reg-category-inline" required>
-                                                <option value="" disabled selected>Select category</option>
-                                                <option value="consultant">Consultant - ₹3,000</option>
-                                                <option value="pg">PG Student / DNB - ₹1,000</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-row split-2">
-                                        <div class="form-group">
-                                            <label for="reg-email-inline">Email Address *</label>
-                                            <input type="email" id="reg-email-inline" required placeholder="name@hospital.com">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="reg-phone-inline">Mobile Number *</label>
-                                            <input type="tel" id="reg-phone-inline" required placeholder="+91 XXXXX XXXXX">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="reg-inst-inline">Hospital / Institution Affiliation *</label>
-                                            <input type="text" id="reg-inst-inline" required placeholder="Affiliation hospital name">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="reg-mcl-inline">Medical Council Registration No. *</label>
-                                            <input type="text" id="reg-mcl-inline" required placeholder="State Council Registration Number">
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-secondary btn-full">Proceed to Payment</button>
-                                    <div class="form-success-msg" id="regSuccessInline">
-                                        <i class="fa-solid fa-circle-check"></i> Registration submitted! You will receive confirmation and payment link shortly.
-                                    </div>
-                                </form>
+                            <!-- Payment / Bank details + QR Code -->
+                            <div class="payment-bank-info" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 4rem; box-shadow: var(--shadow-sm); align-items: center;">
+                                <div class="bank-details-text">
+                                    <h3 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--primary-color); margin-bottom: 2rem; font-weight: 700;">Account Details</h3>
+                                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 1.45rem; line-height: 1.8; color: var(--text-color);">
+                                        <li style="margin-bottom: 1rem;"><strong>Bank</strong>: Union Bank of India</li>
+                                        <li style="margin-bottom: 1rem;"><strong>Branch</strong>: PBB - Nampally</li>
+                                        <li style="margin-bottom: 1rem;"><strong>Account Name</strong>: Twin Cities Spine Association</li>
+                                        <li style="margin-bottom: 1rem;"><strong>Account No.</strong>: 520101264844341</li>
+                                        <li style="margin-bottom: 1rem;"><strong>IFSC Code</strong>: UBIN0905241</li>
+                                    </ul>
+                                </div>
+                                <div class="payment-qr-wrap" style="text-align: center;">
+                                    <img src="assets/registration_qr_code.png" alt="Scan and Pay QR Code" style="max-width: 140px; border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; background: #FFF; margin-bottom: 1rem;">
+                                    <span style="display: block; font-size: 1.25rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px;">Scan & Pay</span>
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- Row 2: Inline Registration Form -->
+                        <div class="registration-row-2 scroll-reveal" id="registration-form-row" style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 5rem 6rem; box-shadow: var(--shadow-sm);">
+                            <div class="form-header" style="text-align: center; margin-bottom: 4rem; border-bottom: 1px solid var(--border-color); padding-bottom: 2rem;">
+                                <h3 style="font-family: var(--font-heading); font-size: 2.4rem; color: var(--primary-color); font-weight: 700; margin-bottom: 1rem;">1st Annual Conference of ASST</h3>
+                                <p style="font-size: 1.5rem; color: var(--text-muted);">Please fill out the details below to complete your registration process.</p>
+                            </div>
+                            
+                            <form id="regFormInline" onsubmit="handleRegistrationSubmit(event)">
+                                <div class="form-row split-3">
+                                    <div class="form-group">
+                                        <label>Title *</label>
+                                        <div style="display: flex; gap: 2rem; margin-top: 1rem;">
+                                            <label style="display: flex; align-items: center; gap: 0.8rem; font-weight: 500; font-size: 1.4rem; cursor: pointer;">
+                                                <input type="radio" name="reg_title" value="Dr" required style="width: auto; margin: 0; cursor: pointer;"> Dr.
+                                            </label>
+                                            <label style="display: flex; align-items: center; gap: 0.8rem; font-weight: 500; font-size: 1.4rem; cursor: pointer;">
+                                                <input type="radio" name="reg_title" value="Prof" style="width: auto; margin: 0; cursor: pointer;"> Prof.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gender *</label>
+                                        <div style="display: flex; gap: 2rem; margin-top: 1rem;">
+                                            <label style="display: flex; align-items: center; gap: 0.8rem; font-weight: 500; font-size: 1.4rem; cursor: pointer;">
+                                                <input type="radio" name="reg_gender" value="Male" required style="width: auto; margin: 0; cursor: pointer;"> Male
+                                            </label>
+                                            <label style="display: flex; align-items: center; gap: 0.8rem; font-weight: 500; font-size: 1.4rem; cursor: pointer;">
+                                                <input type="radio" name="reg_gender" value="Female" style="width: auto; margin: 0; cursor: pointer;"> Female
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-dob-inline">Date of Birth *</label>
+                                        <input type="date" id="reg-dob-inline" name="reg_dob" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row split-2">
+                                    <div class="form-group">
+                                        <label for="reg-fname-inline">First Name *</label>
+                                        <input type="text" id="reg-fname-inline" name="reg_fname" required placeholder="First Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-lname-inline">Last Name *</label>
+                                        <input type="text" id="reg-lname-inline" name="reg_lname" required placeholder="Last Name">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row split-2">
+                                    <div class="form-group">
+                                        <label for="reg-qual-inline">Qualification *</label>
+                                        <input type="text" id="reg-qual-inline" name="reg_qual" required placeholder="e.g. MS, DNB, M.Ch (Ortho/Neuro)">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-inst-inline">Hospital / Institution *</label>
+                                        <input type="text" id="reg-inst-inline" name="reg_hosp" required placeholder="Hospital or Institution affiliation">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="reg-addr-inline">Address *</label>
+                                        <input type="text" id="reg-addr-inline" name="reg_address" required placeholder="Full communication address">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row split-3">
+                                    <div class="form-group">
+                                        <label for="reg-city-inline">City *</label>
+                                        <input type="text" id="reg-city-inline" name="reg_city" required placeholder="City">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-state-inline">State *</label>
+                                        <input type="text" id="reg-state-inline" name="reg_state" required placeholder="State">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-pin-inline">Pin Code *</label>
+                                        <input type="text" id="reg-pin-inline" name="reg_pin" required placeholder="6-digit PIN code">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row split-2">
+                                    <div class="form-group">
+                                        <label for="reg-phone-inline">Mobile Number *</label>
+                                        <input type="tel" id="reg-phone-inline" name="reg_phone" required placeholder="+91 XXXXX XXXXX">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-email-inline">Email Address *</label>
+                                        <input type="email" id="reg-email-inline" name="reg_email" required placeholder="name@hospital.com">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row split-2">
+                                    <div class="form-group">
+                                        <label for="reg-category-inline">Registration Category *</label>
+                                        <select id="reg-category-inline" name="reg_category" required>
+                                            <option value="" disabled selected>Select category</option>
+                                            <option value="consultant">Consultant Delegate - ₹1,000</option>
+                                            <option value="pg">PG Student / Trainee - ₹500</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="display: flex; align-items: flex-end;">
+                                        <button type="submit" class="btn btn-secondary btn-full" style="height: 5.4rem;">Submit Registration</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-success-msg" id="regSuccessInline" style="margin-top: 2rem;">
+                                    <i class="fa-solid fa-circle-check"></i> Registration submitted successfully! Please proceed with payment via QR scan or Bank transfer.
+                                </div>
+                            </form>
                         </div>
                     </div>
 
@@ -1335,6 +1422,6 @@
     </button>
 
     <!-- Scripts -->
-    <script src="js/main.js?v=1.7" defer></script>
+    <script src="js/main.js?v=1.8" defer></script>
 </body>
 </html>

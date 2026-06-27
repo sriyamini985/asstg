@@ -589,6 +589,17 @@ const initApp = () => {
     });
 };
 
+window.selectTierAndScroll = (tier) => {
+    const selectEl = document.getElementById('reg-category-inline');
+    if (selectEl) {
+        selectEl.value = tier;
+    }
+    const formRow = document.getElementById('registration-form-row');
+    if (formRow) {
+        formRow.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+
 window.openCountdownPopup = () => {
     const popup = document.getElementById('countdownPopup');
     const miniBtn = document.getElementById('countdownMiniBtn');
