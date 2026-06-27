@@ -91,6 +91,14 @@ window.openMembershipFormModal = () => {
     }
 };
 
+window.openMembershipModal = () => {
+    window.openMembershipFormModal();
+};
+
+window.closeMembershipModal = () => {
+    window.closeMembershipFormModal();
+};
+
 window.closeMembershipFormModal = () => {
     const modal = document.getElementById('membershipModal');
     if (modal) {
@@ -441,7 +449,7 @@ const initApp = () => {
     }
 
     // 4. COUNTDOWN TIMER (ASSTCON 2026: 27 September 2026 09:00:00)
-    const countdownDate = new Date('September 27, 2026 09:00:00').getTime();
+    const countdownDate = new Date('2026-09-27T09:00:00').getTime();
     const updateCountdown = () => {
         const now = new Date().getTime();
         const distance = countdownDate - now;
