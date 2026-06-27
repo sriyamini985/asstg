@@ -263,6 +263,27 @@ const initApp = () => {
         document.head.appendChild(styleSheet);
     }
 
+    // 7. INTERSECTION OBSERVER FOR SCROLL REVEAL
+    const revealCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Trigger only once
+            }
+        });
+    };
+    const revealObserver = new IntersectionObserver(revealCallback, {
+        root: null,
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+    });
+    const revealCheck = () => {
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        revealElements.forEach(el => revealObserver.observe(el));
+    };
+    revealCheck();
+
+
     // 1. SHRINKING & STICKY HEADER
     const header = document.getElementById('header');
     const handleScroll = () => {
@@ -533,25 +554,6 @@ const initApp = () => {
         });
     });
 
-    // 7. INTERSECTION OBSERVER FOR SCROLL REVEAL
-    const revealCallback = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Trigger only once
-            }
-        });
-    };
-    const revealObserver = new IntersectionObserver(revealCallback, {
-        root: null,
-        threshold: 0.1,
-        rootMargin: '0px 0px -40px 0px'
-    });
-    const revealCheck = () => {
-        const revealElements = document.querySelectorAll('.scroll-reveal');
-        revealElements.forEach(el => revealObserver.observe(el));
-    };
-    revealCheck();
 
     // 8. FLOATING EVENT COUNTDOWN POPUP LOGIC
     const popup = document.getElementById('countdownPopup');
