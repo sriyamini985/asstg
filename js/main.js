@@ -17,31 +17,113 @@ document.addEventListener('DOMContentLoaded', () => {
     handleScroll(); // Initial check on load
 
     // =========================================================================
-    // 2. ACTIVE LINK HIGHLIGHT ON SCROLL
+    // 2. SPA ROUTER
     // =========================================================================
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    const highlightNav = () => {
-        let scrollY = window.pageYOffset;
+    const routes = {
+        '/': 'page-home',
+        '/about': 'page-about',
+        '/membership': 'page-membership',
+        '/committee': 'page-committee',
+        '/events': 'page-events',
+        '/contact': 'page-contact'
+    };
+
+    window.navigateTo = (url) => {
+        history.pushState(null, null, url);
+        router();
+    };
+
+    const router = () => {
+        const path = window.location.pathname;
+        const search = window.location.search;
+        const targetViewId = routes[path] || 'page-home';
         
-        sections.forEach(current => {
-            const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 120;
-            const sectionId = current.getAttribute('id');
-            
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
+        // Hide all views
+        document.querySelectorAll('.page-view').forEach(view => {
+            view.style.display = 'none';
+        });
+        
+        // Show target view
+        const targetView = document.getElementById(targetViewId);
+        if (targetView) {
+            targetView.style.display = 'block';
+        }
+        
+        // Highlight active navbar link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href) {
+                // If it matches pathname exactly or if pathname is /events and link is events
+                if (href === path || (path === '/events' && href.startsWith('/events'))) {
+                    link.classList.add('active');
+                }
+            }
+        });
+
+        // Trigger reveal checker for the newly shown page
+        setTimeout(revealCheck, 100);
+
+        // Handle specific views logic
+        if (path === '/events') {
+            const params = new URLSearchParams(search);
+            const tab = params.get('tab') || 'welcome';
+            switchEventTab(tab);
+        }
+
+        // Scroll to top of page
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+
+    // Sub-tab switcher for events
+    window.switchEventTab = (tabName) => {
+        const subTabBtns = document.querySelectorAll('.event-tab-btn');
+        const subTabPanes = document.querySelectorAll('.event-tab-pane');
+        
+        subTabBtns.forEach(btn => {
+            const dataTab = btn.getAttribute('data-tab');
+            if (dataTab === tabName || dataTab === `event-${tabName}`) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        
+        subTabPanes.forEach(pane => {
+            const id = pane.getAttribute('id');
+            if (id === tabName || id === `event-${tabName}`) {
+                pane.classList.add('active');
+                pane.style.display = 'block';
+            } else {
+                pane.classList.remove('active');
+                pane.style.display = 'none';
             }
         });
     };
-    
-    window.addEventListener('scroll', highlightNav);
+
+    // Intercept data-link clicks
+    document.body.addEventListener('click', e => {
+        const target = e.target.closest('[data-link]');
+        if (target) {
+            e.preventDefault();
+            navigateTo(target.getAttribute('href'));
+            // Close mobile menu if open
+            const navMenu = document.querySelector('.navigation-menu');
+            const mobileToggle = document.querySelector('.mobile-nav-toggle');
+            if (navMenu && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('hamburger-active');
+                document.body.classList.remove('no-scroll');
+            }
+        }
+    });
+
+    // Handle back/forward navigation
+    window.addEventListener('popstate', router);
+
+    // Initial routing
+    router();
 
     // =========================================================================
     // 3. MOBILE MENU TOGGLE
@@ -50,22 +132,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.querySelector('.navigation-menu');
     const body = document.body;
     
-    mobileToggle.addEventListener('click', () => {
-        const isActive = navMenu.classList.toggle('active');
-        mobileToggle.classList.toggle('hamburger-active');
-        body.classList.toggle('no-scroll');
-        mobileToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-    });
-    
-    // Close mobile menu on link click
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            mobileToggle.classList.remove('hamburger-active');
-            body.classList.remove('no-scroll');
-            mobileToggle.setAttribute('aria-expanded', 'false');
+    if (mobileToggle && navMenu) {
+        mobileToggle.addEventListener('click', () => {
+            const isActive = navMenu.classList.toggle('active');
+            mobileToggle.classList.toggle('hamburger-active');
+            body.classList.toggle('no-scroll');
+            mobileToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
         });
-    });
+    }
 
     // =========================================================================
     // 4. COUNTDOWN TIMER (ASSTCON 2026: 27 September 2026 09:00:00)
@@ -80,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const h = document.getElementById('hours');
         const m = document.getElementById('minutes');
         const s = document.getElementById('seconds');
-
+        
         const pd = document.getElementById('popup-days');
         const ph = document.getElementById('popup-hours');
         const pm = document.getElementById('popup-minutes');
@@ -117,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateCountdown, 1000);
     updateCountdown(); // Run immediately
 
-
     // =========================================================================
     // 5. MEMBERSHIP INTERACTIVE TABS
     // =========================================================================
@@ -136,38 +209,25 @@ document.addEventListener('DOMContentLoaded', () => {
             
             btn.classList.add('active');
             btn.setAttribute('aria-selected', 'true');
-            document.getElementById(targetTab).classList.add('active');
+            const targetEl = document.getElementById(targetTab);
+            if (targetEl) targetEl.classList.add('active');
         });
     });
 
     // =========================================================================
-    // 6. EVENTS & CALENDAR FILTER
+    // 6. EVENTS INNER SUB-TABS INTERACTIVE HANDLERS
     // =========================================================================
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const eventCards = document.querySelectorAll('.events-grid .event-card');
-    
-    filterBtns.forEach(btn => {
+    document.querySelectorAll('.event-tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const filterValue = btn.getAttribute('data-filter');
-            
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            eventCards.forEach(card => {
-                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            const tabName = btn.getAttribute('data-tab').replace('event-', '');
+            history.pushState(null, null, `/events?tab=${tabName}`);
+            switchEventTab(tabName);
         });
     });
 
     // =========================================================================
     // 7. INTERSECTION OBSERVER FOR SCROLL REVEAL
     // =========================================================================
-    const revealElements = document.querySelectorAll('.scroll-reveal');
-    
     const revealCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -183,7 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
         rootMargin: '0px 0px -40px 0px'
     });
     
-    revealElements.forEach(el => revealObserver.observe(el));
+    const revealCheck = () => {
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        revealElements.forEach(el => revealObserver.observe(el));
+    };
+
+    revealCheck();
     
     // Add visible class styling via inline styles to handle cases before style loads
     const styleSheet = document.createElement("style");
@@ -200,30 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.head.appendChild(styleSheet);
 
-    // =========================================================================
-    // 8. CONFERENCE DETAILS TABS (INSIDE EVENT DETAILS MODAL)
-    // =========================================================================
-    const detailsTabBtns = document.querySelectorAll('.details-tab-btn');
-    const detailsTabContents = document.querySelectorAll('.details-tab-content');
-    
-    detailsTabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetDetailsTab = btn.getAttribute('data-details-tab');
-            
-            detailsTabBtns.forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-selected', 'false');
-            });
-            detailsTabContents.forEach(c => c.classList.remove('active'));
-            
-            btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
-            document.getElementById(`details-${targetDetailsTab}`).classList.add('active');
-        });
-    });
-
-    // Lightbox system removed
-
     // Close modal overlays on backdrop click
     const modalOverlays = document.querySelectorAll('.modal-overlay');
     modalOverlays.forEach(overlay => {
@@ -237,10 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // =============================================================================
-// 9b. PREMIUM TOAST NOTIFICATION SYSTEM
+// 8. PREMIUM TOAST NOTIFICATION SYSTEM
 // =============================================================================
 window.showToast = (message) => {
-    // Check if container exists
     let container = document.getElementById('toast-container');
     if (!container) {
         container = document.createElement('div');
@@ -258,7 +298,6 @@ window.showToast = (message) => {
         document.body.appendChild(container);
     }
     
-    // Create toast card
     const toast = document.createElement('div');
     toast.className = 'custom-toast';
     toast.style.cssText = `
@@ -280,17 +319,14 @@ window.showToast = (message) => {
         pointer-events: auto;
     `;
     
-    // Icon & content
     toast.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--secondary-color, #C89B3C); font-size: 1.6rem;"></i> <span>${message}</span>`;
     container.appendChild(toast);
     
-    // Trigger slide-up fade-in
     setTimeout(() => {
         toast.style.transform = 'translateY(0)';
         toast.style.opacity = '1';
     }, 50);
     
-    // Auto remove after 4 seconds
     setTimeout(() => {
         toast.style.transform = 'translateY(-20px)';
         toast.style.opacity = '0';
@@ -301,7 +337,7 @@ window.showToast = (message) => {
 };
 
 // =============================================================================
-// 10. GLOBAL MODAL CONTROLLER FUNCTIONS (ACCESSIBLE FROM INLINE HTML)
+// 9. GLOBAL MODAL CONTROLLER FUNCTIONS
 // =============================================================================
 const toggleBodyScroll = (lock) => {
     if (lock) {
@@ -311,105 +347,88 @@ const toggleBodyScroll = (lock) => {
     }
 };
 
-// ASSTCON 2026 Registration Modal
 window.openRegistrationModal = () => {
-    document.getElementById('registrationModal').classList.add('active');
-    toggleBodyScroll(true);
+    const modal = document.getElementById('registrationModal');
+    if (modal) {
+        modal.classList.add('active');
+        toggleBodyScroll(true);
+    }
 };
 window.closeRegistrationModal = () => {
-    document.getElementById('registrationModal').classList.remove('active');
-    toggleBodyScroll(false);
+    const modal = document.getElementById('registrationModal');
+    if (modal) {
+        modal.classList.remove('active');
+        toggleBodyScroll(false);
+    }
 };
 
-// Membership Application Modal
 window.openMembershipFormModal = () => {
-    document.getElementById('membershipModal').classList.add('active');
-    toggleBodyScroll(true);
+    const modal = document.getElementById('membershipModal');
+    if (modal) {
+        modal.classList.add('active');
+        toggleBodyScroll(true);
+    }
 };
 window.closeMembershipFormModal = () => {
-    document.getElementById('membershipModal').classList.remove('active');
-    toggleBodyScroll(false);
+    const modal = document.getElementById('membershipModal');
+    if (modal) {
+        modal.classList.remove('active');
+        toggleBodyScroll(false);
+    }
 };
 
-// Event Details (Scientific timeline) Modal
-window.openEventDetailsModal = () => {
-    document.getElementById('detailsModal').classList.add('active');
-    toggleBodyScroll(true);
-};
-window.closeEventDetailsModal = () => {
-    document.getElementById('detailsModal').classList.remove('active');
-    toggleBodyScroll(false);
-};
-
-// About Details Modal
-window.openAboutDetailsModal = () => {
-    document.getElementById('aboutDetailsModal').classList.add('active');
-    toggleBodyScroll(true);
-};
-window.closeAboutDetailsModal = () => {
-    document.getElementById('aboutDetailsModal').classList.remove('active');
-    toggleBodyScroll(false);
-};
-
-// Close modals on escape key press
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         const activeModals = document.querySelectorAll('.modal-overlay.active');
         activeModals.forEach(modal => modal.classList.remove('active'));
-        
-        const lightbox = document.getElementById('lightboxModal');
-        if (lightbox && lightbox.style.display === 'flex') {
-            closeLightbox();
-        }
-        
         toggleBodyScroll(false);
     }
 });
 
 // =============================================================================
-// 11. FORM HANDLERS (VALIDATION & RETURNING NOTIFICATION SUCCESS)
+// 10. FORM HANDLERS (VALIDATION & RETURNING NOTIFICATION SUCCESS)
 // =============================================================================
 window.handleContactSubmit = (e) => {
     e.preventDefault();
-    const form = document.getElementById('contactForm');
+    const form = e.target;
     const button = form.querySelector('button[type="submit"]');
     const originalText = button.innerHTML;
     
-    // Set button loading state
     button.disabled = true;
     button.classList.add('btn-loading');
     button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...`;
     
     setTimeout(() => {
-        const successMsg = document.getElementById('contactSuccess');
-        successMsg.style.display = 'flex';
-        successMsg.style.opacity = '0';
-        setTimeout(() => {
-            successMsg.style.transition = 'opacity 0.4s ease';
-            successMsg.style.opacity = '1';
-        }, 50);
+        const successMsg = form.querySelector('.form-success-msg') || document.getElementById('contactSuccess');
+        if (successMsg) {
+            successMsg.style.display = 'flex';
+            successMsg.style.opacity = '0';
+            setTimeout(() => {
+                successMsg.style.transition = 'opacity 0.4s ease';
+                successMsg.style.opacity = '1';
+            }, 50);
+        }
         
-        // Reset form
         form.reset();
         
-        // Restore button state
         button.disabled = false;
         button.classList.remove('btn-loading');
         button.innerHTML = originalText;
         
-        // Hide success alert after 6 seconds
         setTimeout(() => {
-            successMsg.style.opacity = '0';
-            setTimeout(() => {
-                successMsg.style.display = 'none';
-            }, 400);
+            if (successMsg) {
+                successMsg.style.opacity = '0';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 400);
+            }
         }, 6000);
-    }, 1500); // 1.5s simulated delay
+    }, 1500);
 };
 
 window.handleRegistrationSubmit = (e) => {
     e.preventDefault();
-    const form = document.getElementById('regForm');
+    const form = e.target;
     const button = form.querySelector('button[type="submit"]');
     const originalText = button.innerHTML;
     
@@ -418,13 +437,15 @@ window.handleRegistrationSubmit = (e) => {
     button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Processing...`;
     
     setTimeout(() => {
-        const successMsg = document.getElementById('regSuccess');
-        successMsg.style.display = 'flex';
-        successMsg.style.opacity = '0';
-        setTimeout(() => {
-            successMsg.style.transition = 'opacity 0.4s ease';
-            successMsg.style.opacity = '1';
-        }, 50);
+        const successMsg = form.querySelector('.form-success-msg') || document.getElementById('regSuccess');
+        if (successMsg) {
+            successMsg.style.display = 'flex';
+            successMsg.style.opacity = '0';
+            setTimeout(() => {
+                successMsg.style.transition = 'opacity 0.4s ease';
+                successMsg.style.opacity = '1';
+            }, 50);
+        }
         
         form.reset();
         
@@ -433,18 +454,22 @@ window.handleRegistrationSubmit = (e) => {
         button.innerHTML = originalText;
         
         setTimeout(() => {
-            successMsg.style.opacity = '0';
-            setTimeout(() => {
-                successMsg.style.display = 'none';
-                closeRegistrationModal();
-            }, 400);
+            if (successMsg) {
+                successMsg.style.opacity = '0';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                    if (form.id === 'regForm') {
+                        closeRegistrationModal();
+                    }
+                }, 400);
+            }
         }, 4000);
     }, 1500);
 };
 
 window.handleMembershipSubmit = (e) => {
     e.preventDefault();
-    const form = document.getElementById('memForm');
+    const form = e.target;
     const button = form.querySelector('button[type="submit"]');
     const originalText = button.innerHTML;
     
@@ -453,13 +478,15 @@ window.handleMembershipSubmit = (e) => {
     button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...`;
     
     setTimeout(() => {
-        const successMsg = document.getElementById('memSuccess');
-        successMsg.style.display = 'flex';
-        successMsg.style.opacity = '0';
-        setTimeout(() => {
-            successMsg.style.transition = 'opacity 0.4s ease';
-            successMsg.style.opacity = '1';
-        }, 50);
+        const successMsg = form.querySelector('.form-success-msg') || document.getElementById('memSuccess');
+        if (successMsg) {
+            successMsg.style.display = 'flex';
+            successMsg.style.opacity = '0';
+            setTimeout(() => {
+                successMsg.style.transition = 'opacity 0.4s ease';
+                successMsg.style.opacity = '1';
+            }, 50);
+        }
         
         form.reset();
         
@@ -468,11 +495,13 @@ window.handleMembershipSubmit = (e) => {
         button.innerHTML = originalText;
         
         setTimeout(() => {
-            successMsg.style.opacity = '0';
-            setTimeout(() => {
-                successMsg.style.display = 'none';
-                closeMembershipModal();
-            }, 400);
+            if (successMsg) {
+                successMsg.style.opacity = '0';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                    closeMembershipFormModal();
+                }, 400);
+            }
         }, 4000);
     }, 1500);
 };
@@ -531,5 +560,3 @@ window.closeCountdownPopup = () => {
 window.handlePopupCta = (e) => {
     window.closeCountdownPopup();
 };
-
-
