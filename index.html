@@ -39,14 +39,14 @@
                     <li><a href="/about" class="nav-link" data-link>About Us</a></li>
                     <li><a href="/membership" class="nav-link" data-link>Membership</a></li>
                     <li><a href="/committee" class="nav-link" data-link>Committee</a></li>
-                    <li class="nav-dropdown-wrapper">
+                    <li class="nav-item dropdown nav-dropdown-wrapper">
                         <a href="/events" class="nav-link" data-link id="nav-events-link">Events <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
                         <ul class="nav-dropdown">
-                            <li><a href="/events?tab=welcome" class="dropdown-item" data-link>Welcome Message</a></li>
-                            <li><a href="/events?tab=details" class="dropdown-item" data-link>Conference Details</a></li>
-                            <li><a href="/events?tab=registration" class="dropdown-item" data-link>Registration</a></li>
-                            <li><a href="/events?tab=venue" class="dropdown-item" data-link>Venue Details</a></li>
-                            <li><a href="/events?tab=places" class="dropdown-item" data-link>Places to Visit</a></li>
+                            <li><a href="/events?tab=welcome" class="dropdown-item nav-dropdown-link" data-link>Welcome Message</a></li>
+                            <li><a href="/events?tab=details" class="dropdown-item nav-dropdown-link" data-link>Conference Details</a></li>
+                            <li><a href="/events?tab=registration" class="dropdown-item nav-dropdown-link" data-link>Registration</a></li>
+                            <li><a href="/events?tab=venue" class="dropdown-item nav-dropdown-link" data-link>Venue Details</a></li>
+                            <li><a href="/events?tab=places" class="dropdown-item nav-dropdown-link" data-link>Places to Visit</a></li>
                         </ul>
                     </li>
                     <li><a href="/contact" class="nav-link" data-link>Contact Us</a></li>
@@ -69,7 +69,6 @@
 
                 <div class="container hero-container">
                     <div class="hero-content scroll-reveal">
-                        <span class="hero-tagline"><span class="bullet"></span> Professional Medical Association</span>
                         <h1 class="hero-title">Association of Spine Surgeons of Telangana</h1>
                         <p class="hero-description">
                             The Association of Spine Surgeons of Telangana is dedicated to advancing spine surgery through education, research, collaboration, and professional excellence.
@@ -506,116 +505,126 @@
                     </div>
                     
                     <div class="committee-hierarchy-container">
-                        <div class="committee-subgroup scroll-reveal">
-                            <div class="executive-grid-new" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 3rem; margin-top: 2rem;">
-                                <!-- President -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_raghava_dutt.jpg" alt="Dr. Raghava Dutt M" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Raghava Dutt M</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">President</span>
-                                    </div>
+                        <!-- Row 1: President & Secretary -->
+                        <div class="committee-row-2-col" style="margin-bottom: 4rem;">
+                            <!-- President -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_raghava_dutt.jpg" alt="Dr. Raghava Dutt M" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                                 </div>
-                                
-                                <!-- Secretary -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_pavan_kumar.jpg" alt="Dr. A Pavan Kumar" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. A Pavan Kumar</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Secretary</span>
-                                    </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Raghava Dutt M</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">President</span>
                                 </div>
-                                
-                                <!-- Treasurer -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_c_suresh.jpg" alt="Dr. Suresh Cheekatla" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Suresh Cheekatla</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Treasurer</span>
-                                    </div>
+                            </div>
+                            
+                            <!-- Secretary -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_pavan_kumar.jpg" alt="Dr. A Pavan Kumar" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                                 </div>
-                                
-                                <!-- Joint Secretary -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_devanand.jpg" alt="Dr. Devanand Devendrappa" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. D Devanand</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Joint Secretary</span>
-                                    </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. A Pavan Kumar</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Secretary</span>
                                 </div>
-                                
-                                <!-- Executive Member 1 -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_ramdas_maloth.jpg" alt="Dr. Ram Das M" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Ram Das M</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Executive Member</span>
-                                    </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Treasurer & Joint Secretary -->
+                        <div class="committee-row-2-col" style="margin-bottom: 6rem;">
+                            <!-- Treasurer -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_c_suresh.jpg" alt="Dr. Suresh Cheekatla" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                                 </div>
-                                
-                                <!-- Executive Member 2 -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_satya_narayana.jpg" alt="Dr. PVSN Murthy" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. PVSN Murthy</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Executive Member</span>
-                                    </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Suresh Cheekatla</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Treasurer</span>
                                 </div>
-                                
-                                <!-- Executive Member 3 -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_sri_krishna_chaitanya.jpg" alt="Dr. Krishna Chaitanya" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Krishna Chaitanya</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Executive Member</span>
-                                    </div>
+                            </div>
+                            
+                            <!-- Joint Secretary -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_devanand.jpg" alt="Dr. Devanand Devendrappa" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                                 </div>
-                                
-                                <!-- Executive Member 4 -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_abhinandan.jpg" alt="Dr. M. Abinandan Reddy" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. M. Abinandan Reddy</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Executive Member</span>
-                                    </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. D Devanand</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Joint Secretary</span>
                                 </div>
-                                
-                                <!-- Ex-Officio 1 -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_surya_prakash.jpg" alt="Dr. Suryaprakash" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Suryaprakash</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Ex-Officio Member</span>
-                                    </div>
+                            </div>
+                        </div>
+
+                        <!-- Section Heading for Executive Committee -->
+                        <div class="section-header text-center" style="margin-bottom: 4rem;">
+                            <h3 style="font-family: var(--font-heading); font-size: 2.4rem; color: var(--primary-color); font-weight: 700;">Executive Committee</h3>
+                        </div>
+
+                        <!-- Row 3 & 4: Executive Committee (2 rows of 3 members each) -->
+                        <div class="executive-committee-grid">
+                            <!-- Executive Member 1 -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_ramdas_maloth.jpg" alt="Dr. Ram Das M" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                                 </div>
-                                
-                                <!-- Ex-Officio 2 -->
-                                <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
-                                    <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
-                                        <img src="assets/organizers/dr_raju_iyengar.jpg" alt="Dr. Raju Iyengar" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                                    </div>
-                                    <div class="bearer-info">
-                                        <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Raju Iyengar</h4>
-                                        <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Ex-Officio Member</span>
-                                    </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Ram Das M</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Executive Member</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Executive Member 2 -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_satya_narayana.jpg" alt="Dr. PVSN Murthy" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. PVSN Murthy</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Executive Member</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Executive Member 3 -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_sri_krishna_chaitanya.jpg" alt="Dr. Krishna Chaitanya" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Krishna Chaitanya</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Executive Member</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Executive Member 4 -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_abhinandan.jpg" alt="Dr. M. Abinandan Reddy" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. M. Abinandan Reddy</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Executive Member</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Ex-Officio 1 -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_surya_prakash.jpg" alt="Dr. Suryaprakash" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Suryaprakash</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Ex-Officio Member</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Ex-Officio 2 -->
+                            <div class="bearer-card bearer-card-sm" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 3rem; box-shadow: var(--shadow-sm); height: 100%;">
+                                <div class="bearer-avatar-wrap" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--secondary-color);">
+                                    <img src="assets/organizers/dr_raju_iyengar.jpg" alt="Dr. Raju Iyengar" class="bearer-img" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                                </div>
+                                <div class="bearer-info">
+                                    <h4 style="font-size: 1.7rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 700;">Dr. Raju Iyengar</h4>
+                                    <span class="designation" style="font-size: 1.35rem; color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Ex-Officio Member</span>
                                 </div>
                             </div>
                         </div>

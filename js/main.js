@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleScroll(); // Initial check on load
 
     // =========================================================================
-    // 2. SPA ROUTER
+    // 2. SPA ROUTER WITH FILE PROTOCOL FALLBACK & STATE MANAGEMENT
     // =========================================================================
     const routes = {
         '/': 'page-home',
@@ -28,15 +28,63 @@ document.addEventListener('DOMContentLoaded', () => {
         '/contact': 'page-contact'
     };
 
+    let currentPath = '/';
+    let currentSearch = '';
+
+    // Initialize clean state from current URL on page load
+    const initRouteFromLocation = () => {
+        const fullUrl = window.location.href;
+        try {
+            const urlObj = new URL(fullUrl);
+            currentPath = urlObj.pathname;
+            currentSearch = urlObj.search;
+            
+            // Normalize path for local file protocol or root subfolders
+            if (currentPath.endsWith('/index.html')) {
+                currentPath = '/';
+            } else {
+                const lastPart = '/' + currentPath.split('/').pop();
+                if (routes[lastPart]) {
+                    currentPath = lastPart;
+                } else if (currentPath !== '/') {
+                    currentPath = '/';
+                }
+            }
+        } catch (e) {
+            currentPath = '/';
+            currentSearch = '';
+        }
+    };
+
     window.navigateTo = (url) => {
-        history.pushState(null, null, url);
+        // url can be "/about" or "/events?tab=details"
+        try {
+            history.pushState(null, null, url);
+        } catch (e) {
+            console.warn("History pushState blocked by browser security policy (file:// protocol):", e);
+        }
+        
+        // Parse the target URL manually to update state
+        if (url.includes('?')) {
+            const parts = url.split('?');
+            currentPath = parts[0];
+            currentSearch = '?' + parts[1];
+        } else {
+            currentPath = url;
+            currentSearch = '';
+        }
+        
+        // Normalize path
+        if (currentPath === '/index.html' || currentPath === '') {
+            currentPath = '/';
+        }
+        
         router();
     };
 
     const router = () => {
-        const path = window.location.pathname;
-        const search = window.location.search;
-        const targetViewId = routes[path] || 'page-home';
+        // targetViewId matches currentPath
+        const targetViewId = routes[currentPath] || 'page-home';
         
         // Hide all views
         document.querySelectorAll('.page-view').forEach(view => {
@@ -55,8 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.remove('active');
             const href = link.getAttribute('href');
             if (href) {
-                // If it matches pathname exactly or if pathname is /events and link is events
-                if (href === path || (path === '/events' && href.startsWith('/events'))) {
+                const linkPath = href.split('?')[0];
+                if (linkPath === currentPath) {
                     link.classList.add('active');
                 }
             }
@@ -65,9 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Trigger reveal checker for the newly shown page
         setTimeout(revealCheck, 100);
 
-        // Handle specific views logic
-        if (path === '/events') {
-            const params = new URLSearchParams(search);
+        // Handle specific views logic (like events sub tabs)
+        if (currentPath === '/events') {
+            const params = new URLSearchParams(currentSearch);
             const tab = params.get('tab') || 'welcome';
             switchEventTab(tab);
         }
@@ -120,9 +168,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle back/forward navigation
-    window.addEventListener('popstate', router);
+    window.addEventListener('popstate', () => {
+        initRouteFromLocation();
+        router();
+    });
 
-    // Initial routing
+    // Initial state setup and routing on page load
+    initRouteFromLocation();
     router();
 
     // =========================================================================
@@ -220,7 +272,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.event-tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const tabName = btn.getAttribute('data-tab').replace('event-', '');
-            history.pushState(null, null, `/events?tab=${tabName}`);
+            try {
+                history.pushState(null, null, `/events?tab=${tabName}`);
+            } catch (e) {
+                console.warn("History pushState blocked:", e);
+            }
+            
+            // Explicitly update state variables in case pushState was blocked
+            currentPath = '/events';
+            currentSearch = `?tab=${tabName}`;
+            
             switchEventTab(tabName);
         });
     });

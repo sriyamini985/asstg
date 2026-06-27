@@ -3814,3 +3814,42 @@ p:last-child {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* =========================================================================
+   COMMITTEE ROW & GRID SPECIFIC STYLES
+   ========================================================================= */
+.committee-row-2-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+    max-width: 680px;
+    margin: 0 auto 4rem auto;
+    justify-content: center;
+}
+
+.executive-committee-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 960px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .committee-row-2-col {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+        gap: 2.5rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .executive-committee-grid {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+        gap: 2.5rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
