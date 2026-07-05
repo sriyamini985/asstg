@@ -9,10 +9,13 @@ const COLORS = {
 const r2 = (n) => Math.round(n * 100) / 100;
 
 function Hexagon({ cx, cy, r, stroke, width, opacity }) {
+  const x = parseFloat(cx);
+  const y = parseFloat(cy);
+  const radius = parseFloat(r);
   const pts = [];
   for (let i = 0; i < 6; i++) {
     const a = (Math.PI / 3) * i - Math.PI / 6;
-    pts.push(`${r2(cx + Math.cos(a) * r)},${r2(cy + Math.sin(a) * r)}`);
+    pts.push(`${r2(x + Math.cos(a) * radius)},${r2(y + Math.sin(a) * radius)}`);
   }
   return <polygon points={pts.join(" ")} fill="none" stroke={stroke} strokeWidth={width} opacity={opacity} />;
 }

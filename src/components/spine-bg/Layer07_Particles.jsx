@@ -21,11 +21,14 @@ function makeRng(seed) {
 }
 
 function Star({ cx, cy, r, fill, opacity }) {
+  const x = parseFloat(cx);
+  const y = parseFloat(cy);
+  const radius = parseFloat(r);
   const pts = [];
   for (let i = 0; i < 8; i++) {
     const a = (Math.PI / 4) * i;
-    const rad = i % 2 === 0 ? r : r * 0.4;
-    pts.push(`${r2(cx + Math.cos(a) * rad)},${r2(cy + Math.sin(a) * rad)}`);
+    const rad = i % 2 === 0 ? radius : radius * 0.4;
+    pts.push(`${r2(x + Math.cos(a) * rad)},${r2(y + Math.sin(a) * rad)}`);
   }
   return <polygon points={pts.join(" ")} fill={fill} opacity={opacity} />;
 }
