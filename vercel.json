@@ -1,10 +1,5 @@
 {
-  "cleanUrls": true,
   "rewrites": [
-    { "source": "/about/:path*", "destination": "/index.html" },
-    { "source": "/membership/:path*", "destination": "/index.html" },
-    { "source": "/committee/:path*", "destination": "/index.html" },
-    { "source": "/events/:path*", "destination": "/index.html" },
-    { "source": "/contact/:path*", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

@@ -1,0 +1,131 @@
+/* Premium Page Background Styles (Medical Association) */
+
+.medical-page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Background Radial Glow behind content */
+.bg-radial-light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(18, 62, 135, 0.03) 0%, transparent 75%);
+  animation: breathingGlow 14s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes breathingGlow {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1.1; transform: scale(1.02); }
+}
+
+/* Spine watermark (5% opacity, very close to left edge) */
+.spine-watermark-left {
+  position: absolute;
+  left: -24px;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05; /* Increased to 5% for visibility on light blue bg */
+  animation: spineBreathe 18s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@keyframes spineBreathe {
+  0%, 100% { transform: translateX(0) scaleX(1); }
+  50% { transform: translateX(4px) scaleX(0.98); }
+}
+
+/* Rotating blueprint circle (opacity 6%) */
+.blueprint-circle-tr {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06; /* Increased to 6% for visibility on light blue bg */
+  animation: rotateClockwise 80s linear infinite;
+}
+
+@keyframes rotateClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Floating Particles (Tiny Glow Nodes) */
+.tiny-particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tiny-particle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(0.5px);
+  animation: floatParticle 12s ease-in-out infinite;
+}
+
+.tiny-particle--blue {
+  background: #123E87;
+  box-shadow: 0 0 6px 1.5px rgba(18, 62, 135, 0.35);
+}
+
+.tiny-particle--gold {
+  background: #D4A53A;
+  box-shadow: 0 0 6px 1.5px rgba(212, 165, 58, 0.35);
+}
+
+@keyframes floatParticle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.25; }
+  50% { transform: translateY(-16px) translateX(6px); opacity: 0.65; }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  /* Disable heavy animations on mobile for performance */
+  .spine-watermark-left,
+  .blueprint-circle-tr,
+  .tiny-particle,
+  .bg-radial-light {
+    animation: none !important;
+  }
+  
+  /* Hide the spine watermark on mobile to avoid overlapping text/cards */
+  .spine-watermark-left {
+    display: none !important;
+  }
+
+  /* Scale down rotating circles and keep them off the text area */
+  .blueprint-circle-tr {
+    width: 140px !important;
+    height: 140px !important;
+    top: -40px !important;
+    right: -40px !important;
+    opacity: 0.03 !important;
+  }
+
+  /* Hide tiny floating particles and extra corner decorations */
+  .tiny-particles-container {
+    display: none !important;
+  }
+  
+  /* Hide decorative bottom wave on small screens to prevent clipping */
+  .medical-page-bg > div[class*="bottom-"] {
+    display: none !important;
+  }
+}

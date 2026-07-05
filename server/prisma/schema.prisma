@@ -1,0 +1,60 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Registration {
+  id                 Int       @id @default(autoincrement())
+  registrationId     String    @unique
+  title              String?
+  firstName          String
+  lastName           String?
+  gender             String?
+  dob                DateTime?
+  qualification      String?
+  hospital           String
+  address            String?
+  city               String?
+  state              String?
+  pinCode            String?
+  mobile             String    @unique
+  email              String    @unique
+  category           String
+  fee                Float
+  transactionId      String    @unique
+  paymentScreenshot  String
+  registrationStatus String    @default("Pending Verification")
+  paymentStatus      String    @default("Verification Pending")
+  exportStatus       String    @default("Pending")
+  adminNotes         String?   @db.Text
+  verifiedAt         DateTime?
+  verifiedBy         String?
+  rejectionReason    String?   @db.Text
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  role         String   @default("Admin")
+  createdAt    DateTime @default(now())
+}
+
+model MembershipRequest {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String
+  specialty String
+  hospital  String
+  message   String?  @db.Text
+  status    String   @default("Pending")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

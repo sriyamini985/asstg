@@ -1,0 +1,407 @@
+/* ── Premium Page Background — Spine decorative elements ── */
+/* Used across all pages as a shared background layer */
+
+.page-bg {
+  position: relative;
+  background: linear-gradient(160deg, #eef4fc 0%, #f3f7fd 50%, #e7effb 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Vertebra watermark top-right */
+.page-bg::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -80px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(ellipse, rgba(18,62,135,0.04) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Gold accent bottom-left blob */
+.page-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 5%;
+  left: -60px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(212,165,58,0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Premium card */
+.premium-card {
+  background: #ffffff;
+  border: 1px solid rgba(18, 62, 135, 0.15);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(18, 62, 135, 0.08), 
+              0 1px 3px rgba(0, 0, 0, 0.01);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.5s ease;
+}
+.premium-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(18, 62, 135, 0.03) 0%, rgba(212, 165, 58, 0.03) 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+}
+.premium-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px -15px rgba(18, 62, 135, 0.18), 
+              0 12px 30px -10px rgba(212, 165, 58, 0.12);
+  border-color: rgba(18, 62, 135, 0.35);
+  background: #ffffff;
+}
+.premium-card:hover::before {
+  opacity: 1;
+}
+
+/* Gold accent card variant */
+.premium-card-gold:hover {
+  box-shadow: 0 30px 60px -15px rgba(212, 165, 58, 0.16), 
+              0 10px 20px -10px rgba(212, 165, 58, 0.08);
+  border-color: rgba(212, 165, 58, 0.35);
+}
+
+.page-hero {
+  background: linear-gradient(135deg, #07193d 0%, #123E87 50%, #174ea6 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 160px 0 72px;
+}
+
+@media (max-width: 1023px) {
+  .page-hero {
+    padding: 120px 0 60px;
+  }
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(212, 165, 58, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+}
+.page-hero-spine-ring {
+  position: absolute;
+  right: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+}
+.page-hero-spine-ring::before {
+  content: '';
+  position: absolute;
+  inset: 40px;
+  border: 1px solid rgba(212, 165, 58, 0.06);
+  border-radius: 50%;
+}
+.page-hero-spine-ring::after {
+  content: '';
+  position: absolute;
+  inset: 90px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+}
+
+/* Spine dot pattern bg */
+.spine-dots-bg {
+  background-image: radial-gradient(circle, rgba(18, 62, 135, 0.04) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Gradient text */
+.gradient-text-blue {
+  background: linear-gradient(135deg, #0b2559 0%, #123E87 50%, #1855b0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Icon box premium */
+.icon-box-navy {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(18, 62, 135, 0.08) 0%, rgba(18, 62, 135, 0.04) 100%);
+  border: 1px solid rgba(18, 62, 135, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #123E87;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 1;
+}
+.icon-box-navy svg, .icon-box-navy .lucide {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.premium-card:hover .icon-box-navy {
+  background: linear-gradient(135deg, #123E87 0%, #1a4fa8 100%);
+  color: white;
+  border-color: #123E87;
+  box-shadow: 0 10px 20px rgba(18, 62, 135, 0.2);
+}
+.premium-card:hover .icon-box-navy svg, .premium-card:hover .icon-box-navy .lucide {
+  transform: rotate(8deg) scale(1.1);
+}
+
+.icon-box-gold {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(212, 165, 58, 0.1) 0%, rgba(212, 165, 58, 0.04) 100%);
+  border: 1px solid rgba(212, 165, 58, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #D4A53A;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 1;
+}
+.icon-box-gold svg, .icon-box-gold .lucide {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.premium-card:hover .icon-box-gold {
+  background: linear-gradient(135deg, #D4A53A 0%, #b88c2b 100%);
+  color: white;
+  border-color: #D4A53A;
+  box-shadow: 0 10px 20px rgba(212, 165, 58, 0.2);
+}
+.premium-card:hover .icon-box-gold svg, .premium-card:hover .icon-box-gold .lucide {
+  transform: rotate(8deg) scale(1.1);
+}
+
+/* Input focus premium */
+.premium-input {
+  border: 1.5px solid rgba(18, 62, 135, 0.12);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  background: white;
+  width: 100%;
+}
+.premium-input:focus {
+  border-color: #123E87;
+  box-shadow: 0 0 0 4px rgba(18, 62, 135, 0.08);
+}
+
+/* Premium button */
+.btn-premium-navy {
+  background: linear-gradient(135deg, #123E87 0%, #1a4fa8 100%);
+  color: white;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(18, 62, 135, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+.btn-premium-navy::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-premium-navy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(18, 62, 135, 0.25);
+}
+.btn-premium-navy:hover::after {
+  left: 100%;
+}
+
+.btn-premium-gold {
+  background: linear-gradient(135deg, #D4A53A 0%, #b88c2b 100%);
+  color: white;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(212, 165, 58, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+.btn-premium-gold::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-premium-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 165, 58, 0.3);
+}
+.btn-premium-gold:hover::after {
+  left: 100%;
+}
+
+/* Glow separator */
+.glow-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(18,62,135,0.25), rgba(212,165,58,0.35), rgba(18,62,135,0.25), transparent);
+  margin: 0;
+}
+
+/* Spine decorative SVG backbone shape - used in sections */
+.spine-deco {
+  position: absolute;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Tab active underline */
+.tab-active {
+  color: #123E87;
+  font-weight: 700;
+  position: relative;
+}
+.tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #123E87, #D4A53A);
+  border-radius: 2px;
+}
+
+/* Hover shimmer effect */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.shimmer-hover {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-hover::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: translateX(-100%);
+  transition: none;
+}
+.shimmer-hover:hover::after {
+  animation: shimmer 0.6s ease forwards;
+}
+
+/* Page transition wrapper */
+.page-enter {
+  animation: pageEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Animated Profile Card UI */
+.animate-profile-card {
+  position: relative;
+  background-color: #ffffff; /* white background for maximum contrast */
+  border: 1px solid rgba(18, 62, 135, 0.15);
+  border-radius: 20px;
+  padding: 36px 24px;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px -10px rgba(18, 62, 135, 0.08), 
+              0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+.animate-profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -10%;
+  right: -10%;
+  height: 90px;
+  background: #123E87; /* website blue */
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.animate-profile-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: #123E87; /* website blue */
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+/* Hover effects */
+.animate-profile-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(18, 62, 135, 0.12);
+  border-color: rgba(18, 62, 135, 0.25);
+  background-color: #ffffff;
+}
+
+.animate-profile-card:hover::before {
+  transform: translateY(0);
+}
+
+.animate-profile-card:hover::after {
+  transform: translateY(0);
+}
+
+/* Profile image container */
+.animate-profile-img-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 24px auto;
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.animate-profile-card:hover .animate-profile-img-container {
+  box-shadow: 0 0 0 4px #D4A53A, 0 8px 20px rgba(212, 165, 58, 0.35);
+  transform: scale(1.05);
+}
