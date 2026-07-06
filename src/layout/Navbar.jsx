@@ -195,6 +195,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 to={link.path}
+                onClick={() => setIsOpen(false)}
                 className={`text-[15px] font-semibold border-b border-gray-50 pb-3 ${
                   isActive(link.path) ? 'text-[#123E87] font-bold' : 'text-gray-600'
                 }`}
@@ -218,6 +219,7 @@ export default function Navbar() {
                     <Link
                       key={sub.name}
                       to={`/events?tab=${sub.tab}`}
+                      onClick={() => setIsOpen(false)}
                       className="text-[13.5px] font-medium text-gray-500 hover:text-[#123E87] transition-colors"
                     >
                       {sub.name}
@@ -229,6 +231,7 @@ export default function Navbar() {
 
             <Link
               to="/contact"
+              onClick={() => setIsOpen(false)}
               className={`text-[15px] font-semibold border-b border-gray-50 pb-3 ${
                 isActive('/contact') ? 'text-[#123E87] font-bold' : 'text-gray-600'
               }`}

@@ -296,25 +296,29 @@ export default function Membership({ onShowToast }) {
                   <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Full Name</label>
+                        <label htmlFor="mem-name" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Full Name</label>
                         <input
                           type="text"
+                          id="mem-name"
                           name="name"
                           required
                           value={formData.name}
                           onChange={handleInputChange}
+                          autocomplete="name"
                           className="premium-input"
                           placeholder="Dr. John Doe"
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Email Address</label>
+                        <label htmlFor="mem-email" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Email Address</label>
                         <input
                           type="email"
+                          id="mem-email"
                           name="email"
                           required
                           value={formData.email}
                           onChange={handleInputChange}
+                          autocomplete="email"
                           className="premium-input"
                           placeholder="john@example.com"
                         />
@@ -323,23 +327,27 @@ export default function Membership({ onShowToast }) {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Phone Number</label>
+                        <label htmlFor="mem-phone" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Phone Number</label>
                         <input
                           type="tel"
+                          id="mem-phone"
                           name="phone"
                           required
                           value={formData.phone}
                           onChange={handleInputChange}
+                          autocomplete="tel"
                           className="premium-input"
                           placeholder="+91-98765 43210"
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Specialty</label>
+                        <label htmlFor="mem-specialty" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Specialty</label>
                         <select
+                          id="mem-specialty"
                           name="specialty"
                           value={formData.specialty}
                           onChange={handleInputChange}
+                          autocomplete="off"
                           className="premium-input bg-white"
                         >
                           <option value="Orthopedic Surgery">Orthopedic Surgery</option>
@@ -350,25 +358,29 @@ export default function Membership({ onShowToast }) {
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Hospital/Clinic Name</label>
+                      <label htmlFor="mem-hospital" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Hospital/Clinic Name</label>
                       <input
                         type="text"
+                        id="mem-hospital"
                         name="hospital"
                         required
                         value={formData.hospital}
                         onChange={handleInputChange}
+                        autocomplete="organization"
                         className="premium-input"
                         placeholder="Apollo Hospitals"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Additional Message</label>
+                      <label htmlFor="mem-message" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Additional Message</label>
                       <textarea
+                        id="mem-message"
                         name="message"
                         rows="3"
                         value={formData.message}
                         onChange={handleInputChange}
+                        autocomplete="off"
                         className="premium-input resize-none"
                         placeholder="Any notes or enquiries..."
                       />

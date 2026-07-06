@@ -77,16 +77,19 @@ export default function AdminLogin({ onShowToast }) {
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Username</label>
+            <label htmlFor="admin-username" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Username</label>
             <div className="relative">
               <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
                 <User className="w-4 h-4" />
               </span>
               <input
                 type="text"
+                id="admin-username"
+                name="username"
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                autocomplete="username"
                 className="premium-input pl-10"
                 placeholder="admin"
               />
@@ -94,16 +97,19 @@ export default function AdminLogin({ onShowToast }) {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Password</label>
+            <label htmlFor="admin-password" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Password</label>
             <div className="relative">
               <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
                 <KeyRound className="w-4 h-4" />
               </span>
               <input
                 type="password"
+                id="admin-password"
+                name="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autocomplete="current-password"
                 className="premium-input pl-10"
                 placeholder="••••••••"
               />

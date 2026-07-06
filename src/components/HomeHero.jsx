@@ -16,8 +16,7 @@ const NAV_H = 104; // px
 export default function HomeHero() {
   return (
     <div 
-      className="relative overflow-hidden w-full"
-      style={{ paddingTop: NAV_H, height: '100vh', display: 'flex', flexDirection: 'column' }}
+      className="relative overflow-hidden w-full min-h-[540px] sm:min-h-[600px] lg:h-screen flex flex-col pt-[88px] lg:pt-[104px]"
     >
       {/* Hero Background — Z-Index 0 */}
       <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
@@ -30,8 +29,7 @@ export default function HomeHero() {
 
           {/* Content left */}
           <motion.div
-            className="flex flex-col justify-center z-10"
-            style={{ flex: '0 0 54%', maxWidth: '54%', paddingLeft: '8%' }}
+            className="flex flex-col justify-center z-10 w-full lg:w-[54%] lg:max-w-[54%] lg:pl-[8%] px-2 sm:px-6"
             initial="hidden"
             animate="show"
           >
@@ -39,7 +37,7 @@ export default function HomeHero() {
               custom={0}
               variants={fadeUp}
               className="font-black text-[#0d2d6b] leading-[1.06] tracking-tight font-sans text-left"
-              style={{ fontSize: 'clamp(3.1rem, 5vw, 4.6rem)' }}
+              style={{ fontSize: 'clamp(2.0rem, 4.5vw, 4.6rem)' }}
             >
               Association of<br />
               <span className="text-[#123E87]">Spine Surgeons</span><br />
@@ -69,7 +67,7 @@ export default function HomeHero() {
             <motion.div 
               custom={3} 
               variants={fadeUp}
-              className="grid grid-cols-4 gap-4 mt-8 pt-6 border-t border-gray-200/80"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-gray-200/80"
             >
               {[
                 { icon: '👥', value: '200+', label: 'Members' },

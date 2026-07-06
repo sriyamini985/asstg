@@ -163,25 +163,29 @@ export default function Contact({ onShowToast }) {
               <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-left">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Full Name</label>
+                    <label htmlFor="contact-name" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Full Name</label>
                     <input
                       type="text"
+                      id="contact-name"
                       name="name"
                       required
                       value={formData.name}
                       onChange={handleInputChange}
+                      autocomplete="name"
                       className="premium-input"
                       placeholder="Dr. John Doe"
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Email Address</label>
+                    <label htmlFor="contact-email" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Email Address</label>
                     <input
                       type="email"
+                      id="contact-email"
                       name="email"
                       required
                       value={formData.email}
                       onChange={handleInputChange}
+                      autocomplete="email"
                       className="premium-input"
                       placeholder="john@example.com"
                     />
@@ -190,25 +194,29 @@ export default function Contact({ onShowToast }) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Phone Number</label>
+                    <label htmlFor="contact-phone" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Phone Number</label>
                     <input
                       type="tel"
+                      id="contact-phone"
                       name="phone"
                       required
                       value={formData.phone}
                       onChange={handleInputChange}
+                      autocomplete="tel"
                       className="premium-input"
                       placeholder="+91-98765 43210"
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Subject</label>
+                    <label htmlFor="contact-subject" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Subject</label>
                     <input
                       type="text"
+                      id="contact-subject"
                       name="subject"
                       required
                       value={formData.subject}
                       onChange={handleInputChange}
+                      autocomplete="off"
                       className="premium-input"
                       placeholder="Membership / Registration Inquiry"
                     />
@@ -216,13 +224,15 @@ export default function Contact({ onShowToast }) {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Your Message</label>
+                  <label htmlFor="contact-message" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Your Message</label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     required
                     rows="4"
                     value={formData.message}
                     onChange={handleInputChange}
+                    autocomplete="off"
                     className="premium-input resize-none"
                     placeholder="Type your detailed message here..."
                   />

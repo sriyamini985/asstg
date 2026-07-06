@@ -584,12 +584,14 @@ export default function Events({ onShowToast }) {
                       {/* Title & Name */}
                       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                         <div className="flex flex-col gap-1.5 sm:col-span-1">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Title</label>
+                          <label htmlFor="reg-title" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Title</label>
                           <select
+                            id="reg-title"
                             name="title"
                             required
                             value={formData.title}
                             onChange={handleInputChange}
+                            autocomplete="honorific-prefix"
                             className="premium-input bg-white"
                           >
                             <option value="Dr.">Dr.</option>
@@ -600,13 +602,15 @@ export default function Events({ onShowToast }) {
                           </select>
                         </div>
                         <div className="flex flex-col gap-1.5 sm:col-span-3">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Full Name</label>
+                          <label htmlFor="reg-name" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Full Name</label>
                           <input
                             type="text"
+                            id="reg-name"
                             name="name"
                             required
                             value={formData.name}
                             onChange={handleInputChange}
+                            autocomplete="name"
                             className="premium-input"
                             placeholder="Raghava Dutt"
                           />
@@ -616,25 +620,29 @@ export default function Events({ onShowToast }) {
                       {/* Email & Phone */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Email Address</label>
+                          <label htmlFor="reg-email" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Email Address</label>
                           <input
                             type="email"
+                            id="reg-email"
                             name="email"
                             required
                             value={formData.email}
                             onChange={handleInputChange}
+                            autocomplete="email"
                             className="premium-input"
                             placeholder="raghava@example.com"
                           />
                         </div>
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Phone Number</label>
+                          <label htmlFor="reg-phone" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Phone Number</label>
                           <input
                             type="tel"
+                            id="reg-phone"
                             name="phone"
                             required
                             value={formData.phone}
                             onChange={handleInputChange}
+                            autocomplete="tel"
                             className="premium-input"
                             placeholder="9440602168"
                           />
@@ -644,12 +652,14 @@ export default function Events({ onShowToast }) {
                       {/* Gender & DOB */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Gender</label>
+                          <label htmlFor="reg-gender" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Gender</label>
                           <select
+                            id="reg-gender"
                             name="gender"
                             required
                             value={formData.gender}
                             onChange={handleInputChange}
+                            autocomplete="sex"
                             className="premium-input bg-white"
                           >
                             <option value="Male">Male</option>
@@ -658,13 +668,15 @@ export default function Events({ onShowToast }) {
                           </select>
                         </div>
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Date of Birth</label>
+                          <label htmlFor="reg-dob" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Date of Birth</label>
                           <input
                             type="date"
+                            id="reg-dob"
                             name="dob"
                             required
                             value={formData.dob}
                             onChange={handleInputChange}
+                            autocomplete="bday"
                             className="premium-input"
                           />
                         </div>
@@ -673,25 +685,29 @@ export default function Events({ onShowToast }) {
                       {/* Qualification & Institution/Hospital */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Qualification</label>
+                          <label htmlFor="reg-qualification" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Qualification</label>
                           <input
                             type="text"
+                            id="reg-qualification"
                             name="qualification"
                             required
                             value={formData.qualification}
                             onChange={handleInputChange}
+                            autocomplete="off"
                             className="premium-input"
                             placeholder="MS, MCh (Spine)"
                           />
                         </div>
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Institution/Hospital</label>
+                          <label htmlFor="reg-institution" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Institution/Hospital</label>
                           <input
                             type="text"
+                            id="reg-institution"
                             name="institution"
                             required
                             value={formData.institution}
                             onChange={handleInputChange}
+                            autocomplete="organization"
                             className="premium-input"
                             placeholder="Udai Omni Hospitals, Hyderabad"
                           />
@@ -700,13 +716,15 @@ export default function Events({ onShowToast }) {
 
                       {/* Address */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Address</label>
+                        <label htmlFor="reg-address" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Address</label>
                         <input
                           type="text"
+                          id="reg-address"
                           name="address"
                           required
                           value={formData.address}
                           onChange={handleInputChange}
+                          autocomplete="street-address"
                           className="premium-input"
                           placeholder="Apartment, Street, Area"
                         />
@@ -715,37 +733,43 @@ export default function Events({ onShowToast }) {
                       {/* City, State & Pincode */}
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">City</label>
+                          <label htmlFor="reg-city" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">City</label>
                           <input
                             type="text"
+                            id="reg-city"
                             name="city"
                             required
                             value={formData.city}
                             onChange={handleInputChange}
+                            autocomplete="address-level2"
                             className="premium-input"
                             placeholder="Hyderabad"
                           />
                         </div>
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">State</label>
+                          <label htmlFor="reg-state" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">State</label>
                           <input
                             type="text"
+                            id="reg-state"
                             name="state"
                             required
                             value={formData.state}
                             onChange={handleInputChange}
+                            autocomplete="address-level1"
                             className="premium-input"
                             placeholder="Telangana"
                           />
                         </div>
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pincode</label>
+                          <label htmlFor="reg-pincode" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pincode</label>
                           <input
                             type="text"
+                            id="reg-pincode"
                             name="pinCode"
                             required
                             value={formData.pinCode}
                             onChange={handleInputChange}
+                            autocomplete="postal-code"
                             className="premium-input"
                             placeholder="500001"
                           />
@@ -755,11 +779,13 @@ export default function Events({ onShowToast }) {
                       {/* Category & Payment UPI ID */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Registration Category</label>
+                          <label htmlFor="reg-category" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Registration Category</label>
                           <select
+                            id="reg-category"
                             name="category"
                             value={formData.category}
                             onChange={handleInputChange}
+                            autocomplete="off"
                             className="premium-input bg-white"
                           >
                             <option value="Consultant">Consultant (₹3,000)</option>
@@ -767,13 +793,15 @@ export default function Events({ onShowToast }) {
                           </select>
                         </div>
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Payment UPI Transaction ID</label>
+                          <label htmlFor="reg-referenceId" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Payment UPI Transaction ID</label>
                           <input
                             type="text"
+                            id="reg-referenceId"
                             name="referenceId"
                             required
                             value={formData.referenceId}
                             onChange={handleInputChange}
+                            autocomplete="off"
                             className="premium-input"
                             placeholder="TXN987654321"
                           />
@@ -782,10 +810,11 @@ export default function Events({ onShowToast }) {
 
                       {/* Screenshot File Upload */}
                       <div className="flex flex-col gap-1.5 mt-2">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Payment Transaction Screenshot</label>
+                        <label htmlFor="reg-screenshot" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Payment Transaction Screenshot</label>
                         <div className="border-2 border-dashed border-blue-100 hover:border-[#D4A53A] rounded-2xl p-6 text-center transition-colors relative cursor-pointer bg-[#f8fbff]/50">
                           <input
                             type="file"
+                            id="reg-screenshot"
                             accept="image/*"
                             required
                             onChange={handleFileChange}

@@ -9,16 +9,7 @@ export default function Layer10MainSpine() {
       <img
         src={spineModel3d}
         alt="3D Spine Model"
-        className="absolute animate-floatSpineLight"
-        style={{
-          right: 'calc(23.3% - 105px)', // concentric alignment centered exactly with the rings (width=210px, half-width=105px)
-          top: '25px',                 // spacing from top boundary
-          height: '86%',               // slightly taller for better emphasis
-          width: '210px',              // increased width from 180px
-          objectFit: 'contain',
-          filter: 'drop-shadow(8px 16px 28px rgba(126,147,181,0.25))',
-          pointerEvents: 'none'
-        }}
+        className="hero-main-spine animate-floatSpineLight"
       />
     </div>
   );

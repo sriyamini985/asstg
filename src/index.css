@@ -301,3 +301,27 @@ body {
   transform-box: view-box;
 }
 
+/* Responsive floating main spine styles */
+.hero-main-spine {
+  position: absolute;
+  top: 25px;
+  right: calc(23.3% - 105px);
+  width: 210px;
+  height: 86%;
+  object-fit: contain;
+  filter: drop-shadow(8px 16px 28px rgba(126,147,181,0.25));
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (max-width: 1023px) {
+  .hero-main-spine {
+    width: 140px; /* scaled down */
+    height: 70%;
+    right: 15px; /* positioned on right edge */
+    top: 15%;
+    opacity: 0.22; /* watermark look to avoid overlapping text readability */
+  }
+}
+
+

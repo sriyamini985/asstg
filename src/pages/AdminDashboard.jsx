@@ -349,11 +349,15 @@ export default function AdminDashboard({ onShowToast }) {
         <div className="bg-white border border-blue-50 p-6 rounded-2xl shadow-xl shadow-blue-900/5 flex flex-col gap-4">
           <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
+              <label htmlFor="admin-search" className="sr-only">Search registrations</label>
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                 <Search className="w-4 h-4" />
               </span>
               <input
                 type="text"
+                id="admin-search"
+                name="search"
+                autocomplete="off"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by ID, Name, Hospital, Email, or Mobile..."
@@ -375,16 +379,30 @@ export default function AdminDashboard({ onShowToast }) {
           {/* Advanced Dropdowns */}
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-left">
             <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Category</label>
-              <select value={category} onChange={(e) => setCategory(e.target.value)} className="premium-input bg-white text-xs">
+              <label htmlFor="filter-category" className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Category</label>
+              <select
+                id="filter-category"
+                name="category"
+                autocomplete="off"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="premium-input bg-white text-xs"
+              >
                 <option value="">All Categories</option>
                 <option value="Consultant">Consultant</option>
                 <option value="Postgraduate Student">Postgraduate Student</option>
               </select>
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Reg Status</label>
-              <select value={regStatus} onChange={(e) => setRegStatus(e.target.value)} className="premium-input bg-white text-xs">
+              <label htmlFor="filter-status" className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Reg Status</label>
+              <select
+                id="filter-status"
+                name="status"
+                autocomplete="off"
+                value={regStatus}
+                onChange={(e) => setRegStatus(e.target.value)}
+                className="premium-input bg-white text-xs"
+              >
                 <option value="">All Statuses</option>
                 <option value="Pending Verification">Pending Verification</option>
                 <option value="Approved">Approved</option>
@@ -392,12 +410,28 @@ export default function AdminDashboard({ onShowToast }) {
               </select>
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Date From</label>
-              <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="premium-input text-xs" />
+              <label htmlFor="filter-date-from" className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Date From</label>
+              <input
+                type="date"
+                id="filter-date-from"
+                name="dateFrom"
+                autocomplete="off"
+                value={dateFrom}
+                onChange={(e) => setDateFrom(e.target.value)}
+                className="premium-input text-xs"
+              />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Date To</label>
-              <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="premium-input text-xs" />
+              <label htmlFor="filter-date-to" className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Date To</label>
+              <input
+                type="date"
+                id="filter-date-to"
+                name="dateTo"
+                autocomplete="off"
+                value={dateTo}
+                onChange={(e) => setDateTo(e.target.value)}
+                className="premium-input text-xs"
+              />
             </div>
           </div>
 
@@ -703,8 +737,11 @@ export default function AdminDashboard({ onShowToast }) {
                   <div>
                     <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5 mb-3">Verification Notes & Remarks</h4>
                     <div className="flex flex-col gap-1">
-                      <label className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-0.5">Notes (Included in rejection email if rejected)</label>
+                      <label htmlFor="modal-notes" className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-0.5">Notes (Included in rejection email if rejected)</label>
                       <textarea
+                        id="modal-notes"
+                        name="notes"
+                        autocomplete="off"
                         value={modalNotes}
                         onChange={(e) => setModalNotes(e.target.value)}
                         placeholder="Add remarks, verification notes, or reason for rejection..."
