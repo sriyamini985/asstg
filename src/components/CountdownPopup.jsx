@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { X, Clock, ArrowRight } from 'lucide-react';
 
 export default function CountdownPopup() {
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith('/admin');
+
   const [isMini, setIsMini] = useState(true);
   
   const [timeLeft, setTimeLeft] = useState({
@@ -16,10 +19,17 @@ export default function CountdownPopup() {
   const countdownTarget = new Date('September 27, 2026 09:00:00').getTime();
 
   useEffect(() => {
+    if (isAdminPage) return;
+
     // Show popup automatically after 1.5s delay on initial load
     const timer = setTimeout(() => {
       setIsMini(false);
     }, 1500);
+
+    // Auto-minimize after another 3 seconds (total 4.5s)
+    const autoCloseTimer = setTimeout(() => {
+      setIsMini(true);
+    }, 4500);
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -44,9 +54,10 @@ export default function CountdownPopup() {
 
     return () => {
       clearTimeout(timer);
+      clearTimeout(autoCloseTimer);
       clearInterval(interval);
     };
-  }, [countdownTarget]);
+  }, [countdownTarget, isAdminPage]);
 
   const handleClose = () => {
     setIsMini(true);
@@ -55,6 +66,8 @@ export default function CountdownPopup() {
   const handleOpen = () => {
     setIsMini(false);
   };
+
+  if (isAdminPage) return null;
 
   return (
     <>

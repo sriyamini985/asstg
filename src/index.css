@@ -222,8 +222,8 @@
   border-radius: 50%;
   background: #C89B3C;
   color: #FFFFFF;
-  border: none;
-  box-shadow: 0 4px 15px rgba(200, 155, 60, 0.35);
+  border: 3px solid #123E87; /* Blue color ring */
+  box-shadow: 0 4px 15px rgba(18, 62, 135, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;

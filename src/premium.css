@@ -203,6 +203,9 @@
   background: white;
   width: 100%;
 }
+.premium-input.pl-10 {
+  padding-left: 40px !important;
+}
 .premium-input:focus {
   border-color: #123E87;
   box-shadow: 0 0 0 4px rgba(18, 62, 135, 0.08);

@@ -496,56 +496,40 @@ export default function Events({ onShowToast }) {
                 transition={{ duration: 0.35 }}
                 className="flex flex-col gap-8"
               >
-                {/* Row 1: Cost, QR Code & Bank Details */}
+                {/* Row 1: Cost & QR Code side-by-side */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-                  {/* Cost card */}
-                  <div className="md:col-span-4 premium-card p-6 flex flex-col justify-between text-center gap-4 border border-blue-100/50 shadow-md">
-                    <span className="text-[#D4A53A] text-[10px] font-bold uppercase tracking-widest">Registration Fees</span>
-                    <div className="flex flex-col gap-3">
-                      <div className="flex flex-col gap-0.5">
-                        <span className="text-gray-400 text-xs font-semibold">Consultant</span>
+                  {/* Cost card - 2-row layout */}
+                  <div className="md:col-span-8 premium-card p-6 flex flex-col justify-center gap-4 border border-blue-100/50 shadow-md">
+                    <span className="text-[#D4A53A] text-[10px] font-bold uppercase tracking-widest text-center md:text-left mb-1">Registration Fees</span>
+                    <div className="flex flex-col gap-4">
+                      {/* Row 1: Consultant */}
+                      <div className="flex justify-between items-center bg-[#123E87]/[0.02] border border-blue-50/50 p-4 rounded-xl">
+                        <div className="flex flex-col">
+                          <span className="text-[#0d2d6b] font-bold text-[15px]">Consultant</span>
+                          <span className="text-gray-400 text-[11px] mt-0.5">Spine Surgeons / Faculty / Delegate</span>
+                        </div>
                         <span className="text-2xl font-black text-[#0d2d6b]">₹3,000</span>
                       </div>
-                      <div className="flex flex-col gap-0.5 border-t border-blue-100/50 pt-3">
-                        <span className="text-gray-400 text-xs font-semibold">PG Student</span>
+                      
+                      {/* Row 2: PG Student */}
+                      <div className="flex justify-between items-center bg-[#123E87]/[0.02] border border-blue-50/50 p-4 rounded-xl">
+                        <div className="flex flex-col">
+                          <span className="text-[#0d2d6b] font-bold text-[15px]">Postgraduate Student</span>
+                          <span className="text-gray-400 text-[11px] mt-0.5">Required to upload letter from HOD</span>
+                        </div>
                         <span className="text-2xl font-black text-[#0d2d6b]">₹1,000</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Scan & Pay QR */}
-                  <div className="md:col-span-3 premium-card p-5 flex flex-col items-center justify-center gap-2.5 border border-blue-100/50 shadow-md">
-                    <img src={regQrCode} alt="Registration QR Code" className="w-28 h-28 object-contain" />
-                    <span className="text-gray-400 text-[9.5px] uppercase font-bold tracking-widest">Scan & Pay</span>
-                  </div>
-
-                  {/* Bank Details */}
-                  <div className="md:col-span-5 premium-card p-6 flex flex-col gap-2.5 text-xs text-gray-500 border border-blue-100/50 shadow-md">
-                    <h4 className="text-[#0d2d6b] font-bold text-sm border-b border-blue-100/50 pb-2 mb-1.5 flex items-center gap-2">
-                      <div className="icon-box-gold w-6 h-6 rounded-lg text-xs flex items-center justify-center">
-                        <DollarSign className="w-3.5 h-3.5 text-[#D4A53A]" />
-                      </div>
-                      Direct Bank Details
-                    </h4>
-                    <div className="flex justify-between">
-                      <span>Account Name:</span>
-                      <strong className="text-gray-700">ASST</strong>
+                  <div className="md:col-span-4 premium-card p-6 flex flex-col items-center justify-center gap-4 border border-blue-100/50 shadow-md">
+                    <div className="bg-white p-2.5 rounded-xl border border-blue-100 shadow-inner flex items-center justify-center">
+                      <img src={regQrCode} alt="Registration QR Code" className="w-[120px] h-[120px] object-contain" />
                     </div>
-                    <div className="flex justify-between">
-                      <span>Bank Name:</span>
-                      <strong className="text-gray-700">SBI</strong>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Account No:</span>
-                      <strong className="text-gray-700">42965419852</strong>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>IFSC Code:</span>
-                      <strong className="text-gray-700">SBIN0020065</strong>
-                    </div>
-                    <div className="flex justify-between font-medium">
-                      <span>Branch:</span>
-                      <strong className="text-gray-700">Chapel Road, Hyd</strong>
+                    <div className="flex flex-col items-center text-center gap-0.5">
+                      <span className="text-[#0d2d6b] font-bold text-xs uppercase tracking-wider">Scan & Pay</span>
+                      <span className="text-gray-400 text-[9.5px]">Payee: <strong className="text-gray-600">Conference Management Company</strong></span>
                     </div>
                   </div>
                 </div>
