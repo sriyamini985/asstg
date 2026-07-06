@@ -503,7 +503,7 @@ export default function Events({ onShowToast }) {
                     <span className="text-[#D4A53A] text-[10px] font-bold uppercase tracking-widest text-center md:text-left mb-1">Registration Fees</span>
                     <div className="flex flex-col gap-4">
                       {/* Row 1: Consultant */}
-                      <div className="flex justify-between items-center bg-[#123E87]/[0.02] border border-blue-50/50 p-4 rounded-xl">
+                      <div className="flex justify-between items-center bg-gradient-to-r from-blue-50/40 to-white/10 border border-blue-100/70 border-l-4 border-l-[#123E87] p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                         <div className="flex flex-col">
                           <span className="text-[#0d2d6b] font-bold text-[15px]">Consultant</span>
                           <span className="text-gray-400 text-[11px] mt-0.5">Spine Surgeons / Faculty / Delegate</span>
@@ -512,7 +512,7 @@ export default function Events({ onShowToast }) {
                       </div>
                       
                       {/* Row 2: PG Student */}
-                      <div className="flex justify-between items-center bg-[#123E87]/[0.02] border border-blue-50/50 p-4 rounded-xl">
+                      <div className="flex justify-between items-center bg-gradient-to-r from-amber-50/30 to-white/10 border border-amber-100/50 border-l-4 border-l-[#D4A53A] p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                         <div className="flex flex-col">
                           <span className="text-[#0d2d6b] font-bold text-[15px]">Postgraduate Student</span>
                           <span className="text-gray-400 text-[11px] mt-0.5">Required to upload letter from HOD</span>

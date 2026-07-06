@@ -7,9 +7,7 @@ import Layer01Background from "./Layer01_Background.jsx";
 import Layer02Glow from "./Layer02_Glow.jsx";
 import Layer03Rings from "./Layer03_Rings.jsx";
 import Layer04Waves from "./Layer04_Waves.jsx";
-import Layer05MedicalElements from "./Layer05_MedicalElements.jsx";
 import Layer06LeftSpineWatermark from "./Layer06_LeftSpineWatermark.jsx";
-import Layer07Particles from "./Layer07_Particles.jsx";
 import Layer10MainSpine from "./Layer10_MainSpine.jsx";
 
 const layerStyle = {
@@ -59,19 +57,9 @@ export default function HomeHeroBackground() {
           <Layer04Waves />
         </div>
 
-        {/* Medical Elements / Hexagons (Layer 05) — Hidden on mobile, shown on tablet/desktop */}
-        <div className="hidden sm:block" style={layerStyle}>
-          <Layer05MedicalElements />
-        </div>
-
         {/* Left Spine Watermark (Layer 06) — Hidden on mobile, shown on tablet/desktop */}
         <div className="hidden md:block" style={layerStyle}>
           <Layer06LeftSpineWatermark />
-        </div>
-
-        {/* Particles & Sparkles (Layer 07) — Shown always */}
-        <div style={layerStyle}>
-          <Layer07Particles />
         </div>
 
         {/* Main Spine (Layer 10) — Shown always */}
