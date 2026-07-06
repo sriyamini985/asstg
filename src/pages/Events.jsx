@@ -27,7 +27,7 @@ import imgBansilalpet from '../assets/images/place_bansilalpet_stepwell.png';
 import imgGolkonda from '../assets/images/place_golkonda_fort.jpg';
 import imgSalarjung from '../assets/images/place_salarjung_museum.png';
 import venueTajDeccan from '../assets/images/venue_taj_deccan.png';
-import regQrCode from '../assets/images/registration_qr_code.png';
+import regQrCode from '../assets/images/registration_qr_code.jpg';
 import drRaghavaDutt from '../assets/images/organizers/dr_raghava_dutt.jpg';
 import drPavanKumar from '../assets/images/organizers/dr_pavan_kumar.jpg';
 
