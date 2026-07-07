@@ -26,7 +26,7 @@ model Registration {
   category           String
   fee                Float
   transactionId      String    @unique
-  paymentScreenshot  String
+  paymentScreenshot  String    @db.LongText
   registrationStatus String    @default("Pending Verification")
   paymentStatus      String    @default("Verification Pending")
   exportStatus       String    @default("Pending")

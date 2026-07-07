@@ -20,11 +20,13 @@ const transporter = nodemailer.createTransport({
 const FROM_EMAIL = process.env.SMTP_FROM || 'no-reply@asst.org.in';
 
 export const sendEmail = async ({ to, subject, html }) => {
+  const fromHeader = FROM_EMAIL.includes('<') ? FROM_EMAIL : `ASST Registration <${FROM_EMAIL}>`;
+
   // 1. Try Resend API if API Key is configured
   if (resendClient) {
     try {
       const response = await resendClient.emails.send({
-        from: `ASST Registration <${FROM_EMAIL}>`,
+        from: fromHeader,
         to: [to],
         subject,
         html
@@ -40,7 +42,7 @@ export const sendEmail = async ({ to, subject, html }) => {
   if (process.env.SMTP_USER && process.env.SMTP_PASS) {
     try {
       const info = await transporter.sendMail({
-        from: `"ASST Registration" <${FROM_EMAIL}>`,
+        from: fromHeader,
         to,
         subject,
         html

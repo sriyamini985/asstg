@@ -778,7 +778,7 @@ export default function AdminDashboard({ onShowToast }) {
                 <div className="md:col-span-5 flex flex-col gap-2.5">
                   <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5">Payment Screenshot</h4>
                   <div className="border border-gray-100 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center flex-1 max-h-[300px]">
-                    {selectedReg.paymentScreenshot.toLowerCase().endsWith('.pdf') ? (
+                    {selectedReg.paymentScreenshot.toLowerCase().endsWith('.pdf') || selectedReg.paymentScreenshot.startsWith('data:application/pdf') ? (
                       <div className="p-6 flex flex-col items-center gap-2 text-center text-xs text-gray-400">
                         <FileText className="w-12 h-12 text-[#123E87]" />
                         <span>Uploaded PDF document. Click below to download.</span>
@@ -788,6 +788,10 @@ export default function AdminDashboard({ onShowToast }) {
                         src={`${API_BASE_URL}/api/admin/registrations/${selectedReg.id}/screenshot?token=${token}`}
                         alt="Screenshot"
                         className="max-w-full max-h-[298px] object-contain"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.parentNode.innerHTML = '<div class="p-6 text-center text-xs text-gray-400">Screenshot not available (or expired)</div>';
+                        }}
                       />
                     )}
                   </div>

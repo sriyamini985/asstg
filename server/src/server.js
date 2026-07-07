@@ -38,7 +38,12 @@ if (!fs.existsSync(uploadDir)) {
 // ── JWT MIDDLEWARE ───────────────────────────────────────────────
 const authenticateAdmin = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  let token = authHeader && authHeader.split(' ')[1];
+
+  // Fallback to query parameter if not present in headers (needed for direct image rendering in portal)
+  if (!token && req.query.token) {
+    token = req.query.token;
+  }
 
   if (!token) {
     return res.status(401).json({ error: 'Access token missing' });
@@ -117,8 +122,24 @@ app.post('/api/registrations', upload.single('screenshot'), async (req, res) => 
       });
     }
 
+    // Convert uploaded file to base64 string and delete local file immediately
+    let screenshotBase64 = null;
+    if (req.file) {
+      try {
+        const fileBuffer = fs.readFileSync(req.file.path);
+        const mimeType = req.file.mimetype;
+        screenshotBase64 = `data:${mimeType};base64,${fileBuffer.toString('base64')}`;
+        
+        // Delete local temporary file immediately to keep disk clean
+        fs.unlinkSync(req.file.path);
+      } catch (err) {
+        console.error('Error converting file to base64:', err);
+        screenshotBase64 = req.file.filename; // fallback
+      }
+    }
+
     // Create database record
-    const reg = await createRegistration(data, req.file.filename);
+    const reg = await createRegistration(data, screenshotBase64 || 'no-file');
 
     // Send confirmation email asynchronously (failure to send won't block registration success)
     sendRegistrationSubmittedEmail(reg).catch(err => console.error('Email send failed on submit:', err));
@@ -424,9 +445,21 @@ app.get('/api/admin/registrations/:id/screenshot', authenticateAdmin, async (req
       return res.status(404).json({ error: 'Screenshot not found.' });
     }
 
+    // If screenshot is a base64 string, parse and send directly
+    if (reg.paymentScreenshot.startsWith('data:')) {
+      const matches = reg.paymentScreenshot.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
+      if (matches && matches.length === 3) {
+        const mimeType = matches[1];
+        const buffer = Buffer.from(matches[2], 'base64');
+        res.setHeader('Content-Type', mimeType);
+        return res.send(buffer);
+      }
+    }
+
+    // Fallback to disk if it's a filename (for old registrations)
     const filePath = path.resolve(uploadDir, reg.paymentScreenshot);
     if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ error: 'Screenshot file not found on disk.' });
+      return res.status(404).json({ error: 'Screenshot file not found.' });
     }
 
     return res.sendFile(filePath);
