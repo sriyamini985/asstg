@@ -146,7 +146,7 @@ export default function Home() {
           WELCOME MESSAGE
          ════════════════════════════════════════════════════════════ */}
       {/* ── Welcome Message Section ── */}
-      <section className="relative z-10 py-24 bg-gradient-to-b from-white via-[#f4f7fc] to-white overflow-hidden">
+      <section className="relative z-10 py-24 bg-[#edf3fd] overflow-hidden">
         
         {/* Subtle background rotating blueprint circle (About Us style, rendered in margins) */}
         <div className="blueprint-circle-tr absolute -top-16 -right-16 w-80 h-80 pointer-events-none z-0">
@@ -217,7 +217,7 @@ export default function Home() {
           </div>
 
           {/* Section Glass Wrapper */}
-          <div className="relative bg-white border-t-[6px] border-t-[#D4A53A] border border-blue-50 rounded-[32px] p-8 sm:p-12 shadow-[0_20px_50px_rgba(18,62,135,0.12)] overflow-hidden z-10">
+          <div className="relative bg-white border-t-[8px] border-t-[#D4A53A] border-l-2 border-r-2 border-b-2 border-[#D4A53A]/85 rounded-[32px] p-8 sm:p-12 shadow-[0_25px_50px_rgba(18,62,135,0.14)] overflow-hidden z-10">
             {/* Light blue radial glow behind the section content */}
             <div className="absolute inset-0 bg-radial-glow opacity-80 z-0 pointer-events-none" style={{ background: 'radial-gradient(circle at center, rgba(18, 62, 135, 0.05) 0%, transparent 75%)' }} />
 
