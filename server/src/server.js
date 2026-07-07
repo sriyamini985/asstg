@@ -20,7 +20,18 @@ import {
 } from './services/emailService.js';
 import { exportToCSV, exportToExcel } from './services/exportService.js';
 
+import { execSync } from 'child_process';
+
 dotenv.config();
+
+// Run database migration push programmatically on startup (with try-catch to prevent exit crashes)
+try {
+  console.log('Running database migrations (prisma db push)...');
+  execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
+  console.log('Database migrations completed successfully!');
+} catch (error) {
+  console.error('Database migration failed, starting server anyway:', error);
+}
 
 const app = express();
 const PORT = process.env.PORT || 5000;
