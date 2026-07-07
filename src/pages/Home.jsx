@@ -222,46 +222,43 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative z-10">
             
-            {/* Left Column: Banner Card */}
+            {/* Left Column: Welcome Message Text */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:col-span-4 bg-gradient-to-br from-blue-50/60 to-white/95 border border-blue-100/50 p-8 rounded-3xl flex flex-col justify-between text-left shadow-lg shadow-blue-900/5"
+              className="lg:col-span-6 flex flex-col gap-4 text-left bg-white/60 backdrop-blur-xl border border-blue-50/50 p-8 rounded-3xl shadow-lg shadow-blue-900/5"
             >
-              <div className="flex flex-col gap-5">
+              <div className="flex gap-3 items-center">
                 <span className="w-fit bg-[#123E87] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  Our Team
+                  Invitation
                 </span>
-                <h3 className="text-[#0d2d6b] text-3xl font-black font-sans leading-tight">
-                  Meet Your <br />
-                  <span className="text-[#123E87]">Dedicated Leaders</span>
-                </h3>
-                <p className="text-gray-500 text-[13.5px] leading-relaxed">
-                  Through collaborative education, cutting-edge technology, and continuous academic research, we help advance the standards of spine care across Telangana.
-                </p>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D4A53A]" />
               </div>
-
-              <div className="flex flex-col gap-3 mt-6">
-                {[
-                  'Qualified Orthopedic Specialists',
-                  'Active Peer Collaboration',
-                  'State-level CME & Workshops',
-                  'Advancing Patient Care Ethics'
-                ].map((text, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-xs text-gray-600 font-semibold">
-                    <span className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center text-[#123E87] border border-blue-100 flex-shrink-0">✓</span>
-                    <span>{text}</span>
-                  </div>
-                ))}
+              <h3 className="text-[#0d2d6b] text-2xl font-black font-sans leading-tight">
+                Dear Colleagues,
+              </h3>
+              <p className="text-gray-700 leading-relaxed text-[14px]">
+                It gives us immense pleasure to welcome you to <strong>ASSTCON 2026</strong> – the 1st Annual Conference of the Association of Spine Surgeons of Telangana (ASST), scheduled to be held on <strong>27th September 2026</strong> at <strong>Hotel Taj Deccan, Hyderabad</strong>.
+              </p>
+              <p className="text-gray-600 leading-relaxed text-[13.5px]">
+                On behalf of the Organizing Committee, we are delighted to invite you to this landmark academic gathering, which marks the beginning of a new journey for our state chapter. ASST has been established with a vision to bring together spine surgeons dedicated to excellence in spine care, education, research, and innovation.
+              </p>
+              <p className="text-gray-600 leading-relaxed text-[13.5px]">
+                The scientific program of ASSTCON 2026 has been carefully designed to provide an enriching academic experience through expert lectures, video sessions, interactive case discussions, and exchange of clinical knowledge by eminent national and local faculty. This conference aims to encourage learning, inspire young surgeons, promote research, and strengthen collaboration among spine specialists while upholding the highest standards of ethical patient care.
+              </p>
+              <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center flex-wrap gap-4">
+                <div className="text-left">
+                  <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider block">Regards,</span>
+                  <span className="text-[#123E87] font-black text-sm block">ASST Organizing Committee</span>
+                </div>
+                <Link to="/events"
+                  className="bg-[#D4A53A] hover:bg-[#b88c2b] text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 shrink-0"
+                >
+                  Register Now <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
-
-              <Link to="/about"
-                className="btn-premium-navy w-full text-center mt-8 flex items-center justify-center gap-2 text-xs py-3 rounded-xl font-bold"
-              >
-                Read Society MoA <ChevronRight className="w-4 h-4" />
-              </Link>
             </motion.div>
 
             {/* Right Column: 4-Card Organizers Grid */}
@@ -276,7 +273,7 @@ export default function Home() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6"
+              className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6"
             >
               {[
                 { name: 'Dr. Raghava Dutt Mulkutla', role: 'Organising Chairman', img: drRaghavaDutt },
