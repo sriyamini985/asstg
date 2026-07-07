@@ -103,14 +103,13 @@ export default function Footer({ onShowToast }) {
             <div className="w-24 py-1.5 px-3 bg-white rounded flex items-center justify-center">
               <img src={cmcLogo} alt="CMC Logo" className="max-h-7 object-contain" />
             </div>
-            <span className="text-[#c89b3c] text-xs font-semibold uppercase tracking-wider">CMC - Conference Management Company</span>
+            <span className="text-[#c89b3c] text-xs font-semibold uppercase tracking-wider">Conference Management</span>
             <address className="not-italic leading-relaxed">
-              <strong>Mr. Kiran Kumar Lella</strong><br />
-              Conference Manager
+              <strong>Mr. Sathyanarayana</strong><br />
+              ASSTCON 2026 Coordinator
             </address>
             <div className="flex flex-col gap-2 mt-1">
-              <a href="tel:+919676541985" className="hover:text-[#c89b3c] transition-colors">📞 +91-9676541985</a>
-              <a href="mailto:kiran@cmchyd.com" className="hover:text-[#c89b3c] transition-colors">✉️ kiran@cmchyd.com</a>
+              <a href="tel:+919440602168" className="hover:text-[#c89b3c] transition-colors">📞 +91-94406 02168</a>
             </div>
           </div>
         </div>

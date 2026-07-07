@@ -110,14 +110,11 @@ export default function Contact({ onShowToast }) {
                 <Phone className="w-5 h-5" />
               </div>
               <div className="flex flex-col gap-1.5 text-xs text-gray-500 text-left">
-                <h3 className="text-[#0d2d6b] font-bold text-[15px]">Conference Secretariat (CMC)</h3>
-                <span className="text-[#D4A53A] text-[10.5px] font-bold uppercase tracking-wider">Mr. Kiran Kumar Lella</span>
+                <h3 className="text-[#0d2d6b] font-bold text-[15px]">Conference Management</h3>
+                <span className="text-[#D4A53A] text-[10.5px] font-bold uppercase tracking-wider">Mr. Sathyanarayana</span>
                 <div className="flex flex-col gap-1.5 mt-1.5 text-[13px] font-semibold text-gray-700">
-                  <a href="tel:+919676541985" className="hover:text-[#123E87] transition-colors flex items-center gap-2">
-                    <span className="text-gray-400">📞</span> +91-9676541985
-                  </a>
-                  <a href="mailto:kiran@cmchyd.com" className="hover:text-[#123E87] transition-colors flex items-center gap-2">
-                    <span className="text-gray-400">✉️</span> kiran@cmchyd.com
+                  <a href="tel:+919440602168" className="hover:text-[#123E87] transition-colors flex items-center gap-2">
+                    <span className="text-gray-400">📞</span> +91-94406 02168
                   </a>
                 </div>
               </div>
