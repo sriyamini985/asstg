@@ -261,7 +261,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Right Column: 4-Card Organizers Grid */}
+            {/* Right Column: 4-Card Stats Grid in Coaches Style */}
             <motion.div
               variants={{
                 hidden: { opacity: 0 },
@@ -276,35 +276,34 @@ export default function Home() {
               className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6"
             >
               {[
-                { name: 'Dr. Raghava Dutt Mulkutla', role: 'Organising Chairman', img: drRaghavaDutt },
-                { name: 'Dr. A Pavan Kumar', role: 'Organising Secretary', img: drPavanKumar },
-                { name: 'Dr. Suresh Cheekatla', role: 'Treasurer', img: drCSuresh },
-                { name: 'Dr. D Devanand', role: 'Joint Secretary', img: drDevanand }
-              ].map((member, idx) => (
+                { title: '200+ Members', desc: 'Spine specialists across Telangana', icon: <Users className="w-7 h-7 text-current" />, textClr: 'text-[#123E87]', bg: 'bg-gradient-to-br from-blue-50 to-[#e2eeff]' },
+                { title: 'Annual Conference', desc: 'Premier scientific gathering', icon: <Award className="w-7 h-7 text-current" />, textClr: 'text-[#D4A53A]', bg: 'bg-gradient-to-br from-amber-50 to-[#fff4dc]' },
+                { title: '50+ CMEs', desc: 'Continuous medical educations', icon: <BookOpen className="w-7 h-7 text-current" />, textClr: 'text-[#123E87]', bg: 'bg-gradient-to-br from-blue-50 to-[#e2eeff]' },
+                { title: 'National Reach', desc: 'Collaborating with national forums', icon: <Globe className="w-7 h-7 text-current" />, textClr: 'text-[#D4A53A]', bg: 'bg-gradient-to-br from-amber-50 to-[#fff4dc]' }
+              ].map((c, idx) => (
                 <motion.div
                   key={idx}
                   variants={{
                     hidden: { opacity: 0, y: 30 },
                     show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
                   }}
-                  className="relative rounded-2xl overflow-hidden aspect-[4/3] group shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-end"
+                  whileHover={{ y: -8 }}
+                  className={`relative rounded-3xl overflow-hidden aspect-[4/3] group shadow-md hover:shadow-xl transition-all duration-300 border border-blue-100/50 flex flex-col justify-end p-4 ${c.bg}`}
                 >
-                  {/* Photo background */}
-                  <img
-                    src={member.img}
-                    alt={member.name}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0"
-                  />
-                  {/* Dark gradient wash over the image bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent z-10 opacity-70 group-hover:opacity-85 transition-opacity" />
+                  {/* Glowing Icon Floating in the Center/Top */}
+                  <div className={`absolute top-8 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-md w-16 h-16 rounded-2xl flex items-center justify-center shadow-md border border-white/50 group-hover:scale-110 group-hover:bg-[#123E87] group-hover:text-white transition-all duration-300 ${c.textClr}`}>
+                    <div className="text-inherit group-hover:text-white transition-colors duration-300">
+                      {c.icon}
+                    </div>
+                  </div>
 
                   {/* Glossy overlay box at the bottom */}
-                  <div className="relative z-20 m-3 bg-white/80 backdrop-blur-md border border-white/20 p-4 rounded-xl shadow-md text-left transition-all duration-300 group-hover:bg-[#123E87]/90 group-hover:border-[#123E87] select-none">
-                    <h4 className="text-[#0d2d6b] font-black text-sm tracking-tight group-hover:text-white transition-colors">
-                      {member.name}
+                  <div className="relative z-20 bg-white/85 backdrop-blur-md border border-white/40 p-4 rounded-2xl shadow-sm text-center transition-all duration-300 group-hover:bg-[#123E87]/90 group-hover:border-[#123E87] select-none">
+                    <h4 className="text-[#0d2d6b] font-black text-[15px] tracking-tight group-hover:text-white transition-colors">
+                      {c.title}
                     </h4>
                     <span className="text-gray-500 text-[10.5px] font-bold uppercase tracking-wider block mt-0.5 group-hover:text-[#D4A53A] transition-colors">
-                      {member.role}
+                      {c.desc}
                     </span>
                   </div>
                 </motion.div>
