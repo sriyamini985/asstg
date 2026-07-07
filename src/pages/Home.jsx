@@ -146,7 +146,7 @@ export default function Home() {
           WELCOME MESSAGE
          ════════════════════════════════════════════════════════════ */}
       {/* ── Welcome Message Section ── */}
-      <section className="relative z-10 py-24 bg-transparent overflow-hidden">
+      <section className="relative z-10 py-24 bg-gradient-to-b from-white via-[#f4f7fc] to-white overflow-hidden">
         
         {/* Subtle background rotating blueprint circle (About Us style, rendered in margins) */}
         <div className="blueprint-circle-tr absolute -top-16 -right-16 w-80 h-80 pointer-events-none z-0">
