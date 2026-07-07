@@ -85,7 +85,7 @@ export default function Home() {
   }
 
   return (
-    <div className="relative overflow-x-hidden bg-white">
+    <div className="relative overflow-x-hidden bg-[#edf3fd]">
       <HomeHero />
 
       {/* ════════════════════════════════════════════════════════════
@@ -217,7 +217,7 @@ export default function Home() {
           </div>
 
           {/* Section Glass Wrapper */}
-          <div className="relative bg-[#e3f2fd]/50 backdrop-blur-xl border border-sky-100/50 rounded-[32px] p-8 sm:p-12 shadow-xl shadow-blue-900/5 overflow-hidden z-10">
+          <div className="relative bg-white border-t-[6px] border-t-[#D4A53A] border border-blue-50 rounded-[32px] p-8 sm:p-12 shadow-[0_20px_50px_rgba(18,62,135,0.12)] overflow-hidden z-10">
             {/* Light blue radial glow behind the section content */}
             <div className="absolute inset-0 bg-radial-glow opacity-80 z-0 pointer-events-none" style={{ background: 'radial-gradient(circle at center, rgba(18, 62, 135, 0.05) 0%, transparent 75%)' }} />
 
