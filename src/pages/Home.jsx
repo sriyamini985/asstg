@@ -7,6 +7,10 @@ import {
 } from 'lucide-react';
 import HomeHero from '../components/HomeHero';
 import asstconLogo from '../assets/images/asstcon_logo.png';
+import drRaghavaDutt from '../assets/images/organizers/dr_raghava_dutt.jpg';
+import drPavanKumar from '../assets/images/organizers/dr_pavan_kumar.jpg';
+import drCSuresh from '../assets/images/organizers/dr_c_suresh.jpg';
+import drDevanand from '../assets/images/organizers/dr_devanand.jpg';
 
 
 // ── Countdown Timer ───────────────────────────────────────────────
@@ -212,105 +216,103 @@ export default function Home() {
           {/* Section Header */}
           <div className="text-center mb-16 relative z-10">
             <span className="text-[#D4A53A] font-bold text-xs tracking-[0.25em] uppercase block mb-2">Welcome to ASST</span>
-            <h2 className="text-[#0d2d6b] text-3xl sm:text-4xl font-black">Welcome Message</h2>
+            <h2 className="text-[#0d2d6b] text-3xl sm:text-4xl font-black">Our Organizing Leadership</h2>
             <div className="w-16 h-1 bg-gradient-to-r from-[#123E87] to-[#D4A53A] mx-auto mt-4 rounded-full" />
           </div>
 
-          {/* Section Glass Wrapper */}
-          <div className="relative bg-white/60 backdrop-blur-xl border border-blue-50/50 rounded-[32px] p-8 sm:p-12 shadow-xl shadow-blue-900/5 overflow-hidden z-10">
-            {/* Light blue radial glow behind the section content */}
-            <div className="absolute inset-0 bg-radial-glow opacity-80 z-0 pointer-events-none" style={{ background: 'radial-gradient(circle at center, rgba(18, 62, 135, 0.05) 0%, transparent 75%)' }} />
-
-            <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
-              
-              {/* Left Column Content Panel */}
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex flex-col gap-5 text-left"
-              >
-                {/* Subtle quotation watermark behind text */}
-                <div className="absolute -left-4 -top-8 text-blue-900/[0.02] text-8xl font-serif pointer-events-none select-none">
-                  “
-                </div>
-
-                <div className="flex gap-4 items-start">
-                  <div className="w-1.5 self-stretch bg-gradient-to-b from-[#123E87] to-[#D4A53A] rounded-full shrink-0" />
-                  <p className="text-gray-700 leading-relaxed text-[16px] font-bold">
-                    Welcome to <span className="text-[#123E87]">ASST</span>,
-                  </p>
-                </div>
-
-                <p className="text-gray-600 leading-relaxed text-[15px]">
-                  It is with immense pride that we welcome you to the <span className="text-[#123E87] font-semibold">Association of Spine Surgeons of Telangana</span> — a premier professional body dedicated to uniting spine surgery specialists across the region.
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative z-10">
+            
+            {/* Left Column: Banner Card */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-4 bg-gradient-to-br from-blue-50/60 to-white/95 border border-blue-100/50 p-8 rounded-3xl flex flex-col justify-between text-left shadow-lg shadow-blue-900/5"
+            >
+              <div className="flex flex-col gap-5">
+                <span className="w-fit bg-[#123E87] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  Our Team
+                </span>
+                <h3 className="text-[#0d2d6b] text-3xl font-black font-sans leading-tight">
+                  Meet Your <br />
+                  <span className="text-[#123E87]">Dedicated Leaders</span>
+                </h3>
+                <p className="text-gray-500 text-[13.5px] leading-relaxed">
+                  Through collaborative education, cutting-edge technology, and continuous academic research, we help advance the standards of spine care across Telangana.
                 </p>
-                
-                <p className="text-gray-600 leading-relaxed text-[15px]">
-                  ASST is committed to advancing the <span className="text-[#123E87] font-semibold">science and practice of spine surgery</span> through <span className="text-[#123E87] font-semibold">continuous medical education, research, and peer collaboration</span>. Our association organizes scientific conferences, hands-on workshops, and CME programs that keep members at the forefront of emerging techniques and evidence-based practice.
-                </p>
+              </div>
 
-                <p className="text-gray-600 leading-relaxed text-[15px] mb-2">
-                  We warmly invite spine surgery professionals from across Telangana and beyond to join us in our mission to <span className="text-[#123E87] font-semibold">elevate patient care standards</span> and foster a vibrant community of spinal health experts.
-                </p>
-
-                <div className="mt-2">
-                  <p className="text-gray-600 text-[14px] font-semibold">Warm Regards,</p>
-                  <p className="text-[#123E87] text-[15px] font-black">ASST Executive Committee</p>
-                </div>
-
-                <Link to="/about"
-                  className="inline-flex items-center gap-2 mt-6 text-[#123E87] font-bold text-sm border-b-2 border-[#D4A53A] pb-0.5 hover:text-[#D4A53A] transition-colors w-fit">
-                  Read More <ChevronRight className="w-4 h-4" />
-                </Link>
-              </motion.div>
-
-              {/* Right Column Grid Cards */}
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0 },
-                  show: {
-                    opacity: 1,
-                    transition: { staggerChildren: 0.1 }
-                  }
-                }}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="grid grid-cols-2 gap-4 sm:gap-6"
-              >
+              <div className="flex flex-col gap-3 mt-6">
                 {[
-                  { icon: <Users className="w-6 h-6" />, title: '200+ Members', desc: 'Spine surgery specialists across Telangana' },
-                  { icon: <Award className="w-6 h-6" />, title: 'Annual Conference', desc: 'Premier spine surgery scientific gathering' },
-                  { icon: <BookOpen className="w-6 h-6" />, title: '50+ CMEs', desc: 'Continuous medical education programs' },
-                  { icon: <Globe className="w-6 h-6" />, title: 'National Reach', desc: 'Collaborating with national spine bodies' },
-                ].map((c) => (
-                  <motion.div
-                    key={c.title}
-                    variants={{
-                      hidden: { opacity: 0, x: 40 },
-                      show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
-                    }}
-                    whileHover={{ 
-                      y: -8,
-                      boxShadow: '0 20px 40px -15px rgba(18,62,135,0.15), 0 0 15px rgba(212,165,58,0.08)'
-                    }}
-                    className="relative overflow-hidden rounded-[24px] p-6 text-left border border-blue-50/50 bg-gradient-to-br from-white/95 to-[#f3f7fe]/95 hover:border-blue-100 transition-all duration-300 group cursor-pointer border-t-[3px] border-t-[#D4A53A] flex flex-col justify-between"
-                  >
-                    <div>
-                      {/* Icon container with gradient */}
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#123E87] to-[#1a4fa8] flex items-center justify-center text-white mb-4 shadow-md shadow-blue-900/10 group-hover:scale-110 transition-transform duration-300">
-                        {c.icon}
-                      </div>
-                      <h4 className="text-[#0d2d6b] font-black text-[15px] mb-1.5 group-hover:text-[#123E87] transition-colors">{c.title}</h4>
-                      <p className="text-gray-500 text-xs font-semibold leading-relaxed">{c.desc}</p>
-                    </div>
-                  </motion.div>
+                  'Qualified Orthopedic Specialists',
+                  'Active Peer Collaboration',
+                  'State-level CME & Workshops',
+                  'Advancing Patient Care Ethics'
+                ].map((text, idx) => (
+                  <div key={idx} className="flex items-center gap-2.5 text-xs text-gray-600 font-semibold">
+                    <span className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center text-[#123E87] border border-blue-100 flex-shrink-0">✓</span>
+                    <span>{text}</span>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
 
-            </div>
+              <Link to="/about"
+                className="btn-premium-navy w-full text-center mt-8 flex items-center justify-center gap-2 text-xs py-3 rounded-xl font-bold"
+              >
+                Read Society MoA <ChevronRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+
+            {/* Right Column: 4-Card Organizers Grid */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1 }
+                }
+              }}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6"
+            >
+              {[
+                { name: 'Dr. Raghava Dutt Mulkutla', role: 'Organising Chairman', img: drRaghavaDutt },
+                { name: 'Dr. A Pavan Kumar', role: 'Organising Secretary', img: drPavanKumar },
+                { name: 'Dr. Suresh Cheekatla', role: 'Treasurer', img: drCSuresh },
+                { name: 'Dr. D Devanand', role: 'Joint Secretary', img: drDevanand }
+              ].map((member, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+                  }}
+                  className="relative rounded-2xl overflow-hidden aspect-[4/3] group shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-end"
+                >
+                  {/* Photo background */}
+                  <img
+                    src={member.img}
+                    alt={member.name}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0"
+                  />
+                  {/* Dark gradient wash over the image bottom */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent z-10 opacity-70 group-hover:opacity-85 transition-opacity" />
+
+                  {/* Glossy overlay box at the bottom */}
+                  <div className="relative z-20 m-3 bg-white/80 backdrop-blur-md border border-white/20 p-4 rounded-xl shadow-md text-left transition-all duration-300 group-hover:bg-[#123E87]/90 group-hover:border-[#123E87] select-none">
+                    <h4 className="text-[#0d2d6b] font-black text-sm tracking-tight group-hover:text-white transition-colors">
+                      {member.name}
+                    </h4>
+                    <span className="text-gray-500 text-[10.5px] font-bold uppercase tracking-wider block mt-0.5 group-hover:text-[#D4A53A] transition-colors">
+                      {member.role}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
 
         </div>

@@ -488,15 +488,18 @@ export default function Events({ onShowToast }) {
                     {/* Conference Manager */}
                     <div className="bg-gradient-to-br from-[#f0f6ff] to-white border border-blue-100 p-5 rounded-2xl flex flex-col justify-between gap-4 hover:shadow-md transition-shadow">
                       <div className="flex flex-col gap-1">
-                        <span className="text-[#0d2d6b] font-bold text-base">Mr. Sathyanarayana</span>
+                        <span className="text-[#0d2d6b] font-bold text-base">Mr. Kiran Kumar Lella</span>
                         <span className="text-[#D4A53A] text-xs font-bold uppercase tracking-wider">Conference Manager</span>
                         <span className="text-gray-400 text-xs mt-1 leading-relaxed">
-                          ASSTCON 2026 Coordinator
+                          CMC - Conference Management Company
                         </span>
                       </div>
-                      <div className="text-xs text-gray-500 font-semibold mt-2 pt-2 border-t border-gray-100/60">
-                        <a href="tel:+919440602168" className="hover:text-[#123E87] transition-colors flex items-center gap-1.5">
-                          <span className="text-gray-400">📞</span> +91-94406 02168
+                      <div className="text-xs text-gray-500 font-semibold mt-2 pt-2 border-t border-gray-100/60 flex flex-col gap-1">
+                        <a href="tel:+919676541985" className="hover:text-[#123E87] transition-colors flex items-center gap-1.5">
+                          <span className="text-gray-400">📞</span> +91-96765 41985
+                        </a>
+                        <a href="mailto:kiran@cmchyd.com" className="hover:text-[#123E87] transition-colors flex items-center gap-1.5">
+                          <span className="text-gray-400">✉️</span> kiran@cmchyd.com
                         </a>
                       </div>
                     </div>
