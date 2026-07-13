@@ -30,6 +30,7 @@ import venueTajDeccan from '../assets/images/venue_taj_deccan.png';
 import regQrCode from '../assets/images/registration_qr_code.jpg';
 import drRaghavaDutt from '../assets/images/organizers/dr_raghava_dutt.jpg';
 import drPavanKumar from '../assets/images/organizers/dr_pavan_kumar.jpg';
+import asstconBanner from '../assets/images/asstcon_landscape_poster.png';
 
 const placesImageMap = {
   'place_statue_of_equality.jpg': imgStatue,
@@ -333,34 +334,13 @@ export default function Events({ onShowToast }) {
                 transition={{ duration: 0.35 }}
                 className="-m-6 sm:-m-8 flex flex-col overflow-hidden bg-[#fafcff]"
               >
-                {/* ── Top Curved Header Banner ── */}
-                <div className="relative h-28 bg-[#07193d] overflow-hidden flex items-center justify-between px-8">
-                  {/* SVG Wave curve backing */}
-                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 800 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0 H800 V60 C700 100, 600 30, 400 80 C200 130, 100 40, 0 50 Z" fill="url(#headerNavyGrad)" />
-                    <path d="M0 50 C100 40, 200 130, 400 80 C600 30, 700 100, 800 60" stroke="#D4A53A" strokeWidth="3" fill="none" />
-                    <defs>
-                      <linearGradient id="headerNavyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#05122e" />
-                        <stop offset="100%" stopColor="#0e2a5e" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  {/* Dotted gold patterns in corners */}
-                  <div className="absolute top-0 right-0 w-44 h-full opacity-15 bg-[radial-gradient(#D4A53A_1.5px,transparent_1.5px)] [background-size:10px_10px]" />
-                  <div className="absolute top-0 left-0 w-44 h-full opacity-15 bg-[radial-gradient(#D4A53A_1.5px,transparent_1.5px)] [background-size:10px_10px]" />
-                  
-                  {/* Spacer to push title right */}
-                  <div className="hidden sm:block" />
-                  
-                  {/* Right-aligned Title */}
-                  <div className="relative z-10 text-right w-full sm:w-auto mt-6">
-                    <h2 className="text-white text-2xl font-black font-sans uppercase tracking-[0.2em] inline-block relative pb-1">
-                      Welcome Message
-                      <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D4A53A]" />
-                      <span className="absolute left-[-10px] bottom-[-2.5px] w-1.5 h-1.5 rounded-full bg-[#D4A53A]" />
-                    </h2>
-                  </div>
+                {/* ── Conference Banner ── */}
+                <div className="w-full relative overflow-hidden border-b border-gray-100 shadow-sm">
+                  <img 
+                    src={asstconBanner} 
+                    alt="ASSTCON 2026 Conference Banner" 
+                    className="w-full h-auto block"
+                  />
                 </div>
 
                 {/* ── Letterhead Content Body ── */}
@@ -377,6 +357,18 @@ export default function Events({ onShowToast }) {
                   
                   <p>
                     The scientific program of ASSTCON 2026 has been carefully designed to provide an enriching academic experience through expert lectures, video sessions, interactive case discussions, and exchange of clinical knowledge by eminent national and local faculty. This conference aims to encourage learning, inspire young surgeons, promote research, and strengthen collaboration among spine specialists while upholding the highest standards of ethical patient care.
+                  </p>
+
+                  <p>
+                    We warmly welcome all delegates, faculty members, and friends to the beautiful city of Hyderabad, the City of Pearls. We invite you to experience its magnificent forts, palaces, museums, vibrant shopping destinations, and the rich cultural heritage of the historic City of Nizams.
+                  </p>
+
+                  <p>
+                    We look forward to your enthusiastic participation and support in making the first ASST annual conference a memorable and successful event.
+                  </p>
+
+                  <p className="font-semibold text-[#123E87] text-left">
+                    Together, let us advance spine care through excellence, education, and innovation.
                   </p>
 
                   {/* ── Organizing Team Portraits (Circular with Gold Borders) ── */}

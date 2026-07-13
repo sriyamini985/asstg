@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import HomeHero from '../components/HomeHero';
 import asstconLogo from '../assets/images/asstcon_logo.png';
+import asstconBanner from '../assets/images/asstcon_landscape_poster.png';
 
 
 // ── Countdown Timer ───────────────────────────────────────────────
@@ -221,6 +222,15 @@ export default function Home() {
             {/* Light blue radial glow behind the section content */}
             <div className="absolute inset-0 bg-radial-glow opacity-80 z-0 pointer-events-none" style={{ background: 'radial-gradient(circle at center, rgba(18, 62, 135, 0.05) 0%, transparent 75%)' }} />
 
+            {/* Conference Banner */}
+            <div className="w-full relative overflow-hidden rounded-2xl border border-gray-100 shadow-sm mb-12 z-10">
+              <img 
+                src={asstconBanner} 
+                alt="ASSTCON 2026 Conference Banner" 
+                className="w-full h-auto block"
+              />
+            </div>
+
             <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
               
               {/* Left Column Content Panel */}
@@ -238,31 +248,43 @@ export default function Home() {
 
                 <div className="flex gap-4 items-start">
                   <div className="w-1.5 self-stretch bg-gradient-to-b from-[#123E87] to-[#D4A53A] rounded-full shrink-0" />
-                  <p className="text-gray-700 leading-relaxed text-[16px] font-bold">
-                    Welcome to <span className="text-[#123E87]">ASST</span>,
+                  <p className="text-[#123E87] leading-relaxed text-[16px] font-black">
+                    Dear Colleagues,
                   </p>
                 </div>
 
-                <p className="text-gray-600 leading-relaxed text-[15px]">
-                  It is with immense pride that we welcome you to the <span className="text-[#123E87] font-semibold">Association of Spine Surgeons of Telangana</span> — a premier professional body dedicated to uniting spine surgery specialists across the region.
+                <p className="text-gray-600 leading-relaxed text-[14.5px]">
+                  It gives us immense pleasure to welcome you to <span className="text-[#123E87] font-semibold">ASSTCON 2026</span> – the 1st Annual Conference of the Association of Spine Surgeons of Telangana (ASST), scheduled to be held on 27th September 2026 at Hotel Taj Deccan, Hyderabad.
                 </p>
                 
-                <p className="text-gray-600 leading-relaxed text-[15px]">
-                  ASST is committed to advancing the <span className="text-[#123E87] font-semibold">science and practice of spine surgery</span> through <span className="text-[#123E87] font-semibold">continuous medical education, research, and peer collaboration</span>. Our association organizes scientific conferences, hands-on workshops, and CME programs that keep members at the forefront of emerging techniques and evidence-based practice.
+                <p className="text-gray-600 leading-relaxed text-[14.5px]">
+                  On behalf of the Organizing Committee, we are delighted to invite you to this landmark academic gathering, which marks the beginning of a new journey for our state chapter. ASST has been established with a vision to bring together spine surgeons dedicated to excellence in spine care, education, research, and innovation.
+                </p>
+                
+                <p className="text-gray-600 leading-relaxed text-[14.5px]">
+                  The scientific program of ASSTCON 2026 has been carefully designed to provide an enriching academic experience through expert lectures, video sessions, interactive case discussions, and exchange of clinical knowledge by eminent national and local faculty. This conference aims to encourage learning, inspire young surgeons, promote research, and strengthen collaboration among spine specialists while upholding the highest standards of ethical patient care.
                 </p>
 
-                <p className="text-gray-600 leading-relaxed text-[15px] mb-2">
-                  We warmly invite spine surgery professionals from across Telangana and beyond to join us in our mission to <span className="text-[#123E87] font-semibold">elevate patient care standards</span> and foster a vibrant community of spinal health experts.
+                <p className="text-gray-600 leading-relaxed text-[14.5px]">
+                  We warmly welcome all delegates, faculty members, and friends to the beautiful city of Hyderabad, the City of Pearls. We invite you to experience its magnificent forts, palaces, museums, vibrant shopping destinations, and the rich cultural heritage of the historic City of Nizams.
+                </p>
+
+                <p className="text-gray-600 leading-relaxed text-[14.5px]">
+                  We look forward to your enthusiastic participation and support in making the first ASST annual conference a memorable and successful event.
+                </p>
+
+                <p className="text-[#123E87] leading-relaxed text-[14.5px] font-bold">
+                  Together, let us advance spine care through excellence, education, and innovation.
                 </p>
 
                 <div className="mt-2">
                   <p className="text-gray-600 text-[14px] font-semibold">Warm Regards,</p>
-                  <p className="text-[#123E87] text-[15px] font-black">ASST Executive Committee</p>
+                  <p className="text-[#123E87] text-[15px] font-black">Organising Committee, ASSTCON 2026</p>
                 </div>
 
-                <Link to="/about"
+                <Link to="/events?tab=event-welcome"
                   className="inline-flex items-center gap-2 mt-6 text-[#123E87] font-bold text-sm border-b-2 border-[#D4A53A] pb-0.5 hover:text-[#D4A53A] transition-colors w-fit">
-                  Read More <ChevronRight className="w-4 h-4" />
+                  View Welcome Tab <ChevronRight className="w-4 h-4" />
                 </Link>
               </motion.div>
 
