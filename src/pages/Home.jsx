@@ -231,15 +231,15 @@ export default function Home() {
               />
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div className="relative z-10 max-w-4xl mx-auto">
               
-              {/* Left Column Content Panel */}
+              {/* Center Content Panel */}
               <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex flex-col gap-5 text-left"
+                className="relative flex flex-col gap-6 text-left"
               >
                 {/* Subtle quotation watermark behind text */}
                 <div className="absolute -left-4 -top-8 text-blue-900/[0.02] text-8xl font-serif pointer-events-none select-none">
@@ -248,7 +248,7 @@ export default function Home() {
 
                 <div className="flex gap-4 items-start">
                   <div className="w-1.5 self-stretch bg-gradient-to-b from-[#123E87] to-[#D4A53A] rounded-full shrink-0" />
-                  <p className="text-[#123E87] leading-relaxed text-[16px] font-black">
+                  <p className="text-[#123E87] leading-relaxed text-[16.5px] font-black">
                     Dear Colleagues,
                   </p>
                 </div>
@@ -273,63 +273,19 @@ export default function Home() {
                   We look forward to your enthusiastic participation and support in making the first ASST annual conference a memorable and successful event.
                 </p>
 
-                <p className="text-[#123E87] leading-relaxed text-[14.5px] font-bold">
+                <p className="text-[#123E87] leading-relaxed text-[15px] font-bold">
                   Together, let us advance spine care through excellence, education, and innovation.
                 </p>
 
-                <div className="mt-2">
+                <div className="mt-2 pt-4 border-t border-gray-100/80">
                   <p className="text-gray-600 text-[14px] font-semibold">Warm Regards,</p>
-                  <p className="text-[#123E87] text-[15px] font-black">Organising Committee, ASSTCON 2026</p>
+                  <p className="text-[#123E87] text-[15.5px] font-black mt-0.5">Organising Committee, ASSTCON 2026</p>
                 </div>
 
                 <Link to="/events?tab=event-welcome"
                   className="inline-flex items-center gap-2 mt-6 text-[#123E87] font-bold text-sm border-b-2 border-[#D4A53A] pb-0.5 hover:text-[#D4A53A] transition-colors w-fit">
                   View Welcome Tab <ChevronRight className="w-4 h-4" />
                 </Link>
-              </motion.div>
-
-              {/* Right Column Grid Cards */}
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0 },
-                  show: {
-                    opacity: 1,
-                    transition: { staggerChildren: 0.1 }
-                  }
-                }}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="grid grid-cols-2 gap-4 sm:gap-6"
-              >
-                {[
-                  { icon: <Users className="w-6 h-6" />, title: '200+ Members', desc: 'Spine surgery specialists across Telangana' },
-                  { icon: <Award className="w-6 h-6" />, title: 'Annual Conference', desc: 'Premier spine surgery scientific gathering' },
-                  { icon: <BookOpen className="w-6 h-6" />, title: '50+ CMEs', desc: 'Continuous medical education programs' },
-                  { icon: <Globe className="w-6 h-6" />, title: 'National Reach', desc: 'Collaborating with national spine bodies' },
-                ].map((c) => (
-                  <motion.div
-                    key={c.title}
-                    variants={{
-                      hidden: { opacity: 0, x: 40 },
-                      show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
-                    }}
-                    whileHover={{ 
-                      y: -8,
-                      boxShadow: '0 20px 40px -15px rgba(18,62,135,0.15), 0 0 15px rgba(212,165,58,0.08)'
-                    }}
-                    className="relative overflow-hidden rounded-[24px] p-6 text-left border border-blue-50/50 bg-gradient-to-br from-white/95 to-[#f3f7fe]/95 hover:border-blue-100 transition-all duration-300 group cursor-pointer border-t-[3px] border-t-[#D4A53A] flex flex-col justify-between"
-                  >
-                    <div>
-                      {/* Icon container with gradient */}
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#123E87] to-[#1a4fa8] flex items-center justify-center text-white mb-4 shadow-md shadow-blue-900/10 group-hover:scale-110 transition-transform duration-300">
-                        {c.icon}
-                      </div>
-                      <h4 className="text-[#0d2d6b] font-black text-[15px] mb-1.5 group-hover:text-[#123E87] transition-colors">{c.title}</h4>
-                      <p className="text-gray-500 text-xs font-semibold leading-relaxed">{c.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
               </motion.div>
 
             </div>
