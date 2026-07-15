@@ -136,28 +136,37 @@ export default function About() {
 
             {/* Mission & Vision Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
-              <div className="premium-card p-6 flex items-start gap-4">
+              <motion.div
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="premium-card p-6 flex items-start gap-4 border-l-4 border-l-[#123E87] bg-gradient-to-br from-white via-white to-[#123E87]/[0.02] shadow-[0_10px_30px_-10px_rgba(18,62,135,0.08)] hover:shadow-[0_20px_40px_-15px_rgba(18,62,135,0.15)] transition-all duration-300 cursor-pointer"
+              >
                 <div className="icon-box-navy flex-shrink-0">
                   <Target className="w-5 h-5" />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <h3 className="text-[#0d2d6b] font-bold text-[16px]">Our Mission</h3>
-                  <p className="text-gray-500 text-xs leading-relaxed">
+                  <h3 className="text-[#0d2d6b] font-black text-[16px]">Our Mission</h3>
+                  <p className="text-gray-600 text-xs leading-relaxed font-semibold">
                     Promote excellence in spine surgery through education, ethical practice, research, collaboration, and professional development.
                   </p>
                 </div>
-              </div>
-              <div className="premium-card p-6 flex items-start gap-4">
+              </motion.div>
+              
+              <motion.div
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="premium-card p-6 flex items-start gap-4 border-l-4 border-l-[#D4A53A] bg-gradient-to-br from-white via-white to-[#D4A53A]/[0.03] shadow-[0_10px_30px_-10px_rgba(212,165,58,0.1)] hover:shadow-[0_20px_40px_-15px_rgba(212,165,58,0.18)] transition-all duration-300 cursor-pointer"
+              >
                 <div className="icon-box-gold flex-shrink-0">
                   <Eye className="w-5 h-5" />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <h3 className="text-[#0d2d6b] font-bold text-[16px]">Our Vision</h3>
-                  <p className="text-gray-500 text-xs leading-relaxed">
+                  <h3 className="text-[#0d2d6b] font-black text-[16px]">Our Vision</h3>
+                  <p className="text-gray-600 text-xs leading-relaxed font-semibold">
                     To be the leading state association in India for spine surgery training, standardizing ethical guidelines, and ensuring public patient safety.
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
