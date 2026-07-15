@@ -52,7 +52,7 @@ export default function Navbar() {
             </span>
             <span className="flex items-center gap-1.5">
               <Mail className="w-3 h-3 shrink-0" />
-              info@asst.org.in
+              info@asstg.in
             </span>
           </div>
           {/* Right: phone */}

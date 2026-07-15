@@ -11,13 +11,14 @@ const resendClient = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.mailtrap.io',
   port: parseInt(process.env.SMTP_PORT || '2525'),
+  secure: parseInt(process.env.SMTP_PORT || '2525') === 465,
   auth: {
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || ''
   }
 });
 
-const FROM_EMAIL = process.env.SMTP_FROM || 'no-reply@asst.org.in';
+const FROM_EMAIL = process.env.SMTP_FROM || 'info@asstg.in';
 
 export const sendEmail = async ({ to, subject, html }) => {
   const fromHeader = FROM_EMAIL.includes('<') ? FROM_EMAIL : `ASST Registration <${FROM_EMAIL}>`;
