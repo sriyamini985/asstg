@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 
 const FROM_EMAIL = process.env.SMTP_FROM || 'info@asstg.in';
 
-export const sendEmail = async ({ to, subject, html }) => {
+export const sendEmail = async ({ to, subject, html, replyTo }) => {
   const fromHeader = FROM_EMAIL.includes('<') ? FROM_EMAIL : `ASST Registration <${FROM_EMAIL}>`;
 
   // 1. Try Resend API if API Key is configured
@@ -30,7 +30,8 @@ export const sendEmail = async ({ to, subject, html }) => {
         from: fromHeader,
         to: [to],
         subject,
-        html
+        html,
+        reply_to: replyTo
       });
       return response;
     } catch (error) {
@@ -46,7 +47,8 @@ export const sendEmail = async ({ to, subject, html }) => {
         from: fromHeader,
         to,
         subject,
-        html
+        html,
+        replyTo
       });
       return info;
     } catch (error) {
@@ -58,6 +60,52 @@ export const sendEmail = async ({ to, subject, html }) => {
   // 3. Mock fallback logging
   console.log(`[Email Mock] To: ${to} | Subject: ${subject}`);
   return { mock: true, messageId: 'mock-id-' + Math.random().toString(36).substring(7) };
+};
+
+export const sendContactEnquiryEmail = async (enquiry) => {
+  const subject = `New Website Contact Enquiry: ${enquiry.subject || 'General Inquiry'}`;
+  const html = `
+    <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+      <h2 style="color: #123E87; margin-top: 0;">New Website Enquiry</h2>
+      <p>You have received a new message from the contact form on the ASST website.</p>
+      
+      <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px solid #e2e8f0; width: 30%;">Name:</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">${enquiry.name}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px solid #e2e8f0;">Email:</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+            <a href="mailto:${enquiry.email}">${enquiry.email}</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px solid #e2e8f0;">Phone:</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">${enquiry.phone || 'N/A'}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; border-bottom: 1px solid #e2e8f0;">Subject:</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">${enquiry.subject || 'N/A'}</td>
+        </tr>
+      </table>
+      
+      <div style="background-color: #f8fafc; border-left: 4px solid #123E87; padding: 15px; margin: 20px 0; border-radius: 4px;">
+        <p style="margin: 0; font-weight: bold; color: #475569; font-size: 13px;">Message:</p>
+        <p style="margin: 10px 0 0 0; font-size: 14px; white-space: pre-line; line-height: 1.6; color: #1e293b;">${enquiry.message}</p>
+      </div>
+      
+      <p style="font-size: 12px; color: #94a3b8; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+        This email was sent automatically from the contact form on your website. You can reply directly to this email to reply to the visitor.
+      </p>
+    </div>
+  `;
+  return sendEmail({ 
+    to: FROM_EMAIL, 
+    subject, 
+    html,
+    replyTo: enquiry.email
+  });
 };
 
 export const sendRegistrationSubmittedEmail = async (reg) => {

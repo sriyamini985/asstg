@@ -16,7 +16,8 @@ import {
 import {
   sendRegistrationSubmittedEmail,
   sendRegistrationApprovedEmail,
-  sendRegistrationRejectedEmail
+  sendRegistrationRejectedEmail,
+  sendContactEnquiryEmail
 } from './services/emailService.js';
 import { exportToCSV, exportToExcel } from './services/exportService.js';
 
@@ -272,6 +273,36 @@ app.post('/api/admin/login', async (req, res) => {
   } catch (error) {
     console.error('Admin login error:', error);
     return res.status(500).json({ error: 'A server error occurred.' });
+  }
+});
+
+// Submit Contact Us Form (Public Endpoint)
+app.post('/api/contact', async (req, res) => {
+  const { name, email, phone, subject, message } = req.body;
+
+  try {
+    if (!name || String(name).trim() === '') {
+      return res.status(400).json({ error: "Name is required." });
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: "A valid email address is required." });
+    }
+    if (!message || String(message).trim() === '') {
+      return res.status(400).json({ error: "Message content is required." });
+    }
+
+    await sendContactEnquiryEmail({
+      name: name.trim(),
+      email: email.trim().toLowerCase(),
+      phone: phone ? phone.trim() : '',
+      subject: subject ? subject.trim() : '',
+      message: message.trim()
+    });
+
+    return res.status(200).json({ message: "Enquiry submitted and emailed successfully!" });
+  } catch (error) {
+    console.error('Contact form submission error:', error);
+    return res.status(500).json({ error: "An error occurred while processing your message." });
   }
 });
 

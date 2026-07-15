@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import MedicalPageBackground from '../components/MedicalPageBackground';
+import { API_BASE_URL } from '../config';
 
 const pageTransition = {
   hidden: { opacity: 0, y: 30 },
@@ -30,15 +31,25 @@ export default function Contact({ onShowToast }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message.');
+      }
+
       setFormSubmitted(true);
       if (onShowToast) {
-        onShowToast('Contact enquiry submitted successfully!');
+        onShowToast('Contact enquiry submitted and emailed successfully!');
       }
       setFormData({
         name: '',
@@ -50,7 +61,13 @@ export default function Contact({ onShowToast }) {
       setTimeout(() => {
         setFormSubmitted(false);
       }, 4000);
-    }, 1500);
+    } catch (error) {
+      if (onShowToast) {
+        onShowToast(error.message || 'Connection to server failed.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
