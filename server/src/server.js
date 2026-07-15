@@ -46,6 +46,8 @@ const PORT = process.env.PORT || 5000;
 // Strict CORS Configuration
 const allowedOrigins = [
   'http://localhost:5173',
+  'https://asstg.in',
+  'https://www.asstg.in',
   'https://asst.org.in',
   'https://www.asst.org.in'
 ];
