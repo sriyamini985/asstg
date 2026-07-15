@@ -32,8 +32,6 @@ export const checkDuplicates = async (email, mobile, transactionId) => {
 };
 
 export const createRegistration = async (data, filename) => {
-  const registrationId = await generateRegistrationId();
-  
   // Parse full name into First & Last Name
   const nameParts = data.name.trim().split(/\s+/);
   const firstName = nameParts[0];
@@ -42,31 +40,60 @@ export const createRegistration = async (data, filename) => {
   // Determine correct registration fee based on category
   const fee = data.category === 'Postgraduate Student' ? 1000.0 : 3000.0;
 
-  const registration = await prisma.registration.create({
-    data: {
-      registrationId,
-      title: data.title || null,
-      firstName,
-      lastName,
-      gender: data.gender || null,
-      dob: data.dob ? new Date(data.dob) : null,
-      qualification: data.qualification || null,
-      hospital: data.institution.trim(),
-      address: data.address || null,
-      city: data.city || null,
-      state: data.state || null,
-      pinCode: data.pinCode || null,
-      email: data.email.toLowerCase().trim(),
-      mobile: data.phone.trim(),
-      category: data.category,
-      fee,
-      transactionId: data.referenceId.trim(),
-      paymentScreenshot: filename,
-      registrationStatus: 'Pending Verification',
-      paymentStatus: 'Verification Pending',
-      exportStatus: 'Pending'
+  let attempts = 0;
+  const maxAttempts = 10;
+  let registration = null;
+
+  while (attempts < maxAttempts) {
+    try {
+      const count = await prisma.registration.count();
+      const nextId = count + 1 + attempts;
+      const paddedId = String(nextId).padStart(5, '0');
+      const registrationId = `ASST2026${paddedId}`;
+
+      registration = await prisma.registration.create({
+        data: {
+          registrationId,
+          title: data.title || null,
+          firstName,
+          lastName,
+          gender: data.gender || null,
+          dob: data.dob ? new Date(data.dob) : null,
+          qualification: data.qualification || null,
+          hospital: data.institution.trim(),
+          address: data.address || null,
+          city: data.city || null,
+          state: data.state || null,
+          pinCode: data.pinCode || null,
+          email: data.email.toLowerCase().trim(),
+          mobile: data.phone.trim(),
+          category: data.category,
+          fee,
+          transactionId: data.referenceId.trim(),
+          paymentScreenshot: filename,
+          registrationStatus: 'Pending Verification',
+          paymentStatus: 'Verification Pending',
+          exportStatus: 'Pending'
+        }
+      });
+      break;
+    } catch (error) {
+      const isIdViolation = error.code === 'P2002' && 
+        (error.message.includes('registrationId') || 
+         (error.meta && JSON.stringify(error.meta).includes('registrationId')));
+         
+      if (isIdViolation) {
+        attempts++;
+        console.warn(`Registration ID collision detected (ASST2026 suffix conflict). Retrying transaction (${attempts}/${maxAttempts})...`);
+        continue;
+      }
+      throw error;
     }
-  });
+  }
+
+  if (!registration) {
+    throw new Error('Failed to generate a unique registration ID after maximum attempts.');
+  }
 
   return registration;
 };

@@ -108,6 +108,7 @@ export default function AdminDashboard({ onShowToast }) {
     }
   }, [fetchRegistrations, fetchMemberships, handleLogout, onShowToast]);
 
+  // Initial load ONCE on mount
   useEffect(() => {
     const adminToken = localStorage.getItem('asst_admin_token');
     if (!adminToken) {
@@ -116,11 +117,21 @@ export default function AdminDashboard({ onShowToast }) {
       setToken(adminToken);
       loadDashboardData(adminToken);
     }
-  }, [navigate, loadDashboardData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate]);
+
+  // Automatically fetch registrations when dropdown filters change
+  useEffect(() => {
+    if (token) {
+      fetchRegistrations();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token, category, regStatus, payStatus, dateFrom, dateTo]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     fetchRegistrations();
+    fetchMemberships();
   };
 
   const handleResetFilters = () => {
@@ -130,7 +141,10 @@ export default function AdminDashboard({ onShowToast }) {
     setPayStatus('');
     setDateFrom('');
     setDateTo('');
-    setTimeout(() => fetchRegistrations(), 50);
+    setTimeout(() => {
+      fetchRegistrations();
+      fetchMemberships();
+    }, 50);
   };
 
   const openVerificationModal = (reg) => {

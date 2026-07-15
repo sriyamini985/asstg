@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './layout/Navbar';
 import Footer from './layout/Footer';
 import ScrollToTop from './layout/ScrollToTop';
 import CountdownPopup from './components/CountdownPopup';
 
-// Pages
-import Home from './pages/Home';
-import About from './pages/About';
-import Membership from './pages/Membership';
-import Committee from './pages/Committee';
-import Events from './pages/Events';
-import Contact from './pages/Contact';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
+// Lazy loaded page components
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Membership = lazy(() => import('./pages/Membership'));
+const Committee = lazy(() => import('./pages/Committee'));
+const Events = lazy(() => import('./pages/Events'));
+const Contact = lazy(() => import('./pages/Contact'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 
+// Loading fallback spinner for code-split pages
+const PageLoader = () => (
+  <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
+    <div className="w-10 h-10 border-4 border-[#123E87]/20 border-t-[#123E87] rounded-full animate-spin" />
+    <span className="text-gray-400 text-xs font-bold uppercase tracking-widest animate-pulse">Loading Page...</span>
+  </div>
+);
 
 export default function App() {
   const [toastMessage, setToastMessage] = useState('');
@@ -43,17 +50,19 @@ export default function App() {
 
         {/* Main Content Router */}
         <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home onShowToast={showToast} />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/membership" element={<Membership onShowToast={showToast} />} />
-            <Route path="/committee" element={<Committee />} />
-            <Route path="/events" element={<Events onShowToast={showToast} />} />
-            <Route path="/contact" element={<Contact onShowToast={showToast} />} />
-            <Route path="/admin" element={<AdminLogin onShowToast={showToast} />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard onShowToast={showToast} />} />
-            <Route path="*" element={<Home onShowToast={showToast} />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home onShowToast={showToast} />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/membership" element={<Membership onShowToast={showToast} />} />
+              <Route path="/committee" element={<Committee />} />
+              <Route path="/events" element={<Events onShowToast={showToast} />} />
+              <Route path="/contact" element={<Contact onShowToast={showToast} />} />
+              <Route path="/admin" element={<AdminLogin onShowToast={showToast} />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard onShowToast={showToast} />} />
+              <Route path="*" element={<Home onShowToast={showToast} />} />
+            </Routes>
+          </Suspense>
         </main>
 
         {/* Global Footer & Floating Countdown Timer */}

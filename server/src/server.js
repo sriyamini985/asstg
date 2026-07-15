@@ -24,6 +24,12 @@ import { execSync } from 'child_process';
 
 dotenv.config();
 
+// Strict security check for JWT_SECRET in production
+if (process.env.NODE_ENV === 'production' && !process.env.JWT_SECRET) {
+  console.error('FATAL: JWT_SECRET environment variable is missing in production!');
+  process.exit(1);
+}
+
 // Run database migration push programmatically on startup (with try-catch to prevent exit crashes)
 try {
   console.log('Running database migrations (prisma db push)...');
@@ -36,7 +42,22 @@ try {
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// Strict CORS Configuration
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://asst.org.in',
+  'https://www.asst.org.in'
+];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || origin.startsWith('http://localhost:')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 // Serve static screenshots securely (only authenticated or via protected routes is preferred,
@@ -281,10 +302,22 @@ app.get('/api/admin/stats', authenticateAdmin, async (req, res) => {
       }
     });
 
-    // Recent 5 registrations
+    // Recent 5 registrations (exclude base64 paymentScreenshot for performance)
     const recent = await prisma.registration.findMany({
       orderBy: { createdAt: 'desc' },
-      take: 5
+      take: 5,
+      select: {
+        id: true,
+        registrationId: true,
+        title: true,
+        firstName: true,
+        lastName: true,
+        category: true,
+        fee: true,
+        registrationStatus: true,
+        paymentStatus: true,
+        createdAt: true
+      }
     });
 
     return res.json({
@@ -375,7 +408,36 @@ app.get('/api/admin/registrations', authenticateAdmin, async (req, res) => {
 
     const list = await prisma.registration.findMany({
       where,
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        registrationId: true,
+        title: true,
+        firstName: true,
+        lastName: true,
+        gender: true,
+        dob: true,
+        qualification: true,
+        hospital: true,
+        address: true,
+        city: true,
+        state: true,
+        pinCode: true,
+        email: true,
+        mobile: true,
+        category: true,
+        fee: true,
+        transactionId: true,
+        registrationStatus: true,
+        paymentStatus: true,
+        exportStatus: true,
+        adminNotes: true,
+        verifiedAt: true,
+        verifiedBy: true,
+        rejectionReason: true,
+        createdAt: true,
+        updatedAt: true
+      }
     });
 
     return res.json(list);
