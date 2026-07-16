@@ -72,7 +72,7 @@ export default function App() {
         {/* Global custom toast notification portal */}
         {toastMessage && (
           <div className="custom-toast-container pointer-events-none">
-            <div className="bg-[#0A2F6B] text-white py-4 px-6 rounded-xl shadow-2xl border-l-4 border-[#C89B3C] flex items-center gap-3 animate-fadeIn pointer-events-auto max-w-sm mr-4">
+            <div className="bg-[#0A2F6B] text-white py-4 px-6 rounded-xl shadow-2xl border-l-4 border-[#C89B3C] flex items-center gap-3 animate-fadeIn pointer-events-auto max-w-sm">
               <span className="text-[#C89B3C] text-base font-bold flex-shrink-0">ⓘ</span>
               <span className="text-[13.5px] font-bold text-left">{toastMessage}</span>
             </div>

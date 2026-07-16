@@ -186,61 +186,89 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ── Mobile Drawer ─────────────────────────────────────────── */}
-      {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-xl z-40 py-5 px-6 max-h-[85vh] overflow-y-auto">
-          <div className="flex flex-col gap-4">
-
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`text-[15px] font-semibold border-b border-gray-50 pb-3 ${
-                  isActive(link.path) ? 'text-[#123E87] font-bold' : 'text-gray-600'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-
-            {/* Events accordion */}
-            <div className="flex flex-col border-b border-gray-50 pb-3">
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center justify-between text-[15px] font-semibold text-gray-600 bg-transparent border-none text-left cursor-pointer"
-              >
-                <span>Events</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {dropdownOpen && (
-                <div className="flex flex-col gap-3 pl-4 mt-3 border-l-2 border-[#123E87]/20">
-                  {eventSubLinks.map((sub) => (
-                    <Link
-                      key={sub.name}
-                      to={`/events?tab=${sub.tab}`}
-                      onClick={() => setIsOpen(false)}
-                      className="text-[13.5px] font-medium text-gray-500 hover:text-[#123E87] transition-colors"
-                    >
-                      {sub.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <Link
-              to="/contact"
+      {/* ── Mobile Drawer & Backdrop ── */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className={`text-[15px] font-semibold border-b border-gray-50 pb-3 ${
-                isActive('/contact') ? 'text-[#123E87] font-bold' : 'text-gray-600'
-              }`}
+              className="lg:hidden fixed inset-0 top-[68px] bg-black/40 backdrop-blur-sm z-30"
+            />
+
+            {/* Drawer container */}
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className="lg:hidden fixed top-[68px] left-0 w-full bg-white border-b border-gray-100 shadow-2xl z-40 py-5 px-6 max-h-[80vh] overflow-y-auto"
             >
-              Contact Us
-            </Link>
-          </div>
-        </div>
-      )}
+              <div className="flex flex-col gap-4">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`text-[15px] font-semibold border-b border-gray-50 pb-3 ${
+                      isActive(link.path) ? 'text-[#123E87] font-bold' : 'text-gray-600'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+
+                {/* Events accordion */}
+                <div className="flex flex-col border-b border-gray-50 pb-3">
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className="flex items-center justify-between text-[15px] font-semibold text-gray-600 bg-transparent border-none text-left cursor-pointer"
+                  >
+                    <span>Events</span>
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {dropdownOpen && (
+                    <div className="flex flex-col gap-3 pl-4 mt-3 border-l-2 border-[#123E87]/20">
+                      {eventSubLinks.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          to={`/events?tab=${sub.tab}`}
+                          onClick={() => setIsOpen(false)}
+                          className="text-[13.5px] font-medium text-gray-500 hover:text-[#123E87] transition-colors"
+                        >
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <Link
+                  to="/contact"
+                  onClick={() => setIsOpen(false)}
+                  className={`text-[15px] font-semibold border-b border-gray-50 pb-3 ${
+                    isActive('/contact') ? 'text-[#123E87] font-bold' : 'text-gray-600'
+                  }`}
+                >
+                  Contact Us
+                </Link>
+
+                {/* Quick Register mobile button */}
+                <Link
+                  to="/events?tab=event-registration"
+                  onClick={() => setIsOpen(false)}
+                  className="bg-[#D4A53A] hover:bg-[#b88c2b] text-white text-center font-bold text-sm py-3 rounded-xl mt-2 shadow-md"
+                >
+                  Register for ASSTCON 2026
+                </Link>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

@@ -293,15 +293,15 @@ export default function Events({ onShowToast }) {
       </section>
 
       {/* Main tabbed layout */}
-      <section className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row gap-8 relative z-10 items-start">
+      <section className="max-w-7xl mx-auto px-6 py-8 sm:py-12 flex flex-col md:flex-row gap-6 sm:gap-8 relative z-10 items-start">
         
-        {/* Left Column Tabs Sidebar (Sticky Navigation Panel) */}
-        <div className="w-full md:w-[260px] flex-shrink-0 flex flex-col gap-2 bg-white/80 backdrop-blur-md p-5 rounded-[24px] border border-gray-150 shadow-xl md:sticky md:top-28 z-20 transition-all duration-300">
+        {/* Left Column Tabs Sidebar (Sticky Navigation Panel on Desktop, Scrollable Tab Bar on Mobile) */}
+        <div className="w-full md:w-[260px] flex-shrink-0 flex flex-row md:flex-col gap-2 bg-white/80 backdrop-blur-md p-3 md:p-5 rounded-[20px] md:rounded-[24px] border border-gray-150 shadow-xl md:sticky md:top-28 z-20 transition-all duration-300 overflow-x-auto md:overflow-x-visible whitespace-nowrap scrollbar-none">
           {menuItems.map(item => (
             <button
               key={item.id}
               onClick={() => selectTab(item.id)}
-              className={`flex items-center gap-3.5 px-5 py-3.5 rounded-xl text-[14px] font-bold text-left transition-all cursor-pointer relative group ${
+              className={`flex items-center gap-2.5 sm:gap-3.5 px-4 sm:px-5 py-2.5 sm:py-3.5 rounded-xl text-[13px] sm:text-[14px] font-bold text-left transition-all cursor-pointer relative group shrink-0 whitespace-nowrap ${
                 activeTab === item.id
                   ? 'text-white'
                   : 'text-gray-500 hover:bg-blue-50/20 hover:text-gray-800'
@@ -310,11 +310,11 @@ export default function Events({ onShowToast }) {
               {activeTab === item.id && (
                 <motion.div 
                   layoutId="activeSidebarTab"
-                  className="absolute inset-0 bg-gradient-to-r from-[#123E87] to-[#1a4fa8] border-l-4 border-[#D4A53A] rounded-xl shadow-md z-0"
+                  className="absolute inset-0 bg-gradient-to-r from-[#123E87] to-[#1a4fa8] border-l-0 md:border-l-4 border-[#D4A53A] border-t-2 md:border-t-0 rounded-xl shadow-md z-0"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
-              <span className="text-base relative z-10 transition-transform duration-300 group-hover:scale-115 group-hover:rotate-6">{item.icon}</span>
+              <span className="text-sm sm:text-base relative z-10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">{item.icon}</span>
               <span className="relative z-10">{item.label}</span>
             </button>
           ))}
@@ -517,21 +517,21 @@ export default function Events({ onShowToast }) {
                     <span className="text-[#D4A53A] text-[10px] font-bold uppercase tracking-widest text-center md:text-left mb-1">Registration Fees</span>
                     <div className="flex flex-col gap-4">
                       {/* Row 1: Consultant */}
-                      <div className="flex justify-between items-center bg-gradient-to-r from-blue-50/40 to-white/10 border border-blue-100/70 border-l-4 border-l-[#123E87] p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-3 bg-gradient-to-r from-blue-50/40 to-white/10 border border-blue-100/70 border-l-4 border-l-[#123E87] p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow text-left">
                         <div className="flex flex-col">
                           <span className="text-[#0d2d6b] font-bold text-[15px]">Consultant</span>
                           <span className="text-gray-400 text-[11px] mt-0.5">Spine Surgeons / Faculty / Delegate</span>
                         </div>
-                        <span className="text-2xl font-black text-[#0d2d6b]">₹3,000</span>
+                        <span className="text-xl sm:text-2xl font-black text-[#0d2d6b] shrink-0">₹3,000</span>
                       </div>
                       
                       {/* Row 2: PG Student */}
-                      <div className="flex justify-between items-center bg-gradient-to-r from-amber-50/30 to-white/10 border border-amber-100/50 border-l-4 border-l-[#D4A53A] p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-3 bg-gradient-to-r from-amber-50/30 to-white/10 border border-amber-100/50 border-l-4 border-l-[#D4A53A] p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow text-left">
                         <div className="flex flex-col">
                           <span className="text-[#0d2d6b] font-bold text-[15px]">Postgraduate Student</span>
                           <span className="text-gray-400 text-[11px] mt-0.5">Required to upload letter from HOD</span>
                         </div>
-                        <span className="text-2xl font-black text-[#0d2d6b]">₹1,000</span>
+                        <span className="text-xl sm:text-2xl font-black text-[#0d2d6b] shrink-0">₹1,000</span>
                       </div>
                     </div>
                   </div>
@@ -878,7 +878,7 @@ export default function Events({ onShowToast }) {
                   <span className="w-1.5 h-1.5 rounded-full bg-[#D4A53A]" />
                 </h2>
                 
-                <div className="rounded-2xl overflow-hidden border border-blue-50 shadow-md relative h-64 sm:h-76 w-full flex-shrink-0">
+                <div className="rounded-2xl overflow-hidden border border-blue-50 shadow-md relative h-64 sm:h-80 w-full flex-shrink-0">
                   <img src={venueTajDeccan} alt="Taj Deccan Hotel" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6 text-white text-left">
                     <h3 className="font-black text-lg sm:text-xl">Hotel Taj Deccan</h3>

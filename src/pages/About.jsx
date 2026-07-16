@@ -85,7 +85,7 @@ export default function About() {
           <div className="lg:col-span-5 relative">
             <motion.div 
               variants={cardTransition}
-              className="relative rounded-2xl overflow-hidden shadow-xl border border-gray-100 aspect-[5/6] w-full"
+              className="relative rounded-2xl overflow-hidden shadow-xl border border-gray-100 aspect-[5/6] max-h-[360px] sm:max-h-none w-full"
             >
               <img 
                 src={aboutVisual} 
@@ -111,11 +111,11 @@ export default function About() {
             </motion.div>
             
             {/* Floating badges */}
-            <div className="absolute top-8 -left-4 bg-white/95 backdrop-blur-md border border-blue-50 py-2.5 px-4 rounded-xl shadow-lg flex items-center gap-2 hover:-translate-y-1 transition-transform">
+            <div className="absolute top-8 left-2 sm:-left-4 bg-white/95 backdrop-blur-md border border-blue-50 py-2.5 px-4 rounded-xl shadow-lg flex items-center gap-2 hover:-translate-y-1 transition-transform">
               <span className="bg-[#D4A53A]/15 text-[#D4A53A] w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">✓</span>
               <span className="text-[13px] font-bold text-gray-700">Education & Training</span>
             </div>
-            <div className="absolute bottom-8 -right-4 bg-white/95 backdrop-blur-md border border-blue-50 py-2.5 px-4 rounded-xl shadow-lg flex items-center gap-2 hover:-translate-y-1 transition-transform">
+            <div className="absolute bottom-8 right-2 sm:-right-4 bg-white/95 backdrop-blur-md border border-blue-50 py-2.5 px-4 rounded-xl shadow-lg flex items-center gap-2 hover:-translate-y-1 transition-transform">
               <span className="bg-[#D4A53A]/15 text-[#D4A53A] w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">✓</span>
               <span className="text-[13px] font-bold text-gray-700">Research & Collaboration</span>
             </div>

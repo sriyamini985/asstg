@@ -77,9 +77,9 @@ export default function Committee() {
             Leadership
            </span>
 
-            <h2 className="mt-4 text-5xl font-black text-[#123E87]">
-             Core Team
-            </h2>
+             <h2 className="mt-4 text-3xl sm:text-5xl font-black text-[#123E87]">
+              Core Team
+             </h2>
 
           <div className="w-20 h-1 bg-[#D4A53A] rounded-full mx-auto mt-5"></div>
         </div>
@@ -119,9 +119,9 @@ export default function Committee() {
            <span className="text-[#D4A53A] uppercase tracking-[0.3em] text-xs font-bold">
             Leadership
            </span>
-           <h2 className="mt-4 text-4xl font-black text-[#123E87]">
-            Executive Committee
-           </h2>
+            <h2 className="mt-4 text-2xl sm:text-4xl font-black text-[#123E87]">
+             Executive Committee
+            </h2>
            <div className="w-16 h-1 bg-[#D4A53A] rounded-full mx-auto mt-4"></div>
           </div>
 

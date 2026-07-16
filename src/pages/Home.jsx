@@ -33,10 +33,10 @@ function useCountdown(targetDate) {
 function CountBox({ val, label }) {
   return (
     <div className="flex flex-col items-center">
-      <div className="bg-[#123E87] text-white rounded-xl w-16 h-16 flex items-center justify-center text-2xl font-extrabold shadow-lg shadow-blue-900/20 border border-blue-700/40">
+      <div className="bg-[#123E87] text-white rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center text-lg sm:text-2xl font-extrabold shadow-lg shadow-blue-900/20 border border-blue-700/40">
         {String(val).padStart(2, '0')}
       </div>
-      <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-2">{label}</span>
+      <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-400 sm:text-gray-500 font-bold mt-1.5 sm:mt-2">{label}</span>
     </div>
   );
 }
@@ -97,17 +97,17 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
 
             {/* Left: Conference info */}
-            <div className="flex items-center gap-5 shrink-0">
-              <div className="w-20 h-16 bg-white rounded-xl flex items-center justify-center p-2.5 shadow-md">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-5 shrink-0 w-full sm:w-auto">
+              <div className="w-20 h-16 bg-white rounded-xl flex items-center justify-center p-2.5 shadow-md shrink-0">
                 <img src={asstconLogo} alt="ASSTCON 2026" className="max-h-full object-contain" />
               </div>
-              <div>
-                <div className="flex gap-2 mb-1">
+              <div className="flex flex-col items-center sm:items-start">
+                <div className="flex gap-2 mb-1 justify-center sm:justify-start">
                   <span className="bg-[#D4A53A]/20 text-[#D4A53A] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Featured Event</span>
                 </div>
                 <h3 className="text-white text-xl font-black">ASSTCON 2026</h3>
-                <p className="text-gray-400 text-xs">1st Annual Conference · Association of Spine Surgeons of Telangana</p>
-                <div className="flex gap-4 mt-1.5">
+                <p className="text-gray-400 text-xs mt-0.5 max-w-[280px] sm:max-w-none px-4 sm:px-0">1st Annual Conference · Association of Spine Surgeons of Telangana</p>
+                <div className="flex gap-4 mt-2 justify-center sm:justify-start">
                   <span className="flex items-center gap-1 text-gray-300 text-xs"><Calendar className="w-3 h-3" /> 27 Sept 2026</span>
                   <span className="flex items-center gap-1 text-gray-300 text-xs"><MapPin className="w-3 h-3" /> Taj Deccan, Hyderabad</span>
                 </div>
@@ -117,13 +117,13 @@ export default function Home() {
             {/* Center: Countdown */}
             <div>
               <p className="text-center text-[10px] uppercase tracking-widest text-[#D4A53A] font-bold mb-3">Conference Begins In</p>
-              <div className="flex items-end gap-3">
+              <div className="flex items-end gap-1.5 sm:gap-3 justify-center">
                 <CountBox val={countdown.d} label="Days" />
-                <span className="text-[#D4A53A] text-2xl font-bold pb-6">:</span>
+                <span className="text-[#D4A53A] text-lg sm:text-2xl font-bold pb-4 sm:pb-6">:</span>
                 <CountBox val={countdown.h} label="Hrs" />
-                <span className="text-[#D4A53A] text-2xl font-bold pb-6">:</span>
+                <span className="text-[#D4A53A] text-lg sm:text-2xl font-bold pb-4 sm:pb-6">:</span>
                 <CountBox val={countdown.m} label="Min" />
-                <span className="text-[#D4A53A] text-2xl font-bold pb-6">:</span>
+                <span className="text-[#D4A53A] text-lg sm:text-2xl font-bold pb-4 sm:pb-6">:</span>
                 <CountBox val={countdown.s} label="Sec" />
               </div>
             </div>
@@ -308,12 +308,12 @@ export default function Home() {
           <SectionHeader eyebrow="ASSTCON 2026" title="Conference Highlights" light />
 
           {/* Featured pre-conference card */}
-          <div className="bg-[#D4A53A]/10 border border-[#D4A53A]/35 rounded-2xl p-7 mb-6 flex gap-6 items-start">
+          <div className="bg-[#D4A53A]/10 border border-[#D4A53A]/35 rounded-2xl p-6 sm:p-7 mb-6 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5 sm:gap-6">
             <div className="bg-[#D4A53A] rounded-xl p-4 text-center shrink-0 min-w-[80px]">
               <span className="block text-3xl font-black text-[#0a1628] leading-none">27</span>
               <span className="block text-[10px] font-bold tracking-widest uppercase text-[#0a1628] mt-1">Sept 2026</span>
             </div>
-            <div className="text-left">
+            <div className="flex-1">
               <span className="inline-block bg-[#D4A53A]/15 border border-[#D4A53A]/45 text-[#D4A53A] text-[10px] tracking-[0.18em] uppercase font-bold px-3 py-1 rounded mb-3">
                 Pre-Conference Workshop
               </span>
@@ -479,12 +479,12 @@ export default function Home() {
               { icon: <Phone className="w-5 h-5" />,    label: 'Contact Us',    to: '/contact'                       },
             ].map((l) => (
               <Link key={l.label} to={l.to}
-                className="group flex items-center gap-3 bg-white/10 hover:bg-white/25 border border-white/20 rounded-xl px-5 py-4 text-white font-bold text-sm transition-all">
-                <div className="w-9 h-9 rounded-lg bg-white/15 group-hover:bg-[#D4A53A] flex items-center justify-center transition-colors">
+                className="group flex flex-col sm:flex-row items-center gap-2 sm:gap-3 bg-white/10 hover:bg-white/25 border border-white/20 rounded-xl px-3 sm:px-5 py-3.5 sm:py-4 text-white font-bold text-[12px] sm:text-sm transition-all text-center sm:text-left w-full">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/15 group-hover:bg-[#D4A53A] flex items-center justify-center transition-colors shrink-0">
                   {l.icon}
                 </div>
-                {l.label}
-                <ChevronRight className="w-4 h-4 ml-auto opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                <span className="flex-grow min-w-0 truncate">{l.label}</span>
+                <ChevronRight className="hidden sm:block w-4 h-4 ml-auto opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" />
               </Link>
             ))}
           </div>
