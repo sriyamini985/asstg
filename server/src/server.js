@@ -618,6 +618,24 @@ app.get('/api/admin/export', authenticateAdmin, async (req, res) => {
   }
 });
 
+// Temporary Database Diagnostic Route
+app.get('/api/debug-db', async (req, res) => {
+  try {
+    const adminCount = await prisma.admin.count();
+    const admins = await prisma.admin.findMany({
+      select: { username: true, role: true }
+    });
+    return res.json({ status: 'connected', adminCount, admins });
+  } catch (error) {
+    return res.status(500).json({ 
+      status: 'error', 
+      message: error.message, 
+      code: error.code, 
+      meta: error.meta 
+    });
+  }
+});
+
 // Start Server
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
