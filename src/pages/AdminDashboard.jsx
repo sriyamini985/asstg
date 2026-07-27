@@ -147,9 +147,22 @@ export default function AdminDashboard({ onShowToast }) {
     }, 50);
   };
 
-  const openVerificationModal = (reg) => {
+  const openVerificationModal = async (reg) => {
     setSelectedReg(reg);
     setModalNotes(reg.adminNotes || '');
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/admin/registrations/${reg.id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (response.ok) {
+        const fullReg = await response.json();
+        // Only update if the user hasn't closed or changed the active selection
+        setSelectedReg(prev => (prev && prev.id === reg.id ? fullReg : prev));
+      }
+    } catch (error) {
+      console.error('Error loading full registration details:', error);
+    }
   };
 
   const handleApprove = async () => {
@@ -279,11 +292,11 @@ export default function AdminDashboard({ onShowToast }) {
     let bVal = b[sortField];
 
     if (sortField === 'name') {
-      aVal = `${a.firstName} ${a.lastName || ''}`.trim().toLowerCase();
-      bVal = `${b.firstName} ${b.lastName || ''}`.trim().toLowerCase();
-    } else if (typeof aVal === 'string') {
-      aVal = aVal.toLowerCase();
-      bVal = bVal.toLowerCase();
+      aVal = `${a.firstName || ''} ${a.lastName || ''}`.trim().toLowerCase();
+      bVal = `${b.firstName || ''} ${b.lastName || ''}`.trim().toLowerCase();
+    } else {
+      aVal = aVal !== null && aVal !== undefined ? String(aVal).toLowerCase() : '';
+      bVal = bVal !== null && bVal !== undefined ? String(bVal).toLowerCase() : '';
     }
 
     if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1;
@@ -791,8 +804,13 @@ export default function AdminDashboard({ onShowToast }) {
                 {/* Screenshot Column */}
                 <div className="md:col-span-5 flex flex-col gap-2.5">
                   <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5">Payment Screenshot</h4>
-                  <div className="border border-gray-100 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center flex-1 max-h-[300px]">
-                    {selectedReg.paymentScreenshot.toLowerCase().endsWith('.pdf') || selectedReg.paymentScreenshot.startsWith('data:application/pdf') ? (
+                  <div className="border border-gray-100 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center flex-1 min-h-[160px] max-h-[300px]">
+                    {!selectedReg.paymentScreenshot ? (
+                      <div className="p-6 flex flex-col items-center gap-2 text-center text-xs text-gray-400">
+                        <div className="w-5 h-5 border-2 border-gray-300 border-t-[#123E87] rounded-full animate-spin" />
+                        <span>Loading screenshot...</span>
+                      </div>
+                    ) : selectedReg.paymentScreenshot.toLowerCase().endsWith('.pdf') || selectedReg.paymentScreenshot.startsWith('data:application/pdf') ? (
                       <div className="p-6 flex flex-col items-center gap-2 text-center text-xs text-gray-400">
                         <FileText className="w-12 h-12 text-[#123E87]" />
                         <span>Uploaded PDF document. Click below to download.</span>
