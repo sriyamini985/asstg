@@ -636,6 +636,25 @@ app.get('/api/debug-db', async (req, res) => {
   }
 });
 
+// Clean Test Data Endpoint (Protected Admin Endpoint)
+app.post('/api/admin/clean-test-data', authenticateAdmin, async (req, res) => {
+  const idsToDelete = ['ASST202600001', 'ASST202600002', 'ASST202600003'];
+  
+  try {
+    const result = await prisma.registration.deleteMany({
+      where: {
+        registrationId: {
+          in: idsToDelete
+        }
+      }
+    });
+    return res.json({ success: true, deletedCount: result.count });
+  } catch (error) {
+    console.error('Error cleaning test data:', error);
+    return res.status(500).json({ error: 'Error occurred while cleaning test data.' });
+  }
+});
+
 // Start Server
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);

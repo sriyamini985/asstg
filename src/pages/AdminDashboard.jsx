@@ -277,6 +277,33 @@ export default function AdminDashboard({ onShowToast }) {
     });
   };
 
+  const handleCleanTestData = async () => {
+    if (!window.confirm("Are you sure you want to permanently delete the 3 test registrations (ASST202600001, ASST202600002, ASST202600003) from the database?")) {
+      return;
+    }
+    if (!window.confirm("Double check: This action CANNOT be undone and will permanently remove these test entries. Proceed?")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/admin/clean-test-data`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await response.json();
+      if (response.ok) {
+        if (onShowToast) onShowToast(`Successfully deleted ${data.deletedCount} test registrations!`);
+        fetchRegistrations();
+        loadDashboardData(token);
+      } else {
+        alert(data.error || 'Failed to clean test data');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error connecting to the server');
+    }
+  };
+
   const handleSort = (field) => {
     if (sortField === field) {
       setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
@@ -465,6 +492,12 @@ export default function AdminDashboard({ onShowToast }) {
           {/* Exports Center */}
           <div className="flex flex-wrap gap-2.5 pt-3 border-t border-gray-100 justify-end">
             <span className="text-gray-400 text-xs font-bold self-center mr-auto">Exports Center:</span>
+            <button
+              onClick={handleCleanTestData}
+              className="border-2 border-rose-500 hover:bg-rose-50 text-rose-600 font-bold text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer"
+            >
+              🗑️ Delete Test Registrations
+            </button>
             <button
               onClick={() => triggerExport('csv')}
               className="border-2 border-emerald-500 hover:bg-emerald-50 text-emerald-600 font-bold text-xs px-4 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer"

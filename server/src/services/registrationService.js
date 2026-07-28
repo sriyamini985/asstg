@@ -46,9 +46,19 @@ export const createRegistration = async (data, filename) => {
 
   while (attempts < maxAttempts) {
     try {
-      const count = await prisma.registration.count();
-      const nextId = count + 1 + attempts;
-      const paddedId = String(nextId).padStart(5, '0');
+      // Find the highest existing registration by ID to get the next sequential number
+      const lastReg = await prisma.registration.findFirst({
+        orderBy: { id: 'desc' }
+      });
+      
+      let nextId = 1;
+      if (lastReg) {
+        const lastIdStr = lastReg.registrationId; // e.g. "ASST202600007"
+        const suffix = lastIdStr.replace('ASST2026', ''); // "00007"
+        nextId = parseInt(suffix, 10) + 1;
+      }
+      
+      const paddedId = String(nextId + attempts).padStart(5, '0');
       const registrationId = `ASST2026${paddedId}`;
 
       registration = await prisma.registration.create({
