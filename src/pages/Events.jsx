@@ -57,8 +57,6 @@ export default function Events({ onShowToast }) {
     title: 'Dr.',
     name: '',
     gender: 'Male',
-    dob: '',
-    qualification: '',
     institution: '',
     address: '',
     city: '',
@@ -200,8 +198,6 @@ export default function Events({ onShowToast }) {
       data.append('title', formData.title);
       data.append('name', formData.name);
       data.append('gender', formData.gender);
-      data.append('dob', formData.dob);
-      data.append('qualification', formData.qualification);
       data.append('institution', formData.institution);
       data.append('address', formData.address);
       data.append('city', formData.city);
@@ -235,8 +231,6 @@ export default function Events({ onShowToast }) {
         title: 'Dr.',
         name: '',
         gender: 'Male',
-        dob: '',
-        qualification: '',
         institution: '',
         address: '',
         city: '',
@@ -663,7 +657,7 @@ export default function Events({ onShowToast }) {
                         </div>
                       </div>
 
-                      {/* Gender & DOB */}
+                      {/* Gender & Institution/Hospital */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="flex flex-col gap-1.5">
                           <label htmlFor="reg-gender" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Gender</label>
@@ -680,37 +674,6 @@ export default function Events({ onShowToast }) {
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
                           </select>
-                        </div>
-                        <div className="flex flex-col gap-1.5">
-                          <label htmlFor="reg-dob" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Date of Birth</label>
-                          <input
-                            type="date"
-                            id="reg-dob"
-                            name="dob"
-                            required
-                            value={formData.dob}
-                            onChange={handleInputChange}
-                            autocomplete="bday"
-                            className="premium-input"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Qualification & Institution/Hospital */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="flex flex-col gap-1.5">
-                          <label htmlFor="reg-qualification" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Qualification</label>
-                          <input
-                            type="text"
-                            id="reg-qualification"
-                            name="qualification"
-                            required
-                            value={formData.qualification}
-                            onChange={handleInputChange}
-                            autocomplete="off"
-                            className="premium-input"
-                            placeholder="MS, MCh (Spine)"
-                          />
                         </div>
                         <div className="flex flex-col gap-1.5">
                           <label htmlFor="reg-institution" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Institution/Hospital</label>

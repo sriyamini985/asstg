@@ -159,7 +159,7 @@ app.post('/api/registrations', upload.single('screenshot'), async (req, res) => 
     // Server-side validation
     const requiredFields = [
       'name', 'email', 'phone', 'category', 'institution', 'referenceId',
-      'title', 'gender', 'dob', 'qualification', 'address', 'city', 'state', 'pinCode'
+      'title', 'gender', 'address', 'city', 'state', 'pinCode'
     ];
 
     for (const field of requiredFields) {
