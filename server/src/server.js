@@ -96,20 +96,56 @@ const authenticateAdmin = (req, res, next) => {
 // ── SEEDING DEFAULT ADMIN ─────────────────────────────────────────
 const seedDefaultAdmin = async () => {
   try {
-    const adminCount = await prisma.admin.count();
-    if (adminCount === 0) {
-      const passwordHash = await bcrypt.hash('password123', 10);
+    const targetUsername = 'asstg';
+    const targetPassword = 'asstg@2026';
+    const passwordHash = await bcrypt.hash(targetPassword, 10);
+
+    const existing = await prisma.admin.findUnique({
+      where: { username: targetUsername }
+    });
+
+    if (!existing) {
       await prisma.admin.create({
         data: {
-          username: 'admin',
+          username: targetUsername,
           passwordHash,
           role: 'Admin'
         }
       });
-      console.log('Seeded default admin: username=admin, password=password123');
+      console.log(`Seeded admin user: username=${targetUsername}`);
+    } else {
+      await prisma.admin.update({
+        where: { username: targetUsername },
+        data: { passwordHash }
+      });
+      console.log(`Updated admin credentials for username=${targetUsername}`);
+    }
+
+    // Clean up/delete the old default 'admin' user if it exists
+    const oldAdmin = await prisma.admin.findUnique({
+      where: { username: 'admin' }
+    });
+    if (oldAdmin) {
+      await prisma.admin.delete({
+        where: { username: 'admin' }
+      });
+      console.log("Removed obsolete 'admin' user account.");
+    }
+
+    // Safely delete ONLY the 3 test registrations from the live database on startup.
+    // This is precise and leaves all other active registrations completely untouched.
+    const cleanResult = await prisma.registration.deleteMany({
+      where: {
+        registrationId: {
+          in: ['ASST202600001', 'ASST202600002', 'ASST202600003']
+        }
+      }
+    });
+    if (cleanResult.count > 0) {
+      console.log(`Successfully cleaned up ${cleanResult.count} test registrations from the database.`);
     }
   } catch (error) {
-    console.error('Error seeding default admin:', error);
+    console.error('Error seeding default admin / cleaning test data:', error);
   }
 };
 
@@ -633,25 +669,6 @@ app.get('/api/debug-db', async (req, res) => {
       code: error.code, 
       meta: error.meta 
     });
-  }
-});
-
-// Clean Test Data Endpoint (Protected Admin Endpoint)
-app.post('/api/admin/clean-test-data', authenticateAdmin, async (req, res) => {
-  const idsToDelete = ['ASST202600001', 'ASST202600002', 'ASST202600003'];
-  
-  try {
-    const result = await prisma.registration.deleteMany({
-      where: {
-        registrationId: {
-          in: idsToDelete
-        }
-      }
-    });
-    return res.json({ success: true, deletedCount: result.count });
-  } catch (error) {
-    console.error('Error cleaning test data:', error);
-    return res.status(500).json({ error: 'Error occurred while cleaning test data.' });
   }
 });
 
