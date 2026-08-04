@@ -113,7 +113,10 @@ export default function Contact({ onShowToast }) {
               </div>
               <div className="flex flex-col gap-1.5 text-xs text-gray-500 text-left">
                 <h3 className="text-[#0d2d6b] font-bold text-[15px]">Corresponding Secretariat</h3>
-                <span className="text-[#D4A53A] text-[10.5px] font-bold uppercase tracking-wider">Dr. A Pavan Kumar</span>
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-[#D4A53A] text-[10.5px] font-bold uppercase tracking-wider">Dr. A Pavan Kumar</span>
+                  <span className="text-gray-400 text-[9.5px] font-semibold uppercase tracking-wider">Secretary, ASSTG</span>
+                </div>
                 <address className="not-italic leading-relaxed mt-1 text-[13px]">
                   Udai Omni Hospitals, 5-9-92/A/1,<br />
                   Chapel Road, Abids, Hyderabad, 500001

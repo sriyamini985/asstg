@@ -23,17 +23,12 @@ export const committeeMembers = {
   ],
   executiveCommittee: [
     {
-      name: "Dr. Ram Das M",
-      role: "Executive Member",
-      image: "dr_ramdas_maloth.jpg"
-    },
-    {
-      name: "Dr. PVSN Murthy",
+      name: "Dr. P V Satya Narayana Murthy",
       role: "Executive Member",
       image: "dr_satya_narayana.jpg"
     },
     {
-      name: "Dr. Krishna Chaitanya",
+      name: "Dr. K. Sri Krishna Chaitanya",
       role: "Executive Member",
       image: "dr_sri_krishna_chaitanya.jpg"
     },
@@ -41,6 +36,21 @@ export const committeeMembers = {
       name: "Dr. M. Abinandan Reddy",
       role: "Executive Member",
       image: "dr_abhinandan.jpg"
+    },
+    {
+      name: "Dr. Kalyan Verma",
+      role: "Executive Member",
+      image: "dr_kalyan_verma.jpg"
+    },
+    {
+      name: "Dr. Sridhar reddy",
+      role: "Executive Member",
+      image: "dr_sridhar_reddy.jpg"
+    },
+    {
+      name: "Dr. Bangari swamy",
+      role: "Executive Member",
+      image: "dr_bangari_swamy.jpg"
     },
     {
       name: "Dr. Suryaprakash",
