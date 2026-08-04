@@ -15,6 +15,9 @@ import drSriKrishnaChaitanya from '../assets/images/organizers/dr_sri_krishna_ch
 import drAbhinandan from '../assets/images/organizers/dr_abhinandan.jpg';
 import drSuryaPrakash from '../assets/images/organizers/dr_surya_prakash.jpg';
 import drRajuIyengar from '../assets/images/organizers/dr_raju_iyengar.jpg';
+import drKalyanVerma from '../assets/images/organizers/dr_kalyan_verma.jpg';
+import drSridharReddy from '../assets/images/organizers/dr_sridhar_reddy.jpg';
+import drBangariSwamy from '../assets/images/organizers/dr_bangari_swamy.jpg';
 
 // Helper image mapper
 const imageMap = {
@@ -27,7 +30,10 @@ const imageMap = {
   'dr_sri_krishna_chaitanya.jpg': drSriKrishnaChaitanya,
   'dr_abhinandan.jpg': drAbhinandan,
   'dr_surya_prakash.jpg': drSuryaPrakash,
-  'dr_raju_iyengar.jpg': drRajuIyengar
+  'dr_raju_iyengar.jpg': drRajuIyengar,
+  'dr_kalyan_verma.jpg': drKalyanVerma,
+  'dr_sridhar_reddy.jpg': drSridharReddy,
+  'dr_bangari_swamy.jpg': drBangariSwamy
 };
 
 const pageTransition = {
