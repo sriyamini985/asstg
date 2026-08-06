@@ -107,17 +107,24 @@ export default function Contact({ onShowToast }) {
           <div className="lg:col-span-5 flex flex-col gap-6">
             
             {/* Address */}
-            <motion.div variants={cardTransition} whileHover={{ y: -8, scale: 1.02 }} className="premium-card p-6 flex gap-4">
+             <motion.div variants={cardTransition} whileHover={{ y: -8, scale: 1.02 }} className="premium-card p-6 flex gap-4">
               <div className="icon-box-navy flex-shrink-0">
                 <MapPin className="w-5 h-5" />
               </div>
-              <div className="flex flex-col gap-1.5 text-xs text-gray-500 text-left">
+              <div className="flex flex-col gap-3.5 text-xs text-gray-500 text-left w-full">
                 <h3 className="text-[#0d2d6b] font-bold text-[15px]">Corresponding Secretariat</h3>
+                
                 <div className="flex flex-col gap-0.5">
                   <span className="text-[#D4A53A] text-[10.5px] font-bold uppercase tracking-wider">Dr. A Pavan Kumar</span>
                   <span className="text-gray-400 text-[9.5px] font-semibold uppercase tracking-wider">Secretary, ASSTG</span>
                 </div>
-                <address className="not-italic leading-relaxed mt-1 text-[13px]">
+
+                <div className="flex flex-col gap-0.5 border-t border-gray-100 pt-2.5">
+                  <span className="text-[#D4A53A] text-[10.5px] font-bold uppercase tracking-wider">Mr. Pantham Sathya Narayana</span>
+                  <span className="text-gray-400 text-[9.5px] font-semibold uppercase tracking-wider">Executive Coordinator</span>
+                </div>
+
+                <address className="not-italic leading-relaxed mt-1 text-[13px] border-t border-gray-100 pt-2.5">
                   Udai Omni Hospitals, 5-9-92/A/1,<br />
                   Chapel Road, Abids, Hyderabad, 500001
                 </address>
