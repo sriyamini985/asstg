@@ -28,8 +28,8 @@ const FROM_EMAIL = process.env.SMTP_FROM || 'info@asstg.in';
 export const sendEmail = async ({ to, subject, html, replyTo }) => {
   const fromHeader = FROM_EMAIL.includes('<') ? FROM_EMAIL : `ASST Registration <${FROM_EMAIL}>`;
 
-  // 1. Try Resend API if API Key is configured
-  if (resendClient) {
+  // 1. Try Resend API if valid API Key is configured
+  if (resendClient && process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.startsWith('re_') && !process.env.RESEND_API_KEY.includes('invalid')) {
     try {
       const response = await resendClient.emails.send({
         from: fromHeader,
@@ -38,23 +38,24 @@ export const sendEmail = async ({ to, subject, html, replyTo }) => {
         html,
         reply_to: replyTo
       });
-      if (response && response.data) {
+      if (response && response.data && !response.error) {
+        console.log(`✅ Email sent via Resend API to ${to}`);
         return response;
       }
-      const errMsg = response?.error ? JSON.stringify(response.error) : 'Unknown Resend Error';
-      console.warn('Resend API returned an error, trying SMTP fallback:', errMsg);
+      const errMsg = response?.error ? JSON.stringify(response.error) : 'Resend API error';
+      console.warn('Resend API returned error, trying SMTP fallback:', errMsg);
       try {
         fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] Resend failed to ${to}: ${errMsg}\n`);
       } catch (e) {}
     } catch (error) {
-      console.error('Error sending email via Resend API, trying SMTP fallback:', error);
+      console.error('Error sending email via Resend API, trying SMTP fallback:', error.message);
       try {
         fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] Resend exception to ${to}: ${error.message}\n`);
       } catch (e) {}
     }
   }
 
-  // 2. Try Nodemailer SMTP if SMTP details are configured
+  // 2. Try Nodemailer SMTP
   if (process.env.SMTP_USER && process.env.SMTP_PASS) {
     try {
       const info = await transporter.sendMail({
@@ -64,13 +65,43 @@ export const sendEmail = async ({ to, subject, html, replyTo }) => {
         html,
         replyTo
       });
+      console.log(`✅ Email sent via SMTP (Port ${process.env.SMTP_PORT || 465}) to ${to}`);
       return info;
     } catch (error) {
-      console.error('Error sending email via SMTP:', error);
+      console.error(`SMTP send error (Port ${process.env.SMTP_PORT || 465}):`, error.message);
+      
+      // Fallback: Try port 587 with STARTTLS if primary port failed
       try {
-        fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] SMTP failed to ${to}: ${error.message}\n`);
-      } catch (e) {}
-      throw error;
+        console.log('Attempting fallback via SMTP port 587...');
+        const fallbackTransporter = nodemailer.createTransport({
+          host: process.env.SMTP_HOST || 'smtp.titan.email',
+          port: 587,
+          secure: false,
+          auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
+          },
+          tls: { rejectUnauthorized: false },
+          connectionTimeout: 10000,
+          greetingTimeout: 10000,
+          socketTimeout: 10000
+        });
+        const info = await fallbackTransporter.sendMail({
+          from: fromHeader,
+          to,
+          subject,
+          html,
+          replyTo
+        });
+        console.log(`✅ Email sent via SMTP Port 587 fallback to ${to}`);
+        return info;
+      } catch (fallbackErr) {
+        console.error('SMTP Port 587 fallback failed:', fallbackErr.message);
+        try {
+          fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] SMTP failed to ${to}: ${error.message} | 587: ${fallbackErr.message}\n`);
+        } catch (e) {}
+        throw error;
+      }
     }
   }
 
@@ -367,7 +398,34 @@ export const sendMembershipSubmittedEmail = async (membership) => {
     </body>
     </html>
   `;
-  return sendEmail({ to: membership.email, subject, html });
+  // Send confirmation email to applicant
+  const userPromise = sendEmail({ to: membership.email, subject, html });
+
+  // Send notification copy to Admin
+  const adminSubject = `[NEW MEMBERSHIP APPLICATION] ${membershipType} - ${membership.name}`;
+  const adminHtml = `
+    <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+      <h2 style="color: #123E87; margin-top: 0;">New Online Membership Application Received</h2>
+      <p>A new membership application has been submitted through the ASST website.</p>
+      
+      <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+        <tr><td style="padding: 6px 0; font-weight: bold; width: 35%;">Membership Category:</td><td style="color: #123E87; font-weight: bold;">${membershipType} (${feeAmount})</td></tr>
+        <tr><td style="padding: 6px 0; font-weight: bold;">Applicant Name:</td><td>${membership.name}</td></tr>
+        <tr><td style="padding: 6px 0; font-weight: bold;">Hospital / Institution:</td><td>${membership.hospital}</td></tr>
+        <tr><td style="padding: 6px 0; font-weight: bold;">Email Address:</td><td>${membership.email}</td></tr>
+        <tr><td style="padding: 6px 0; font-weight: bold;">Mobile Number:</td><td>${membership.phone}</td></tr>
+        <tr><td style="padding: 6px 0; font-weight: bold;">Payment Ref ID:</td><td>${membership.transactionId || 'N/A'}</td></tr>
+      </table>
+
+      <p style="margin-top: 20px;"><a href="https://asstg.in/admin" style="background-color: #123E87; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Open Admin Dashboard to Verify</a></p>
+    </div>
+  `;
+
+  sendEmail({ to: FROM_EMAIL, subject: adminSubject, html: adminHtml }).catch(err => {
+    console.error('Admin alert email send error:', err);
+  });
+
+  return userPromise;
 };
 
 
