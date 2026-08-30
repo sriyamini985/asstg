@@ -335,6 +335,30 @@ export default function AdminDashboard({ onShowToast }) {
   };
 
   const downloadMembershipFile = (member) => {
+    if (!member || !member.paymentScreenshot || member.paymentScreenshot === 'no-file') {
+      if (onShowToast) onShowToast('No payment screenshot attached for this application.');
+      else alert('No payment screenshot attached for this application.');
+      return;
+    }
+
+    // Direct client-side download for base64 data URIs
+    if (member.paymentScreenshot.startsWith('data:')) {
+      try {
+        const link = document.createElement('a');
+        link.href = member.paymentScreenshot;
+        const ext = member.paymentScreenshot.startsWith('data:application/pdf') ? 'pdf' : 'png';
+        link.download = `membership_${member.id}_payment_${(member.name || 'receipt').replace(/\s+/g, '_')}.${ext}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        if (onShowToast) onShowToast('Payment screenshot downloaded successfully');
+        return;
+      } catch (err) {
+        console.error('Direct download error:', err);
+      }
+    }
+
+    // Fallback to authenticated server endpoint
     fetch(`${API_BASE_URL}/api/admin/memberships/${member.id}/screenshot`, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
@@ -350,10 +374,12 @@ export default function AdminDashboard({ onShowToast }) {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      if (onShowToast) onShowToast('Payment screenshot downloaded successfully');
     })
     .catch(error => {
       console.error(error);
-      alert('Could not download screenshot file.');
+      if (onShowToast) onShowToast('Payment screenshot file not available on server.');
+      else alert('Payment screenshot file not available on server.');
     });
   };
 
@@ -1181,10 +1207,12 @@ export default function AdminDashboard({ onShowToast }) {
                 {/* Screenshot Column */}
                 <div className="md:col-span-5 flex flex-col gap-2.5">
                   <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5">Payment Screenshot Proof</h4>
-                  <div className="border border-gray-100 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center flex-1 min-h-[160px] max-h-[300px]">
-                    {!selectedMembership.paymentScreenshot ? (
+                  <div className="border border-gray-100 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center flex-1 min-h-[180px] max-h-[300px]">
+                    {!selectedMembership.paymentScreenshot || selectedMembership.paymentScreenshot === 'no-file' ? (
                       <div className="p-6 flex flex-col items-center gap-2 text-center text-xs text-gray-400">
-                        <span>No payment screenshot attached.</span>
+                        <AlertTriangle className="w-8 h-8 text-amber-500/70" />
+                        <span className="font-semibold text-gray-600">No payment screenshot attached</span>
+                        <span className="text-[10.5px] text-gray-400">The applicant submitted without attaching a payment file.</span>
                       </div>
                     ) : selectedMembership.paymentScreenshot.toLowerCase().endsWith('.pdf') || selectedMembership.paymentScreenshot.startsWith('data:application/pdf') ? (
                       <div className="p-6 flex flex-col items-center gap-2 text-center text-xs text-gray-400">
@@ -1204,14 +1232,15 @@ export default function AdminDashboard({ onShowToast }) {
                         className="max-w-full max-h-[298px] object-contain"
                         onError={(e) => {
                           e.target.style.display = 'none';
-                          e.target.parentNode.innerHTML = '<div class="p-6 text-center text-xs text-gray-400">Screenshot preview not available</div>';
+                          e.target.parentNode.innerHTML = '<div class="p-6 text-center text-xs text-gray-400">Screenshot preview not available (or expired)</div>';
                         }}
                       />
                     )}
                   </div>
                   <button
                     onClick={() => downloadMembershipFile(selectedMembership)}
-                    className="border-2 border-[#123E87] hover:bg-[#123E87] text-[#123E87] hover:text-white font-bold text-xs py-2 rounded-lg cursor-pointer transition-colors"
+                    disabled={!selectedMembership.paymentScreenshot || selectedMembership.paymentScreenshot === 'no-file'}
+                    className="border-2 border-[#123E87] hover:bg-[#123E87] text-[#123E87] hover:text-white font-bold text-xs py-2 rounded-lg cursor-pointer transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     Download Payment Screenshot
                   </button>
