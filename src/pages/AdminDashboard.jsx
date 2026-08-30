@@ -617,11 +617,11 @@ export default function AdminDashboard({ onShowToast }) {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-blue-50/40 text-[#0d2d6b] border-b border-blue-50 text-xs font-bold">
-                    <th className="px-6 py-4">Name</th>
-                    <th className="px-6 py-4">Specialty</th>
-                    <th className="px-6 py-4">Hospital/Clinic</th>
+                    <th className="px-6 py-4">Applicant Name</th>
+                    <th className="px-6 py-4">Membership Type</th>
+                    <th className="px-6 py-4">Institution / Qualification</th>
                     <th className="px-6 py-4">Contact Info</th>
-                    <th className="px-6 py-4">Message</th>
+                    <th className="px-6 py-4">Payment Ref ID</th>
                     <th className="px-6 py-4">Submitted Date</th>
                   </tr>
                 </thead>
@@ -641,15 +641,29 @@ export default function AdminDashboard({ onShowToast }) {
                   ) : (
                     memberships.map((member) => (
                       <tr key={member.id} className="hover:bg-blue-50/20 transition-colors">
-                        <td className="px-6 py-4 font-bold text-gray-700">{member.name}</td>
-                        <td className="px-6 py-4 font-medium">{member.specialty}</td>
-                        <td className="px-6 py-4">{member.hospital}</td>
+                        <td className="px-6 py-4 font-bold text-gray-800">
+                          {member.name}
+                          {member.designation && <div className="text-[10px] text-gray-400 font-normal">{member.designation}</div>}
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                            member.membershipType === 'Associate Membership' 
+                              ? 'bg-amber-100 text-amber-800' 
+                              : 'bg-blue-100 text-blue-900'
+                          }`}>
+                            {member.membershipType || 'Life Membership'} {member.fee ? `(₹${member.fee})` : ''}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="font-semibold text-gray-700">{member.hospital}</div>
+                          {member.qualification && <div className="text-[10px] text-gray-400">{member.qualification}</div>}
+                        </td>
                         <td className="px-6 py-4 leading-normal">
                           <div>{member.email}</div>
                           <div className="text-[10px] text-gray-400 font-semibold">{member.phone}</div>
                         </td>
-                        <td className="px-6 py-4 max-w-[250px] truncate" title={member.message}>
-                          {member.message || <span className="text-gray-300 italic">No message</span>}
+                        <td className="px-6 py-4 font-mono text-[11px] font-bold text-[#123E87]">
+                          {member.transactionId || <span className="text-gray-300 italic font-normal">N/A</span>}
                         </td>
                         <td className="px-6 py-4">{new Date(member.createdAt).toLocaleDateString()}</td>
                       </tr>

@@ -399,7 +399,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-10">
-            <Link to="/membership"
+            <Link to="/membership?tab=apply"
               className="inline-flex items-center gap-2 bg-[#123E87] hover:bg-[#0d2d6b] text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg shadow-blue-900/20 transition-all duration-200">
               Become a Member <ArrowRight className="w-4 h-4" />
             </Link>

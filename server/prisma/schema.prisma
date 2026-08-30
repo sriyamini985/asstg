@@ -47,14 +47,32 @@ model Admin {
 }
 
 model MembershipRequest {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String
-  phone     String
-  specialty String
-  hospital  String
-  message   String?  @db.Text
-  status    String   @default("Pending")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                 Int       @id @default(autoincrement())
+  membershipType     String?   @default("Life Membership")
+  name               String
+  dob                String?
+  qualification      String?
+  designation        String?
+  hospital           String
+  address            String?
+  city               String?
+  state              String?
+  pinCode            String?
+  country            String?   @default("India")
+  nationality        String?   @default("Indian")
+  email              String
+  phone              String
+  residencePhone     String?
+  proposedBy         String?
+  proposedByAsstNo   String?
+  secondedBy         String?
+  secondedByAsstNo   String?
+  transactionId      String?
+  paymentScreenshot  String?   @db.LongText
+  fee                Float?
+  specialty          String?
+  message            String?   @db.Text
+  status             String    @default("Pending")
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }

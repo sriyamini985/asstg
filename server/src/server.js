@@ -231,22 +231,53 @@ app.post('/api/registrations', upload.single('screenshot'), async (req, res) => 
   }
 });
 
-// Submit Membership Request
-app.post('/api/memberships', async (req, res) => {
+// Submit Membership Application Form
+app.post('/api/memberships', upload.single('screenshot'), async (req, res) => {
   try {
-    const { name, email, phone, specialty, hospital, message } = req.body;
+    const data = req.body;
+    const filename = req.file ? req.file.filename : (data.paymentScreenshot || null);
 
-    if (!name || !email || !phone || !specialty || !hospital) {
-      return res.status(400).json({ error: 'All fields are required.' });
+    const {
+      membershipType,
+      name,
+      dob,
+      qualification,
+      designation,
+      hospital,
+      address,
+      city,
+      state,
+      pinCode,
+      country,
+      nationality,
+      email,
+      phone,
+      residencePhone,
+      proposedBy,
+      proposedByAsstNo,
+      secondedBy,
+      secondedByAsstNo,
+      transactionId,
+      specialty,
+      message
+    } = data;
+
+    if (!name || !email || !phone || !hospital) {
+      if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+      return res.status(400).json({ error: 'Name, email, phone, and institution/hospital are required.' });
     }
 
     if (!validateEmail(email)) {
+      if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
       return res.status(400).json({ error: 'Invalid email address format.' });
     }
 
     if (!validateMobileNumber(phone)) {
-      return res.status(400).json({ error: 'Invalid mobile number.' });
+      if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+      return res.status(400).json({ error: 'Invalid mobile number format.' });
     }
+
+    const fee = (membershipType === 'Associate Membership') ? 3000.0 : 5000.0;
 
     // Check duplicate membership request
     const duplicate = await prisma.membershipRequest.findFirst({
@@ -259,25 +290,46 @@ app.post('/api/memberships', async (req, res) => {
     });
 
     if (duplicate) {
+      if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
       return res.status(409).json({
-        error: 'You have already submitted a membership request. Please contact ASST if you need assistance.'
+        error: 'A membership application with this email or mobile number already exists. Please contact ASST if you need assistance.'
       });
     }
 
     const membership = await prisma.membershipRequest.create({
       data: {
+        membershipType: membershipType || 'Life Membership',
         name: name.trim(),
+        dob: dob || null,
+        qualification: qualification || null,
+        designation: designation || null,
+        hospital: hospital.trim(),
+        address: address || null,
+        city: city || null,
+        state: state || null,
+        pinCode: pinCode || null,
+        country: country || 'India',
+        nationality: nationality || 'Indian',
         email: email.toLowerCase().trim(),
         phone: phone.trim(),
-        specialty,
-        hospital: hospital.trim(),
-        message: message ? message.trim() : null
+        residencePhone: residencePhone || null,
+        proposedBy: proposedBy || null,
+        proposedByAsstNo: proposedByAsstNo || null,
+        secondedBy: secondedBy || null,
+        secondedByAsstNo: secondedByAsstNo || null,
+        transactionId: transactionId ? transactionId.trim() : null,
+        paymentScreenshot: filename,
+        fee,
+        specialty: specialty || qualification || 'Spine Surgery',
+        message: message ? message.trim() : null,
+        status: 'Pending Verification'
       }
     });
 
     return res.status(201).json(membership);
   } catch (error) {
     console.error('Membership submission error:', error);
+    if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
     return res.status(500).json({ error: 'A server error occurred. Please try again.' });
   }
 });
@@ -310,7 +362,10 @@ app.post('/api/admin/login', async (req, res) => {
     return res.json({ token, username: admin.username, role: admin.role });
   } catch (error) {
     console.error('Admin login error:', error);
-    return res.status(500).json({ error: 'A server error occurred.' });
+    if (error.code === 'P1001' || (error.message && error.message.includes("Can't reach database server"))) {
+      return res.status(500).json({ error: 'Database connection failed. Please ensure your Aiven MySQL database service is running.' });
+    }
+    return res.status(500).json({ error: 'A server error occurred. Please try again.' });
   }
 });
 

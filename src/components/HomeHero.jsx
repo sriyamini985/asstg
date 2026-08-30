@@ -54,7 +54,7 @@ export default function HomeHero() {
             </motion.p>
 
             <motion.div custom={2} variants={fadeUp} className="flex flex-wrap gap-3 mt-6">
-              <Link to="/membership"
+              <Link to="/membership?tab=apply"
                 className="bg-[#D4A53A] hover:bg-[#b88c2b] text-white font-bold text-[13px] px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                 Become a Member
               </Link>

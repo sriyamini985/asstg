@@ -531,13 +531,14 @@ export default function Events({ onShowToast }) {
                   </div>
 
                   {/* Scan & Pay QR */}
-                  <div className="md:col-span-4 premium-card p-6 flex flex-col items-center justify-center gap-4 border border-blue-100/50 shadow-md">
+                  <div className="md:col-span-4 premium-card p-6 flex flex-col items-center justify-center gap-3 border border-blue-100/50 shadow-md">
                     <div className="bg-white p-2.5 rounded-xl border border-blue-100 shadow-inner flex items-center justify-center">
-                      <img src={regQrCode} alt="Registration QR Code" className="w-[120px] h-[120px] object-contain" />
+                      <img src={regQrCode} alt="Registration QR Code" className="w-[140px] h-[175px] object-contain" />
                     </div>
                     <div className="flex flex-col items-center text-center gap-0.5">
                       <span className="text-[#0d2d6b] font-bold text-xs uppercase tracking-wider">Scan & Pay</span>
-                      <span className="text-gray-400 text-[9.5px]">Payee: <strong className="text-gray-600">Conference Management Company</strong></span>
+                      <span className="text-gray-500 text-[10px] font-semibold">Association of Spine Surgeons of Telangana</span>
+                      <span className="text-gray-400 font-mono text-[9px]">qr918143893638-1401@unionbankofindia</span>
                     </div>
                   </div>
                 </div>
