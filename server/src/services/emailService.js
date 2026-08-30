@@ -266,6 +266,12 @@ export const sendMembershipRejectedEmail = async (membership, remarks) => {
 
       <p>If you believe this was an error or wish to provide additional verification documents, please contact us at <a href="mailto:info@asstg.in">info@asstg.in</a> or WhatsApp at <strong>+91-9440602168</strong>.</p>
       
+      <p>Regards,<br/><strong>Association of Spine Surgeons of Telangana</strong></p>
+    </div>
+  `;
+  return sendEmail({ to: membership.email, subject, html });
+};
+
 export const sendMembershipSubmittedEmail = async (membership) => {
   const subject = `Membership Application Received - Association of Spine Surgeons of Telangana`;
   const membershipType = membership.membershipType || 'Life Membership';
