@@ -21,24 +21,7 @@ import {
 } from './services/emailService.js';
 import { exportToCSV, exportToExcel } from './services/exportService.js';
 
-import { execSync } from 'child_process';
-
 dotenv.config();
-
-// Strict security check for JWT_SECRET in production
-if (process.env.NODE_ENV === 'production' && !process.env.JWT_SECRET) {
-  console.error('FATAL: JWT_SECRET environment variable is missing in production!');
-  process.exit(1);
-}
-
-// Run database migration push programmatically on startup (with try-catch to prevent exit crashes)
-try {
-  console.log('Running database migrations (prisma db push)...');
-  execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
-  console.log('Database migrations completed successfully!');
-} catch (error) {
-  console.error('Database migration failed, starting server anyway:', error);
-}
 
 const app = express();
 const PORT = process.env.PORT || 5000;

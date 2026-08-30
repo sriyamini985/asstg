@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, CheckCircle, FileText, Send, Users, Award, BookOpen, ShieldCheck, GraduationCap, Upload, QrCode, Building2, CreditCard } from 'lucide-react';
@@ -155,7 +156,7 @@ export default function Membership({ onShowToast }) {
   return (
     <div className="relative min-h-screen text-gray-800 font-sans">
       <MedicalPageBackground variant="membership" />
-      
+
       <section className="page-hero text-white text-center">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div
@@ -174,17 +175,16 @@ export default function Membership({ onShowToast }) {
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-12 relative z-10">
-        
+
         <div className="flex border-b border-gray-200/60 mb-10 overflow-x-auto gap-2">
           {tabItems.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-6 py-3.5 text-[14px] font-bold whitespace-nowrap transition-all cursor-pointer relative ${
-                activeTab === tab.id
+              className={`flex items-center gap-2 px-6 py-3.5 text-[14px] font-bold whitespace-nowrap transition-all cursor-pointer relative ${activeTab === tab.id
                   ? 'text-[#123E87] tab-active'
                   : 'text-gray-400 hover:text-gray-700'
-              }`}
+                }`}
             >
               <span>{tab.icon}</span>
               <span>{tab.label}</span>
@@ -194,7 +194,7 @@ export default function Membership({ onShowToast }) {
 
         <AnimatePresence mode="wait">
           {activeTab === 'apply' && (
-            <motion.div 
+            <motion.div
               key="apply"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -270,12 +270,11 @@ export default function Membership({ onShowToast }) {
                     </h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <label 
-                        className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between gap-3 ${
-                          formData.membershipType === 'Life Membership'
+                      <label
+                        className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between gap-3 ${formData.membershipType === 'Life Membership'
                             ? 'border-[#123E87] bg-blue-50/40 shadow-md'
                             : 'border-gray-200 hover:border-gray-300 bg-white'
-                        }`}
+                          }`}
                       >
                         <div className="flex justify-between items-start">
                           <div className="flex items-center gap-2">
@@ -296,12 +295,11 @@ export default function Membership({ onShowToast }) {
                         </p>
                       </label>
 
-                      <label 
-                        className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between gap-3 ${
-                          formData.membershipType === 'Associate Membership'
+                      <label
+                        className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between gap-3 ${formData.membershipType === 'Associate Membership'
                             ? 'border-[#D4A53A] bg-amber-50/40 shadow-md'
                             : 'border-gray-200 hover:border-gray-300 bg-white'
-                        }`}
+                          }`}
                       >
                         <div className="flex justify-between items-start">
                           <div className="flex items-center gap-2">
@@ -545,7 +543,7 @@ export default function Membership({ onShowToast }) {
                         <div>
                           <span className="text-[#D4A53A] text-[10px] font-bold uppercase tracking-widest block mb-2">Online Transfer Beneficiary Details</span>
                           <h4 className="text-[#0d2d6b] font-black text-base mb-3">Association of Spine Surgeons of Telangana</h4>
-                          
+
                           <div className="flex flex-col gap-2 text-xs text-gray-700">
                             <div className="flex justify-between border-b border-gray-200/60 pb-1.5">
                               <span className="text-gray-500">Account Number:</span>
@@ -573,8 +571,8 @@ export default function Membership({ onShowToast }) {
 
                       <div className="md:col-span-5 bg-amber-50/40 p-6 rounded-xl border border-amber-200/60 flex flex-col items-center justify-center gap-3 text-center">
                         <span className="text-[#0d2d6b] text-xs font-bold uppercase tracking-wider">Scan QR Code to Pay</span>
-                        <div className="bg-white p-2.5 rounded-xl border border-amber-200 shadow-md">
-                          <img src={regQrCode} alt="ASST UPI Payment QR Code" className="w-[160px] h-[200px] object-contain rounded-lg" />
+                        <div className="bg-white p-3 rounded-xl border border-amber-200 shadow-md">
+                          <img src={regQrCode} alt="ASST UPI Payment QR Code" className="w-44 h-44 object-contain rounded-lg" />
                         </div>
                         <div className="flex flex-col gap-0.5 text-[10.5px] text-gray-600">
                           <span className="font-bold text-[#123E87]">Association of Spine Surgeons of Telangana</span>
@@ -640,7 +638,7 @@ export default function Membership({ onShowToast }) {
           )}
 
           {activeTab === 'benefits' && (
-            <motion.div 
+            <motion.div
               key="benefits"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -683,7 +681,7 @@ export default function Membership({ onShowToast }) {
                     styleClass: 'icon-box-gold'
                   }
                 ].map((item, idx) => (
-                  <motion.div 
+                  <motion.div
                     key={idx}
                     variants={cardTransition}
                     initial="hidden"
@@ -706,7 +704,7 @@ export default function Membership({ onShowToast }) {
           )}
 
           {activeTab === 'eligibility' && (
-            <motion.div 
+            <motion.div
               key="eligibility"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -718,7 +716,7 @@ export default function Membership({ onShowToast }) {
                 <span>Eligibility Criteria & Fee Structure</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D4A53A]" />
               </h2>
-              
+
               <div className="bg-white/80 backdrop-blur-md border border-blue-50/50 rounded-2xl shadow-xl shadow-blue-900/5 p-6 flex flex-col gap-4">
                 <h3 className="text-[#0d2d6b] font-bold text-lg border-b border-gray-100 pb-2">Academic & Professional Requirements</h3>
                 <ul className="list-disc pl-5 text-gray-500 text-[13.5px] leading-relaxed flex flex-col gap-3">
@@ -729,7 +727,7 @@ export default function Membership({ onShowToast }) {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
-                <motion.div 
+                <motion.div
                   variants={cardTransition}
                   initial="hidden" animate="show"
                   whileHover={{ y: -8, scale: 1.02 }}
@@ -747,7 +745,7 @@ export default function Membership({ onShowToast }) {
                   <span className="text-gray-400 text-[10px] uppercase tracking-wide font-bold">One-Time Payment</span>
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   variants={cardTransition}
                   initial="hidden" animate="show"
                   transition={{ delay: 0.1 }}
