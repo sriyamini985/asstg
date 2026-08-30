@@ -21,6 +21,8 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+import fs from 'fs';
+
 const FROM_EMAIL = process.env.SMTP_FROM || 'info@asstg.in';
 
 export const sendEmail = async ({ to, subject, html, replyTo }) => {
@@ -39,9 +41,16 @@ export const sendEmail = async ({ to, subject, html, replyTo }) => {
       if (response && response.data) {
         return response;
       }
-      console.warn('Resend API returned an error, trying SMTP fallback:', response.error);
+      const errMsg = response?.error ? JSON.stringify(response.error) : 'Unknown Resend Error';
+      console.warn('Resend API returned an error, trying SMTP fallback:', errMsg);
+      try {
+        fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] Resend failed to ${to}: ${errMsg}\n`);
+      } catch (e) {}
     } catch (error) {
       console.error('Error sending email via Resend API, trying SMTP fallback:', error);
+      try {
+        fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] Resend exception to ${to}: ${error.message}\n`);
+      } catch (e) {}
     }
   }
 
@@ -58,6 +67,9 @@ export const sendEmail = async ({ to, subject, html, replyTo }) => {
       return info;
     } catch (error) {
       console.error('Error sending email via SMTP:', error);
+      try {
+        fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] SMTP failed to ${to}: ${error.message}\n`);
+      } catch (e) {}
       throw error;
     }
   }
