@@ -777,6 +777,18 @@ app.get('/api/admin/registrations/:id/screenshot', authenticateAdmin, async (req
   }
 });
 
+// Delete Event Registration Record
+app.delete('/api/admin/registrations/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    await prisma.registration.delete({ where: { id: parseInt(id) } });
+    return res.json({ message: 'Registration deleted successfully.' });
+  } catch (error) {
+    console.error('Delete registration error:', error);
+    return res.status(500).json({ error: 'Error deleting registration.' });
+  }
+});
+
 // Export Center
 app.get('/api/admin/export', authenticateAdmin, async (req, res) => {
   const { format, category, regStatus, payStatus, dateFrom, dateTo } = req.query;

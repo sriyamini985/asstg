@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, CheckCircle, XCircle, Search, Filter, RefreshCw, 
-  Download, Eye, FileText, X, LogOut, Loader2, AlertTriangle, Clock
+  Download, Eye, FileText, X, LogOut, Loader2, AlertTriangle, Clock, Trash2
 } from 'lucide-react';
 import PageBackground from '../components/PageBackground';
 import { API_BASE_URL } from '../config';
@@ -395,6 +395,60 @@ export default function AdminDashboard({ onShowToast }) {
     );
   };
 
+  const handleDeleteMembership = async (memberToDelete = selectedMembership) => {
+    if (!memberToDelete) return;
+    const confirmDelete = window.confirm(`Are you sure you want to delete the membership application for "${memberToDelete.name}"? This action cannot be undone.`);
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/admin/memberships/${memberToDelete.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      let data = {};
+      try { data = await response.json(); } catch {}
+      if (!response.ok) throw new Error(data.error || `Failed to delete membership request (${response.status})`);
+
+      if (onShowToast) onShowToast(`Membership application for ${memberToDelete.name} deleted successfully`);
+      if (selectedMembership && selectedMembership.id === memberToDelete.id) {
+        setSelectedMembership(null);
+      }
+      loadDashboardData(token);
+    } catch (error) {
+      alert(error.message || 'Error deleting membership request');
+    }
+  };
+
+  const handleDeleteRegistration = async (regToDelete = selectedReg) => {
+    if (!regToDelete) return;
+    const confirmDelete = window.confirm(`Are you sure you want to delete registration ID "${regToDelete.registrationId}" (${regToDelete.firstName || ''} ${regToDelete.lastName || ''})? This action cannot be undone.`);
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/admin/registrations/${regToDelete.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      let data = {};
+      try { data = await response.json(); } catch {}
+      if (!response.ok) throw new Error(data.error || `Failed to delete registration (${response.status})`);
+
+      if (onShowToast) onShowToast(`Registration ID ${regToDelete.registrationId} deleted successfully`);
+      if (selectedReg && selectedReg.id === regToDelete.id) {
+        setSelectedReg(null);
+      }
+      loadDashboardData(token);
+    } catch (error) {
+      alert(error.message || 'Error deleting registration');
+    }
+  };
+
   const triggerExport = (format) => {
     const query = `?format=${format}&category=${category}&regStatus=${regStatus}&payStatus=${payStatus}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
     
@@ -706,7 +760,7 @@ export default function AdminDashboard({ onShowToast }) {
                             </span>
                           </td>
                           <td className="px-6 py-4 text-center">
-                            <div className="flex justify-center gap-2">
+                            <div className="flex justify-center gap-1.5">
                               <button
                                 onClick={() => openVerificationModal(reg)}
                                 className="bg-[#123E87] hover:bg-[#0d2d6b] text-white p-2 rounded-lg cursor-pointer transition-colors"
@@ -720,6 +774,13 @@ export default function AdminDashboard({ onShowToast }) {
                                 title="Download Payment Screenshot"
                               >
                                 <Download className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                onClick={() => handleDeleteRegistration(reg)}
+                                className="border border-rose-200 hover:bg-rose-50 text-rose-600 p-2 rounded-lg cursor-pointer transition-colors"
+                                title="Delete Registration Record"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
                               </button>
                             </div>
                           </td>
@@ -851,6 +912,13 @@ export default function AdminDashboard({ onShowToast }) {
                                 <XCircle className="w-3.5 h-3.5" />
                               </button>
                             )}
+                            <button
+                              onClick={() => handleDeleteMembership(member)}
+                              className="border border-rose-200 hover:bg-rose-50 text-rose-600 p-2 rounded-lg cursor-pointer transition-colors"
+                              title="Delete Membership Application"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -1052,6 +1120,14 @@ export default function AdminDashboard({ onShowToast }) {
                   className="border-2 border-gray-200 hover:border-gray-300 text-gray-500 font-bold text-xs px-5 py-2.5 rounded-lg cursor-pointer mr-auto bg-white"
                 >
                   Close
+                </button>
+                <button
+                  onClick={() => handleDeleteRegistration(selectedReg)}
+                  disabled={updatingStatus}
+                  className="border-2 border-rose-200 hover:bg-rose-50 text-rose-600 font-bold text-xs px-4 py-2.5 rounded-lg cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
+                  title="Permanently Delete Registration"
+                >
+                  <Trash2 className="w-3.5 h-3.5" /> Delete Record
                 </button>
                 <button
                   onClick={handleReject}
@@ -1274,6 +1350,14 @@ export default function AdminDashboard({ onShowToast }) {
                   className="border-2 border-gray-200 hover:border-gray-300 text-gray-500 font-bold text-xs px-5 py-2.5 rounded-lg cursor-pointer mr-auto bg-white"
                 >
                   Close
+                </button>
+                <button
+                  onClick={() => handleDeleteMembership(selectedMembership)}
+                  disabled={updatingMembershipStatus}
+                  className="border-2 border-rose-200 hover:bg-rose-50 text-rose-600 font-bold text-xs px-4 py-2.5 rounded-lg cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
+                  title="Permanently Delete Membership Application"
+                >
+                  <Trash2 className="w-3.5 h-3.5" /> Delete Application
                 </button>
                 <button
                   onClick={() => handleRejectMembership(selectedMembership, membershipModalNotes)}
