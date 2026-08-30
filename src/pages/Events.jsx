@@ -504,11 +504,11 @@ export default function Events({ onShowToast }) {
                 transition={{ duration: 0.35 }}
                 className="flex flex-col gap-8"
               >
-                {/* Row 1: Cost & QR Code side-by-side */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-                  {/* Cost card - 2-row layout */}
-                  <div className="md:col-span-8 premium-card p-6 flex flex-col justify-center gap-4 border border-blue-100/50 shadow-md">
-                    <span className="text-[#D4A53A] text-[10px] font-bold uppercase tracking-widest text-center md:text-left mb-1">Registration Fees</span>
+                {/* Row 1: Cost, Bank Transfer Details & QR Code */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                  {/* Cost card */}
+                  <div className="lg:col-span-5 premium-card p-6 flex flex-col justify-center gap-4 border border-blue-100/50 shadow-md">
+                    <span className="text-[#D4A53A] text-[10px] font-bold uppercase tracking-widest text-center lg:text-left mb-1">Registration Fees</span>
                     <div className="flex flex-col gap-4">
                       {/* Row 1: Consultant */}
                       <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-3 bg-gradient-to-r from-blue-50/40 to-white/10 border border-blue-100/70 border-l-4 border-l-[#123E87] p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow text-left">
@@ -530,15 +530,46 @@ export default function Events({ onShowToast }) {
                     </div>
                   </div>
 
+                  {/* Bank Details Card */}
+                  <div className="lg:col-span-4 bg-gradient-to-br from-[#f8fafc] to-blue-50/30 p-5 rounded-2xl border border-blue-100 flex flex-col justify-between gap-3 shadow-md text-left">
+                    <div>
+                      <span className="text-[#D4A53A] text-[10px] font-bold uppercase tracking-widest block mb-1">Beneficiary Bank Details</span>
+                      <h4 className="text-[#0d2d6b] font-bold text-sm mb-2.5">Association of Spine Surgeons of Telangana</h4>
+                      
+                      <div className="flex flex-col gap-1.5 text-[11.5px] text-gray-700">
+                        <div className="flex justify-between border-b border-gray-200/60 pb-1">
+                          <span className="text-gray-500">Account No:</span>
+                          <strong className="font-mono text-[#123E87]">052422010001401</strong>
+                        </div>
+                        <div className="flex justify-between border-b border-gray-200/60 pb-1">
+                          <span className="text-gray-500">Bank:</span>
+                          <strong className="font-semibold text-gray-800">Union Bank of India</strong>
+                        </div>
+                        <div className="flex justify-between border-b border-gray-200/60 pb-1">
+                          <span className="text-gray-500">Branch:</span>
+                          <span className="font-semibold text-gray-700">PBB - Nampally</span>
+                        </div>
+                        <div className="flex justify-between pt-0.5">
+                          <span className="text-gray-500">IFSC Code:</span>
+                          <strong className="font-mono text-[#123E87]">UBIN0905241</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <span className="text-[9.5px] text-gray-400 italic">
+                      Share payment screenshot on WhatsApp: <strong>+91-9440602168</strong>
+                    </span>
+                  </div>
+
                   {/* Scan & Pay QR */}
-                  <div className="md:col-span-4 premium-card p-6 flex flex-col items-center justify-center gap-3 border border-blue-100/50 shadow-md">
-                    <div className="bg-white p-2.5 rounded-xl border border-blue-100 shadow-inner flex items-center justify-center">
-                      <img src={regQrCode} alt="Registration QR Code" className="w-[140px] h-[175px] object-contain" />
+                  <div className="lg:col-span-3 premium-card p-5 flex flex-col items-center justify-center gap-3 border border-amber-200/60 bg-amber-50/20 shadow-md">
+                    <div className="bg-white p-2 rounded-xl border border-amber-200 shadow-sm flex items-center justify-center">
+                      <img src={regQrCode} alt="Association of Spine Surgeons of Telangana QR Code" className="w-[140px] h-[175px] object-contain rounded-lg" />
                     </div>
                     <div className="flex flex-col items-center text-center gap-0.5">
-                      <span className="text-[#0d2d6b] font-bold text-xs uppercase tracking-wider">Scan & Pay</span>
-                      <span className="text-gray-500 text-[10px] font-semibold">Association of Spine Surgeons of Telangana</span>
-                      <span className="text-gray-400 font-mono text-[9px]">qr918143893638-1401@unionbankofindia</span>
+                      <span className="text-[#0d2d6b] font-bold text-[11px] uppercase tracking-wider">Scan & Pay via UPI</span>
+                      <span className="text-gray-700 text-[10px] font-bold">Association of Spine Surgeons of Telangana</span>
+                      <span className="text-gray-400 font-mono text-[8.5px]">qr918143893638-1401@unionbankofindia</span>
                     </div>
                   </div>
                 </div>
