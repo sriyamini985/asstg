@@ -186,8 +186,9 @@ export default function AdminDashboard({ onShowToast }) {
         })
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to approve registration');
+      let data = {};
+      try { data = await response.json(); } catch {}
+      if (!response.ok) throw new Error(data.error || `Server returned error (${response.status})`);
 
       if (onShowToast) onShowToast(`Registration ID ${selectedReg.registrationId} approved successfully`);
       setSelectedReg(null);
@@ -219,8 +220,9 @@ export default function AdminDashboard({ onShowToast }) {
         })
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to reject registration');
+      let data = {};
+      try { data = await response.json(); } catch {}
+      if (!response.ok) throw new Error(data.error || `Server returned error (${response.status})`);
 
       if (onShowToast) onShowToast(`Registration ID ${selectedReg.registrationId} rejected successfully`);
       setSelectedReg(null);
@@ -232,9 +234,47 @@ export default function AdminDashboard({ onShowToast }) {
     }
   };
 
-  const downloadFile = (reg) => {
-    // Create an authenticated download link
-    fetch(`${API_BASE_URL}/api/admin/registrations/${reg.id}/screenshot`, {
+  const downloadScreenshotBlob = (screenshotData, fallbackUrl, defaultFilename) => {
+    if (!screenshotData || screenshotData === 'no-file') {
+      if (onShowToast) onShowToast('No payment screenshot attached for this record.');
+      else alert('No payment screenshot attached for this record.');
+      return;
+    }
+
+    // Direct client-side download for base64 data URIs
+    if (screenshotData.startsWith('data:')) {
+      try {
+        const commaIdx = screenshotData.indexOf(',');
+        if (commaIdx !== -1) {
+          const meta = screenshotData.substring(0, commaIdx);
+          const rawData = screenshotData.substring(commaIdx + 1);
+          const mimeMatch = meta.match(/data:([^;]+)/);
+          const mimeType = mimeMatch ? mimeMatch[1] : 'image/png';
+          const binaryStr = atob(rawData);
+          const bytes = new Uint8Array(binaryStr.length);
+          for (let i = 0; i < binaryStr.length; i++) {
+            bytes[i] = binaryStr.charCodeAt(i);
+          }
+          const blob = new Blob([bytes], { type: mimeType });
+          const blobUrl = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          const ext = mimeType.includes('pdf') ? 'pdf' : (mimeType.includes('jpeg') || mimeType.includes('jpg') ? 'jpg' : 'png');
+          link.download = defaultFilename.endsWith(`.${ext}`) ? defaultFilename : `${defaultFilename}.${ext}`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(blobUrl);
+          if (onShowToast) onShowToast('Payment screenshot downloaded successfully');
+          return;
+        }
+      } catch (err) {
+        console.error('Data URI download error:', err);
+      }
+    }
+
+    // Fallback to server endpoint
+    fetch(fallbackUrl, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
     .then(response => {
@@ -242,18 +282,29 @@ export default function AdminDashboard({ onShowToast }) {
       return response.blob();
     })
     .then(blob => {
-      const downloadUrl = window.URL.createObjectURL(blob);
+      const downloadUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = downloadUrl;
-      link.download = reg.paymentScreenshot || 'screenshot.png';
+      link.download = defaultFilename;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      URL.revokeObjectURL(downloadUrl);
+      if (onShowToast) onShowToast('Payment screenshot downloaded successfully');
     })
     .catch(error => {
       console.error(error);
-      alert('Could not download screenshot file.');
+      if (onShowToast) onShowToast('Payment screenshot file not available on server.');
+      else alert('Payment screenshot file not available on server.');
     });
+  };
+
+  const downloadFile = (reg) => {
+    downloadScreenshotBlob(
+      reg.paymentScreenshot,
+      `${API_BASE_URL}/api/admin/registrations/${reg.id}/screenshot`,
+      `registration_${reg.registrationId}_payment.png`
+    );
   };
 
   const openMembershipModal = async (member) => {
@@ -289,8 +340,9 @@ export default function AdminDashboard({ onShowToast }) {
         })
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to approve membership application');
+      let data = {};
+      try { data = await response.json(); } catch {}
+      if (!response.ok) throw new Error(data.error || `Server returned error (${response.status})`);
 
       if (onShowToast) onShowToast(`Membership for ${memberToApprove.name} approved & confirmation email sent!`);
       setSelectedMembership(null);
@@ -321,8 +373,9 @@ export default function AdminDashboard({ onShowToast }) {
         })
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to reject membership');
+      let data = {};
+      try { data = await response.json(); } catch {}
+      if (!response.ok) throw new Error(data.error || `Server returned error (${response.status})`);
 
       if (onShowToast) onShowToast(`Membership for ${memberToReject.name} marked as rejected`);
       setSelectedMembership(null);
@@ -335,52 +388,11 @@ export default function AdminDashboard({ onShowToast }) {
   };
 
   const downloadMembershipFile = (member) => {
-    if (!member || !member.paymentScreenshot || member.paymentScreenshot === 'no-file') {
-      if (onShowToast) onShowToast('No payment screenshot attached for this application.');
-      else alert('No payment screenshot attached for this application.');
-      return;
-    }
-
-    // Direct client-side download for base64 data URIs
-    if (member.paymentScreenshot.startsWith('data:')) {
-      try {
-        const link = document.createElement('a');
-        link.href = member.paymentScreenshot;
-        const ext = member.paymentScreenshot.startsWith('data:application/pdf') ? 'pdf' : 'png';
-        link.download = `membership_${member.id}_payment_${(member.name || 'receipt').replace(/\s+/g, '_')}.${ext}`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        if (onShowToast) onShowToast('Payment screenshot downloaded successfully');
-        return;
-      } catch (err) {
-        console.error('Direct download error:', err);
-      }
-    }
-
-    // Fallback to authenticated server endpoint
-    fetch(`${API_BASE_URL}/api/admin/memberships/${member.id}/screenshot`, {
-      headers: { 'Authorization': `Bearer ${token}` }
-    })
-    .then(response => {
-      if (!response.ok) throw new Error('File download failed');
-      return response.blob();
-    })
-    .then(blob => {
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.download = `membership_${member.id}_payment.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      if (onShowToast) onShowToast('Payment screenshot downloaded successfully');
-    })
-    .catch(error => {
-      console.error(error);
-      if (onShowToast) onShowToast('Payment screenshot file not available on server.');
-      else alert('Payment screenshot file not available on server.');
-    });
+    downloadScreenshotBlob(
+      member.paymentScreenshot,
+      `${API_BASE_URL}/api/admin/memberships/${member.id}/screenshot`,
+      `membership_${member.id}_payment_${(member.name || 'receipt').replace(/\s+/g, '_')}.png`
+    );
   };
 
   const triggerExport = (format) => {
@@ -994,21 +1006,27 @@ export default function AdminDashboard({ onShowToast }) {
                 <div className="md:col-span-5 flex flex-col gap-2.5">
                   <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5">Payment Screenshot</h4>
                   <div className="border border-gray-100 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center flex-1 min-h-[160px] max-h-[300px]">
-                    {!selectedReg.paymentScreenshot ? (
+                    {!selectedReg.paymentScreenshot || selectedReg.paymentScreenshot === 'no-file' ? (
                       <div className="p-6 flex flex-col items-center gap-2 text-center text-xs text-gray-400">
-                        <div className="w-5 h-5 border-2 border-gray-300 border-t-[#123E87] rounded-full animate-spin" />
-                        <span>Loading screenshot...</span>
+                        <AlertTriangle className="w-8 h-8 text-amber-500/70" />
+                        <span className="font-semibold text-gray-600">No payment screenshot attached</span>
                       </div>
                     ) : selectedReg.paymentScreenshot.toLowerCase().endsWith('.pdf') || selectedReg.paymentScreenshot.startsWith('data:application/pdf') ? (
                       <div className="p-6 flex flex-col items-center gap-2 text-center text-xs text-gray-400">
                         <FileText className="w-12 h-12 text-[#123E87]" />
                         <span>Uploaded PDF document. Click below to download.</span>
                       </div>
+                    ) : selectedReg.paymentScreenshot.startsWith('data:') ? (
+                      <img
+                        src={selectedReg.paymentScreenshot}
+                        alt="Registration Payment Screenshot"
+                        className="max-w-full max-h-[298px] object-contain rounded-lg"
+                      />
                     ) : (
                       <img
                         src={`${API_BASE_URL}/api/admin/registrations/${selectedReg.id}/screenshot?token=${token}`}
                         alt="Screenshot"
-                        className="max-w-full max-h-[298px] object-contain"
+                        className="max-w-full max-h-[298px] object-contain rounded-lg"
                         onError={(e) => {
                           e.target.style.display = 'none';
                           e.target.parentNode.innerHTML = '<div class="p-6 text-center text-xs text-gray-400">Screenshot not available (or expired)</div>';
@@ -1018,7 +1036,8 @@ export default function AdminDashboard({ onShowToast }) {
                   </div>
                   <button
                     onClick={() => downloadFile(selectedReg)}
-                    className="border-2 border-[#123E87] hover:bg-[#123E87] text-[#123E87] hover:text-white font-bold text-xs py-2 rounded-lg cursor-pointer transition-colors"
+                    disabled={!selectedReg.paymentScreenshot || selectedReg.paymentScreenshot === 'no-file'}
+                    className="border-2 border-[#123E87] hover:bg-[#123E87] text-[#123E87] hover:text-white font-bold text-xs py-2 rounded-lg cursor-pointer transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     Download Screenshot File
                   </button>
@@ -1219,17 +1238,17 @@ export default function AdminDashboard({ onShowToast }) {
                         <FileText className="w-12 h-12 text-[#123E87]" />
                         <span>Uploaded PDF document. Click below to download.</span>
                       </div>
-                    ) : selectedMembership.paymentScreenshot.startsWith('data:image/') ? (
+                    ) : selectedMembership.paymentScreenshot.startsWith('data:') ? (
                       <img
                         src={selectedMembership.paymentScreenshot}
                         alt="Membership Payment Screenshot"
-                        className="max-w-full max-h-[298px] object-contain"
+                        className="max-w-full max-h-[298px] object-contain rounded-lg"
                       />
                     ) : (
                       <img
                         src={`${API_BASE_URL}/api/admin/memberships/${selectedMembership.id}/screenshot?token=${token}`}
                         alt="Membership Payment Screenshot"
-                        className="max-w-full max-h-[298px] object-contain"
+                        className="max-w-full max-h-[298px] object-contain rounded-lg"
                         onError={(e) => {
                           e.target.style.display = 'none';
                           e.target.parentNode.innerHTML = '<div class="p-6 text-center text-xs text-gray-400">Screenshot preview not available (or expired)</div>';

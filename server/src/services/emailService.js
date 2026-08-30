@@ -266,9 +266,85 @@ export const sendMembershipRejectedEmail = async (membership, remarks) => {
 
       <p>If you believe this was an error or wish to provide additional verification documents, please contact us at <a href="mailto:info@asstg.in">info@asstg.in</a> or WhatsApp at <strong>+91-9440602168</strong>.</p>
       
-      <p>Regards,<br/><strong>Association of Spine Surgeons of Telangana</strong></p>
-    </div>
+export const sendMembershipSubmittedEmail = async (membership) => {
+  const subject = `Membership Application Received - Association of Spine Surgeons of Telangana`;
+  const membershipType = membership.membershipType || 'Life Membership';
+  const feeAmount = membership.fee ? `₹${membership.fee.toLocaleString()}` : (membershipType === 'Associate Membership' ? '₹3,000' : '₹5,000');
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #1e293b; margin: 0; padding: 0; background-color: #f8fafc; }
+        .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .header { background: linear-gradient(135deg, #0d2d6b 0%, #123E87 100%); color: #ffffff; padding: 28px 24px; text-align: center; }
+        .header h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+        .header p { margin: 6px 0 0 0; color: #A9C6EC; font-size: 13px; }
+        .content { padding: 28px 24px; }
+        .badge-info { display: inline-block; background-color: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 16px; }
+        .info-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; margin: 20px 0; }
+        .footer { background: #f1f5f9; padding: 18px 24px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>Association of Spine Surgeons of Telangana</h1>
+          <p>Membership Application Acknowledgement</p>
+        </div>
+        <div class="content">
+          <div class="badge-info">✓ Application Submitted Successfully</div>
+          <p style="font-size: 15px; margin-top: 0;">Dear <strong>${membership.name}</strong>,</p>
+          <p>Thank you for applying for membership with the <strong>Association of Spine Surgeons of Telangana (ASST)</strong>.</p>
+          <p>We have successfully received your membership application form and payment proof.</p>
+          
+          <div class="info-box">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Applicant Name:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #0f172a; font-size: 13px; border-bottom: 1px solid #e2e8f0;">${membership.name}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Membership Type:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #123E87; font-size: 13px; border-bottom: 1px solid #e2e8f0;">${membershipType}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Institution / Hospital:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #0f172a; font-size: 13px; border-bottom: 1px solid #e2e8f0;">${membership.hospital}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Fee Payable:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #059669; font-size: 14px; border-bottom: 1px solid #e2e8f0;">${feeAmount}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Transaction Ref ID:</td>
+                <td style="padding: 7px 0; font-family: monospace; font-weight: bold; text-align: right; color: #334155; font-size: 13px; border-bottom: 1px solid #e2e8f0;">${membership.transactionId || 'Submitted via QR/UPI'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px;">Verification Status:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #d97706; font-size: 13px;">Pending Verification</td>
+              </tr>
+            </table>
+          </div>
+
+          <p>Our executive committee and admin team will verify your details and payment proof within <strong>2 working days</strong>.</p>
+          <p>You will receive an official payment confirmation and approval email once the verification is completed.</p>
+          <p>If you have any questions, please contact us at <a href="mailto:info@asstg.in" style="color: #123E87; font-weight: bold; text-decoration: none;">info@asstg.in</a> or WhatsApp at <strong>+91-9440602168</strong>.</p>
+          
+          <p style="margin-top: 25px;">Regards,<br/>
+          <strong>Association of Spine Surgeons of Telangana (ASST)</strong><br/>
+          <span style="font-size: 12px; color: #64748b;">Hyderabad, Telangana</span></p>
+        </div>
+        <div class="footer">
+          &copy; ${new Date().getFullYear()} Association of Spine Surgeons of Telangana. All rights reserved.
+        </div>
+      </div>
+    </body>
+    </html>
   `;
   return sendEmail({ to: membership.email, subject, html });
 };
+
 

@@ -17,6 +17,7 @@ import {
   sendRegistrationSubmittedEmail,
   sendRegistrationApprovedEmail,
   sendRegistrationRejectedEmail,
+  sendMembershipSubmittedEmail,
   sendMembershipApprovedEmail,
   sendMembershipRejectedEmail,
   sendContactEnquiryEmail
@@ -327,6 +328,9 @@ app.post('/api/memberships', upload.single('screenshot'), async (req, res) => {
       }
     });
 
+    // Send confirmation email asynchronously (failure to send won't block submission success)
+    sendMembershipSubmittedEmail(membership).catch(err => console.error('Email send failed on membership submit:', err));
+
     return res.status(201).json(membership);
   } catch (error) {
     console.error('Membership submission error:', error);
@@ -542,18 +546,22 @@ app.get('/api/admin/memberships/:id/screenshot', authenticateAdmin, async (req, 
 
   try {
     const member = await prisma.membershipRequest.findUnique({ where: { id: parseInt(id) } });
-    if (!member || !member.paymentScreenshot) {
+    if (!member || !member.paymentScreenshot || member.paymentScreenshot === 'no-file') {
       return res.status(404).json({ error: 'Screenshot not found.' });
     }
 
     // If screenshot is a base64 string, parse and send directly
     if (member.paymentScreenshot.startsWith('data:')) {
-      const matches = member.paymentScreenshot.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
-      if (matches && matches.length === 3) {
-        const mimeType = matches[1];
-        const buffer = Buffer.from(matches[2], 'base64');
+      const commaIdx = member.paymentScreenshot.indexOf(',');
+      if (commaIdx !== -1) {
+        const meta = member.paymentScreenshot.substring(0, commaIdx);
+        const rawData = member.paymentScreenshot.substring(commaIdx + 1);
+        const mimeMatch = meta.match(/data:([^;]+)/);
+        const mimeType = mimeMatch ? mimeMatch[1] : 'image/png';
+        const buffer = Buffer.from(rawData, 'base64');
         res.setHeader('Content-Type', mimeType);
-        return res.send(buffer);
+        res.setHeader('Content-Length', buffer.length);
+        return res.end(buffer);
       }
     }
 
@@ -737,18 +745,22 @@ app.get('/api/admin/registrations/:id/screenshot', authenticateAdmin, async (req
 
   try {
     const reg = await prisma.registration.findUnique({ where: { id: parseInt(id) } });
-    if (!reg || !reg.paymentScreenshot) {
+    if (!reg || !reg.paymentScreenshot || reg.paymentScreenshot === 'no-file') {
       return res.status(404).json({ error: 'Screenshot not found.' });
     }
 
     // If screenshot is a base64 string, parse and send directly
     if (reg.paymentScreenshot.startsWith('data:')) {
-      const matches = reg.paymentScreenshot.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
-      if (matches && matches.length === 3) {
-        const mimeType = matches[1];
-        const buffer = Buffer.from(matches[2], 'base64');
+      const commaIdx = reg.paymentScreenshot.indexOf(',');
+      if (commaIdx !== -1) {
+        const meta = reg.paymentScreenshot.substring(0, commaIdx);
+        const rawData = reg.paymentScreenshot.substring(commaIdx + 1);
+        const mimeMatch = meta.match(/data:([^;]+)/);
+        const mimeType = mimeMatch ? mimeMatch[1] : 'image/png';
+        const buffer = Buffer.from(rawData, 'base64');
         res.setHeader('Content-Type', mimeType);
-        return res.send(buffer);
+        res.setHeader('Content-Length', buffer.length);
+        return res.end(buffer);
       }
     }
 
