@@ -45,6 +45,11 @@ export default function AdminDashboard({ onShowToast }) {
   const [modalNotes, setModalNotes] = useState('');
   const [updatingStatus, setUpdatingStatus] = useState(false);
 
+  // Selected membership for details/verification modal
+  const [selectedMembership, setSelectedMembership] = useState(null);
+  const [membershipModalNotes, setMembershipModalNotes] = useState('');
+  const [updatingMembershipStatus, setUpdatingMembershipStatus] = useState(false);
+
   const handleLogout = useCallback(() => {
     localStorage.removeItem('asst_admin_token');
     localStorage.removeItem('asst_admin_user');
@@ -241,6 +246,107 @@ export default function AdminDashboard({ onShowToast }) {
       const link = document.createElement('a');
       link.href = downloadUrl;
       link.download = reg.paymentScreenshot || 'screenshot.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    })
+    .catch(error => {
+      console.error(error);
+      alert('Could not download screenshot file.');
+    });
+  };
+
+  const openMembershipModal = async (member) => {
+    setSelectedMembership(member);
+    setMembershipModalNotes(member.message || '');
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/admin/memberships/${member.id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (response.ok) {
+        const fullMember = await response.json();
+        setSelectedMembership(prev => (prev && prev.id === member.id ? fullMember : prev));
+      }
+    } catch (error) {
+      console.error('Error loading full membership details:', error);
+    }
+  };
+
+  const handleApproveMembership = async (memberToApprove = selectedMembership, notes = membershipModalNotes) => {
+    if (!memberToApprove) return;
+    setUpdatingMembershipStatus(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/admin/memberships/${memberToApprove.id}/status`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          status: 'Approved',
+          adminNotes: notes
+        })
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to approve membership application');
+
+      if (onShowToast) onShowToast(`Membership for ${memberToApprove.name} approved & confirmation email sent!`);
+      setSelectedMembership(null);
+      loadDashboardData(token);
+    } catch (error) {
+      alert(error.message || 'Error approving membership application');
+    } finally {
+      setUpdatingMembershipStatus(false);
+    }
+  };
+
+  const handleRejectMembership = async (memberToReject = selectedMembership, notes = membershipModalNotes) => {
+    if (!memberToReject) return;
+    const finalNotes = notes || prompt('Please enter the reason for rejection (will be sent to applicant):');
+    if (finalNotes === null) return;
+    
+    setUpdatingMembershipStatus(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/admin/memberships/${memberToReject.id}/status`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          status: 'Rejected',
+          adminNotes: finalNotes
+        })
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to reject membership');
+
+      if (onShowToast) onShowToast(`Membership for ${memberToReject.name} marked as rejected`);
+      setSelectedMembership(null);
+      loadDashboardData(token);
+    } catch (error) {
+      alert(error.message || 'Error rejecting membership');
+    } finally {
+      setUpdatingMembershipStatus(false);
+    }
+  };
+
+  const downloadMembershipFile = (member) => {
+    fetch(`${API_BASE_URL}/api/admin/memberships/${member.id}/screenshot`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('File download failed');
+      return response.blob();
+    })
+    .then(blob => {
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `membership_${member.id}_payment.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -616,25 +722,27 @@ export default function AdminDashboard({ onShowToast }) {
             <div className="overflow-x-auto text-left">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="bg-blue-50/40 text-[#0d2d6b] border-b border-blue-50 text-xs font-bold">
+                  <tr className="bg-blue-50/40 text-[#0d2d6b] border-b border-blue-50 text-xs font-bold select-none">
                     <th className="px-6 py-4">Applicant Name</th>
                     <th className="px-6 py-4">Membership Type</th>
                     <th className="px-6 py-4">Institution / Qualification</th>
                     <th className="px-6 py-4">Contact Info</th>
                     <th className="px-6 py-4">Payment Ref ID</th>
+                    <th className="px-6 py-4">Status</th>
                     <th className="px-6 py-4">Submitted Date</th>
+                    <th className="px-6 py-4 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 text-xs text-gray-600">
                   {membershipsLoading ? (
                     <tr>
-                      <td colSpan="6" className="px-6 py-12 text-center text-gray-400 font-medium">
+                      <td colSpan="8" className="px-6 py-12 text-center text-gray-400 font-medium">
                         Loading membership requests...
                       </td>
                     </tr>
                   ) : memberships.length === 0 ? (
                     <tr>
-                      <td colSpan="6" className="px-6 py-12 text-center text-gray-400 font-medium">
+                      <td colSpan="8" className="px-6 py-12 text-center text-gray-400 font-medium">
                         No online membership requests found.
                       </td>
                     </tr>
@@ -651,7 +759,7 @@ export default function AdminDashboard({ onShowToast }) {
                               ? 'bg-amber-100 text-amber-800' 
                               : 'bg-blue-100 text-blue-900'
                           }`}>
-                            {member.membershipType || 'Life Membership'} {member.fee ? `(₹${member.fee})` : ''}
+                            {member.membershipType || 'Life Membership'} {member.fee ? `(₹${member.fee.toLocaleString()})` : ''}
                           </span>
                         </td>
                         <td className="px-6 py-4">
@@ -665,7 +773,48 @@ export default function AdminDashboard({ onShowToast }) {
                         <td className="px-6 py-4 font-mono text-[11px] font-bold text-[#123E87]">
                           {member.transactionId || <span className="text-gray-300 italic font-normal">N/A</span>}
                         </td>
+                        <td className="px-6 py-4">
+                          <span className={`px-2.5 py-0.5 border rounded-full text-[10px] font-bold ${getStatusStyle(member.status || 'Pending Verification')}`}>
+                            {member.status || 'Pending Verification'}
+                          </span>
+                        </td>
                         <td className="px-6 py-4">{new Date(member.createdAt).toLocaleDateString()}</td>
+                        <td className="px-6 py-4 text-center">
+                          <div className="flex justify-center items-center gap-1.5">
+                            <button
+                              onClick={() => openMembershipModal(member)}
+                              className="bg-[#123E87] hover:bg-[#0d2d6b] text-white p-2 rounded-lg cursor-pointer transition-colors"
+                              title="View Full Details & Verify Application"
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => downloadMembershipFile(member)}
+                              className="border border-gray-200 hover:bg-gray-50 text-gray-600 p-2 rounded-lg cursor-pointer transition-colors"
+                              title="Download Payment Screenshot"
+                            >
+                              <Download className="w-3.5 h-3.5" />
+                            </button>
+                            {member.status !== 'Approved' && (
+                              <button
+                                onClick={() => handleApproveMembership(member, 'Approved via quick action')}
+                                className="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-lg cursor-pointer transition-colors"
+                                title="Approve Membership & Send Payment Confirmation Email"
+                              >
+                                <CheckCircle className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                            {member.status !== 'Rejected' && (
+                              <button
+                                onClick={() => handleRejectMembership(member)}
+                                className="border border-rose-200 hover:bg-rose-50 text-rose-600 p-2 rounded-lg cursor-pointer transition-colors"
+                                title="Reject Membership Application"
+                              >
+                                <XCircle className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                          </div>
+                        </td>
                       </tr>
                     ))
                   )}
@@ -872,6 +1021,225 @@ export default function AdminDashboard({ onShowToast }) {
                   className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg cursor-pointer flex items-center gap-1.5 shadow-sm disabled:opacity-50"
                 >
                   <CheckCircle className="w-3.5 h-3.5" /> Approve & Verify
+                </button>
+              </div>
+
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ── MEMBERSHIP APPLICATION DETAILS MODAL ── */}
+      <AnimatePresence>
+        {selectedMembership && (
+          <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-[#030d21]/70 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-4xl bg-white rounded-2xl shadow-2xl border border-blue-50 overflow-hidden flex flex-col max-h-[90vh]"
+            >
+              {/* Header */}
+              <div className="bg-[#123E87] text-white px-6 py-4 flex justify-between items-center">
+                <div>
+                  <h3 className="font-black text-lg">Membership Application Details</h3>
+                  <p className="text-[#A9C6EC] text-xs font-semibold mt-0.5">
+                    {selectedMembership.name} &bull; {selectedMembership.membershipType || 'Life Membership'} &bull; Submitted {new Date(selectedMembership.createdAt).toLocaleString()}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedMembership(null)}
+                  className="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border-none cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Scrollable Body */}
+              <div className="flex-1 overflow-y-auto p-6 grid grid-cols-1 md:grid-cols-12 gap-6 text-left">
+                
+                {/* Details Column */}
+                <div className="md:col-span-7 flex flex-col gap-5">
+                  
+                  {/* Doctor & Institution Info */}
+                  <div>
+                    <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5 mb-3">Applicant & Professional Info</h4>
+                    <div className="grid grid-cols-2 gap-3.5 text-xs">
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Full Name</span>
+                        <strong className="text-gray-800 font-bold block text-sm mt-0.5">{selectedMembership.name}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Designation</span>
+                        <strong className="text-gray-700 font-medium block mt-0.5">{selectedMembership.designation || 'Not specified'}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Hospital / Institution</span>
+                        <strong className="text-gray-700 font-medium block mt-0.5">{selectedMembership.hospital}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Qualification</span>
+                        <strong className="text-gray-700 font-medium block mt-0.5">{selectedMembership.qualification || 'Not specified'}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Email Address</span>
+                        <strong className="text-gray-700 font-medium block mt-0.5">{selectedMembership.email}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Phone Number</span>
+                        <strong className="text-gray-700 font-medium block mt-0.5">{selectedMembership.phone}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Date of Birth</span>
+                        <strong className="text-gray-700 font-medium block mt-0.5">{selectedMembership.dob || 'Not specified'}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Nationality</span>
+                        <strong className="text-gray-700 font-medium block mt-0.5">{selectedMembership.nationality || 'Indian'}</strong>
+                      </div>
+                      <div className="col-span-2">
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Address</span>
+                        <strong className="text-gray-700 font-medium block mt-0.5">
+                          {[selectedMembership.address, selectedMembership.city, selectedMembership.state, selectedMembership.pinCode].filter(Boolean).join(', ') || 'Not specified'}
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Proposer & Seconder Details */}
+                  {(selectedMembership.proposedBy || selectedMembership.secondedBy) && (
+                    <div>
+                      <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5 mb-3">Sponsorship / Endorsement</h4>
+                      <div className="grid grid-cols-2 gap-3.5 text-xs bg-gray-50/80 p-3 rounded-xl border border-gray-100">
+                        <div>
+                          <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Proposed By</span>
+                          <strong className="text-gray-700 font-bold block mt-0.5">{selectedMembership.proposedBy || 'N/A'}</strong>
+                          {selectedMembership.proposedByAsstNo && (
+                            <span className="text-[10px] text-gray-500 font-mono">ASST No: {selectedMembership.proposedByAsstNo}</span>
+                          )}
+                        </div>
+                        <div>
+                          <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Seconded By</span>
+                          <strong className="text-gray-700 font-bold block mt-0.5">{selectedMembership.secondedBy || 'N/A'}</strong>
+                          {selectedMembership.secondedByAsstNo && (
+                            <span className="text-[10px] text-gray-500 font-mono">ASST No: {selectedMembership.secondedByAsstNo}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Payment Details */}
+                  <div>
+                    <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5 mb-3">Payment details</h4>
+                    <div className="grid grid-cols-3 gap-3.5 text-xs bg-blue-50/30 border border-blue-100/60 p-4 rounded-xl">
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Category</span>
+                        <strong className="text-[#123E87] font-bold block mt-0.5">{selectedMembership.membershipType || 'Life Membership'}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Fee Payable</span>
+                        <strong className="text-emerald-700 font-bold block mt-0.5">₹{(selectedMembership.fee || 5000).toLocaleString()}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Transaction Ref ID</span>
+                        <strong className="text-gray-700 font-mono font-bold block mt-0.5">{selectedMembership.transactionId || 'N/A'}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Remarks & Notes */}
+                  <div>
+                    <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5 mb-3">Admin Remarks & Notes</h4>
+                    <div className="flex flex-col gap-1">
+                      <label htmlFor="membership-notes" className="text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-0.5">Verification Notes</label>
+                      <textarea
+                        id="membership-notes"
+                        name="membershipNotes"
+                        autocomplete="off"
+                        value={membershipModalNotes}
+                        onChange={(e) => setMembershipModalNotes(e.target.value)}
+                        placeholder="Add remarks or notes for applicant..."
+                        className="premium-input text-xs resize-none"
+                        rows="2"
+                      />
+                    </div>
+
+                    <div className="mt-3 flex gap-3 text-xs bg-gray-50 p-2.5 rounded-lg border border-gray-100 items-center">
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Current Status</span>
+                        <span className={`inline-block px-2.5 py-0.5 border rounded-full text-[9px] font-bold mt-0.5 ${getStatusStyle(selectedMembership.status || 'Pending Verification')}`}>
+                          {selectedMembership.status || 'Pending Verification'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Screenshot Column */}
+                <div className="md:col-span-5 flex flex-col gap-2.5">
+                  <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5">Payment Screenshot Proof</h4>
+                  <div className="border border-gray-100 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center flex-1 min-h-[160px] max-h-[300px]">
+                    {!selectedMembership.paymentScreenshot ? (
+                      <div className="p-6 flex flex-col items-center gap-2 text-center text-xs text-gray-400">
+                        <span>No payment screenshot attached.</span>
+                      </div>
+                    ) : selectedMembership.paymentScreenshot.toLowerCase().endsWith('.pdf') || selectedMembership.paymentScreenshot.startsWith('data:application/pdf') ? (
+                      <div className="p-6 flex flex-col items-center gap-2 text-center text-xs text-gray-400">
+                        <FileText className="w-12 h-12 text-[#123E87]" />
+                        <span>Uploaded PDF document. Click below to download.</span>
+                      </div>
+                    ) : selectedMembership.paymentScreenshot.startsWith('data:image/') ? (
+                      <img
+                        src={selectedMembership.paymentScreenshot}
+                        alt="Membership Payment Screenshot"
+                        className="max-w-full max-h-[298px] object-contain"
+                      />
+                    ) : (
+                      <img
+                        src={`${API_BASE_URL}/api/admin/memberships/${selectedMembership.id}/screenshot?token=${token}`}
+                        alt="Membership Payment Screenshot"
+                        className="max-w-full max-h-[298px] object-contain"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.parentNode.innerHTML = '<div class="p-6 text-center text-xs text-gray-400">Screenshot preview not available</div>';
+                        }}
+                      />
+                    )}
+                  </div>
+                  <button
+                    onClick={() => downloadMembershipFile(selectedMembership)}
+                    className="border-2 border-[#123E87] hover:bg-[#123E87] text-[#123E87] hover:text-white font-bold text-xs py-2 rounded-lg cursor-pointer transition-colors"
+                  >
+                    Download Payment Screenshot
+                  </button>
+                </div>
+
+              </div>
+
+              {/* Footer */}
+              <div className="border-t border-gray-100 p-4 bg-gray-50 flex justify-end items-center gap-2.5">
+                <button
+                  onClick={() => setSelectedMembership(null)}
+                  className="border-2 border-gray-200 hover:border-gray-300 text-gray-500 font-bold text-xs px-5 py-2.5 rounded-lg cursor-pointer mr-auto bg-white"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={() => handleRejectMembership(selectedMembership, membershipModalNotes)}
+                  disabled={updatingMembershipStatus}
+                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg cursor-pointer flex items-center gap-1.5 shadow-sm disabled:opacity-50"
+                >
+                  <XCircle className="w-3.5 h-3.5" /> Reject Application
+                </button>
+                <button
+                  onClick={() => handleApproveMembership(selectedMembership, membershipModalNotes)}
+                  disabled={updatingMembershipStatus}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg cursor-pointer flex items-center gap-1.5 shadow-sm disabled:opacity-50"
+                >
+                  <CheckCircle className="w-3.5 h-3.5" /> Approve & Send Confirmation Mail
                 </button>
               </div>
 

@@ -17,6 +17,8 @@ import {
   sendRegistrationSubmittedEmail,
   sendRegistrationApprovedEmail,
   sendRegistrationRejectedEmail,
+  sendMembershipApprovedEmail,
+  sendMembershipRejectedEmail,
   sendContactEnquiryEmail
 } from './services/emailService.js';
 import { exportToCSV, exportToExcel } from './services/exportService.js';
@@ -279,6 +281,22 @@ app.post('/api/memberships', upload.single('screenshot'), async (req, res) => {
       });
     }
 
+    // Convert uploaded file to base64 string and delete local file immediately
+    let screenshotBase64 = null;
+    if (req.file) {
+      try {
+        const fileBuffer = fs.readFileSync(req.file.path);
+        const mimeType = req.file.mimetype;
+        screenshotBase64 = `data:${mimeType};base64,${fileBuffer.toString('base64')}`;
+        fs.unlinkSync(req.file.path);
+      } catch (err) {
+        console.error('Error converting file to base64:', err);
+        screenshotBase64 = req.file.filename;
+      }
+    } else if (data.paymentScreenshot) {
+      screenshotBase64 = data.paymentScreenshot;
+    }
+
     const membership = await prisma.membershipRequest.create({
       data: {
         membershipType: membershipType || 'Life Membership',
@@ -301,7 +319,7 @@ app.post('/api/memberships', upload.single('screenshot'), async (req, res) => {
         secondedBy: secondedBy || null,
         secondedByAsstNo: secondedByAsstNo || null,
         transactionId: transactionId ? transactionId.trim() : null,
-        paymentScreenshot: filename,
+        paymentScreenshot: screenshotBase64 || 'no-file',
         fee,
         specialty: specialty || qualification || 'Spine Surgery',
         message: message ? message.trim() : null,
@@ -463,6 +481,104 @@ app.get('/api/admin/memberships', authenticateAdmin, async (req, res) => {
   } catch (error) {
     console.error('List memberships error:', error);
     return res.status(500).json({ error: 'Error loading membership requests.' });
+  }
+});
+
+// Get Single Membership Details
+app.get('/api/admin/memberships/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const member = await prisma.membershipRequest.findUnique({
+      where: { id: parseInt(id) }
+    });
+    if (!member) {
+      return res.status(404).json({ error: 'Membership request not found.' });
+    }
+    return res.json(member);
+  } catch (error) {
+    console.error('Single membership query error:', error);
+    return res.status(500).json({ error: 'Error loading membership details.' });
+  }
+});
+
+// Update Membership Status (Approve / Reject & Send Confirmation Email)
+app.put('/api/admin/memberships/:id/status', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { status, adminNotes } = req.body;
+
+  try {
+    const current = await prisma.membershipRequest.findUnique({
+      where: { id: parseInt(id) }
+    });
+    if (!current) {
+      return res.status(404).json({ error: 'Membership request not found.' });
+    }
+
+    const updated = await prisma.membershipRequest.update({
+      where: { id: parseInt(id) },
+      data: {
+        status: status || current.status,
+        message: adminNotes !== undefined ? adminNotes : current.message
+      }
+    });
+
+    // Send email when status transitions to Approved or Rejected
+    if (status === 'Approved' && current.status !== 'Approved') {
+      sendMembershipApprovedEmail(updated).catch(err => console.error('Membership approval email failed:', err));
+    } else if (status === 'Rejected' && current.status !== 'Rejected') {
+      sendMembershipRejectedEmail(updated, adminNotes).catch(err => console.error('Membership rejection email failed:', err));
+    }
+
+    return res.json(updated);
+  } catch (error) {
+    console.error('Membership status update error:', error);
+    return res.status(500).json({ error: 'Error updating membership status.' });
+  }
+});
+
+// Download / View Membership Payment Screenshot (Protected Endpoint)
+app.get('/api/admin/memberships/:id/screenshot', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const member = await prisma.membershipRequest.findUnique({ where: { id: parseInt(id) } });
+    if (!member || !member.paymentScreenshot) {
+      return res.status(404).json({ error: 'Screenshot not found.' });
+    }
+
+    // If screenshot is a base64 string, parse and send directly
+    if (member.paymentScreenshot.startsWith('data:')) {
+      const matches = member.paymentScreenshot.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
+      if (matches && matches.length === 3) {
+        const mimeType = matches[1];
+        const buffer = Buffer.from(matches[2], 'base64');
+        res.setHeader('Content-Type', mimeType);
+        return res.send(buffer);
+      }
+    }
+
+    // Fallback to disk if it's a filename
+    const filePath = path.resolve(uploadDir, member.paymentScreenshot);
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: 'Screenshot file not found.' });
+    }
+
+    return res.sendFile(filePath);
+  } catch (error) {
+    console.error('Membership screenshot download error:', error);
+    return res.status(500).json({ error: 'Error fetching screenshot file.' });
+  }
+});
+
+// Delete Membership Request
+app.delete('/api/admin/memberships/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    await prisma.membershipRequest.delete({ where: { id: parseInt(id) } });
+    return res.json({ message: 'Membership request deleted successfully.' });
+  } catch (error) {
+    console.error('Delete membership error:', error);
+    return res.status(500).json({ error: 'Error deleting membership request.' });
   }
 });
 
