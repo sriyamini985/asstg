@@ -15,6 +15,9 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || ''
+  },
+  tls: {
+    rejectUnauthorized: false
   }
 });
 
@@ -33,10 +36,12 @@ export const sendEmail = async ({ to, subject, html, replyTo }) => {
         html,
         reply_to: replyTo
       });
-      return response;
+      if (response && response.data) {
+        return response;
+      }
+      console.warn('Resend API returned an error, trying SMTP fallback:', response.error);
     } catch (error) {
-      console.error('Error sending email via Resend API:', error);
-      throw error;
+      console.error('Error sending email via Resend API, trying SMTP fallback:', error);
     }
   }
 
