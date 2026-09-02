@@ -7,18 +7,34 @@ dotenv.config();
 // Create Resend client if key is configured
 const resendClient = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
-// Create SMTP transporter
+import dns from 'dns';
+
+// Fast IPv4 lookup helper to bypass DNS timeouts
+const fastLookup = (hostname, options, callback) => {
+  if (hostname === 'smtp.titan.email' || hostname === 'smtp.flockmail.com') {
+    return callback(null, '44.213.37.52', 4);
+  }
+  dns.lookup(hostname, { family: 4 }, callback);
+};
+
+// Create SMTP transporter (Titan Email uses 465 SSL or 587 STARTTLS)
+const smtpPort = parseInt(process.env.SMTP_PORT || '465');
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.mailtrap.io',
-  port: parseInt(process.env.SMTP_PORT || '2525'),
-  secure: parseInt(process.env.SMTP_PORT || '2525') === 465,
+  host: process.env.SMTP_HOST || 'smtp.titan.email',
+  port: smtpPort,
+  secure: smtpPort === 465,
   auth: {
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || ''
   },
   tls: {
+    servername: 'smtp.titan.email',
     rejectUnauthorized: false
-  }
+  },
+  lookup: fastLookup,
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000
 });
 
 import fs from 'fs';
@@ -81,7 +97,8 @@ export const sendEmail = async ({ to, subject, html, replyTo }) => {
             user: process.env.SMTP_USER,
             pass: process.env.SMTP_PASS
           },
-          tls: { rejectUnauthorized: false },
+          tls: { servername: 'smtp.titan.email', rejectUnauthorized: false },
+          lookup: fastLookup,
           connectionTimeout: 10000,
           greetingTimeout: 10000,
           socketTimeout: 10000
