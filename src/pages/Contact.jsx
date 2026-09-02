@@ -117,11 +117,17 @@ export default function Contact({ onShowToast }) {
                 <div className="flex flex-col gap-0.5">
                   <span className="text-[#D4A53A] text-[10.5px] font-bold uppercase tracking-wider">Dr. A Pavan Kumar</span>
                   <span className="text-gray-400 text-[9.5px] font-semibold uppercase tracking-wider">Secretary, ASSTG</span>
+                  <a href="tel:+919492759745" className="text-[#0d2d6b] font-bold text-[12px] hover:underline mt-0.5 flex items-center gap-1">
+                    <Phone className="w-3 h-3 text-[#D4A53A]" /> +91 94927 59745
+                  </a>
                 </div>
 
                 <div className="flex flex-col gap-0.5 border-t border-gray-100 pt-2.5">
                   <span className="text-[#D4A53A] text-[10.5px] font-bold uppercase tracking-wider">Mr. Pantham Sathya Narayana</span>
                   <span className="text-gray-400 text-[9.5px] font-semibold uppercase tracking-wider">Executive Coordinator</span>
+                  <a href="tel:+919440602168" className="text-[#0d2d6b] font-bold text-[12px] hover:underline mt-0.5 flex items-center gap-1">
+                    <Phone className="w-3 h-3 text-[#D4A53A]" /> +91 94406 02168
+                  </a>
                 </div>
 
                 <address className="not-italic leading-relaxed mt-1 text-[13px] border-t border-gray-100 pt-2.5">
