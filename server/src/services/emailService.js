@@ -180,22 +180,84 @@ export const sendRegistrationSubmittedEmail = async (reg) => {
 };
 
 export const sendRegistrationApprovedEmail = async (reg) => {
-  const subject = `Registration Approved`;
-  const html = `
-    <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-      <p>Dear Participant,</p>
-      <p>Your payment has been verified successfully.</p>
-      <p>Your registration has been confirmed.</p>
-      
-      <div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; padding: 15px; margin: 20px 0; border-radius: 6px;">
-        <p style="margin: 0; font-size: 14px; color: #065f46;"><strong>Registration ID:</strong></p>
-        <p style="margin: 5px 0 0 0; font-size: 18px; font-weight: bold; color: #059669;">${reg.registrationId}</p>
-      </div>
+  const subject = `Registration Approved & Confirmed - ASSTCON 2026`;
+  const fullName = `${reg.title || ''} ${reg.firstName} ${reg.lastName || ''}`.trim();
+  const feeAmount = reg.fee ? `₹${reg.fee.toLocaleString()}` : (reg.category === 'PG Student' ? '₹1,000' : '₹3,000');
 
-      <p>Thank you.</p>
-      
-      <p>Regards,<br/><strong>ASST</strong></p>
-    </div>
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #1e293b; margin: 0; padding: 0; background-color: #f8fafc; }
+        .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .header { background: linear-gradient(135deg, #0d2d6b 0%, #123E87 100%); color: #ffffff; padding: 28px 24px; text-align: center; }
+        .header h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: 0.5px; }
+        .header p { margin: 6px 0 0 0; color: #D4A53A; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .content { padding: 28px 24px; }
+        .badge-success { display: inline-block; background-color: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 16px; }
+        .info-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; margin: 20px 0; }
+        .footer { background: #f1f5f9; padding: 18px 24px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>ASSTCON 2026</h1>
+          <p>Association of Spine Surgeons of Telangana</p>
+        </div>
+        <div class="content">
+          <div class="badge-success">✓ Registration Approved & Payment Verified</div>
+          <p style="font-size: 15px; margin-top: 0;">Dear <strong>${fullName}</strong>,</p>
+          <p>We are delighted to confirm your registration for <strong>ASSTCON 2026</strong>. Your payment screenshot and transaction details have been successfully verified by our Secretariat.</p>
+          
+          <div class="info-box">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Registration ID:</td>
+                <td style="padding: 7px 0; font-family: monospace; font-weight: bold; text-align: right; color: #123E87; font-size: 14px; border-bottom: 1px solid #e2e8f0;">${reg.registrationId}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Delegate Name:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #0f172a; font-size: 13px; border-bottom: 1px solid #e2e8f0;">${fullName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Registration Category:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #123E87; font-size: 13px; border-bottom: 1px solid #e2e8f0;">${reg.category}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Institution / Hospital:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #0f172a; font-size: 13px; border-bottom: 1px solid #e2e8f0;">${reg.hospital}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Fee Paid:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #059669; font-size: 14px; border-bottom: 1px solid #e2e8f0;">${feeAmount}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Transaction Ref ID:</td>
+                <td style="padding: 7px 0; font-family: monospace; font-weight: bold; text-align: right; color: #334155; font-size: 13px; border-bottom: 1px solid #e2e8f0;">${reg.transactionId || 'Verified via UPI'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 7px 0; color: #64748b; font-size: 13px;">Status:</td>
+                <td style="padding: 7px 0; font-weight: bold; text-align: right; color: #059669; font-size: 13px;">Confirmed & Verified</td>
+              </tr>
+            </table>
+          </div>
+
+          <p>Please present your <strong>Registration ID (${reg.registrationId})</strong> at the venue registration desk to collect your delegate badge and kit.</p>
+          <p>If you have any questions, feel free to reply to this email or contact us at <a href="mailto:info@asstg.in" style="color: #123E87; font-weight: bold; text-decoration: none;">info@asstg.in</a>.</p>
+          
+          <p style="margin-top: 25px;">Warm regards,<br/>
+          <strong>Organizing Committee — ASSTCON 2026</strong><br/>
+          <span style="font-size: 12px; color: #64748b;">Association of Spine Surgeons of Telangana</span></p>
+        </div>
+        <div class="footer">
+          &copy; ${new Date().getFullYear()} Association of Spine Surgeons of Telangana. All rights reserved.
+        </div>
+      </div>
+    </body>
+    </html>
   `;
   return sendEmail({ to: reg.email, subject, html });
 };

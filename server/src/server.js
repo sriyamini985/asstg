@@ -526,11 +526,22 @@ app.put('/api/admin/memberships/:id/status', authenticateAdmin, async (req, res)
       }
     });
 
-    // Send email when status transitions to Approved or Rejected
-    if (status === 'Approved' && current.status !== 'Approved') {
-      sendMembershipApprovedEmail(updated).catch(err => console.error('Membership approval email failed:', err));
-    } else if (status === 'Rejected' && current.status !== 'Rejected') {
-      sendMembershipRejectedEmail(updated, adminNotes).catch(err => console.error('Membership rejection email failed:', err));
+    // Send email when status transitions to Approved/Rejected or when re-triggered
+    const forceEmail = req.body.sendEmail !== false;
+    if (status === 'Approved' && (current.status !== 'Approved' || forceEmail)) {
+      try {
+        await sendMembershipApprovedEmail(updated);
+        console.log(`✅ Membership approval email sent to ${updated.email}`);
+      } catch (emailErr) {
+        console.error(`❌ Membership approval email failed for ${updated.email}:`, emailErr.message);
+      }
+    } else if (status === 'Rejected' && (current.status !== 'Rejected' || forceEmail)) {
+      try {
+        await sendMembershipRejectedEmail(updated, adminNotes);
+        console.log(`✅ Membership rejection email sent to ${updated.email}`);
+      } catch (emailErr) {
+        console.error(`❌ Membership rejection email failed for ${updated.email}:`, emailErr.message);
+      }
     }
 
     return res.json(updated);
@@ -725,11 +736,22 @@ app.put('/api/admin/registrations/:id/status', authenticateAdmin, async (req, re
       data: updateData
     });
 
-    // Send notifications on status transitions
-    if (regStatus === 'Approved' && current.registrationStatus !== 'Approved') {
-      sendRegistrationApprovedEmail(updated).catch(err => console.error('Approval email failed:', err));
-    } else if (regStatus === 'Rejected' && current.registrationStatus !== 'Rejected') {
-      sendRegistrationRejectedEmail(updated, updateData.rejectionReason).catch(err => console.error('Rejection email failed:', err));
+    // Send notifications on status transitions or when re-triggered
+    const forceEmail = req.body.sendEmail !== false;
+    if (regStatus === 'Approved' && (current.registrationStatus !== 'Approved' || forceEmail)) {
+      try {
+        await sendRegistrationApprovedEmail(updated);
+        console.log(`✅ Registration approval email sent to ${updated.email}`);
+      } catch (emailErr) {
+        console.error(`❌ Registration approval email failed for ${updated.email}:`, emailErr.message);
+      }
+    } else if (regStatus === 'Rejected' && (current.registrationStatus !== 'Rejected' || forceEmail)) {
+      try {
+        await sendRegistrationRejectedEmail(updated, updateData.rejectionReason);
+        console.log(`✅ Registration rejection email sent to ${updated.email}`);
+      } catch (emailErr) {
+        console.error(`❌ Registration rejection email failed for ${updated.email}:`, emailErr.message);
+      }
     }
 
     return res.json(updated);
