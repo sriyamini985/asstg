@@ -49,12 +49,40 @@ export default function AdminDashboard({ onShowToast }) {
   const [selectedMembership, setSelectedMembership] = useState(null);
   const [membershipModalNotes, setMembershipModalNotes] = useState('');
   const [updatingMembershipStatus, setUpdatingMembershipStatus] = useState(false);
+  const [resendingEmails, setResendingEmails] = useState(false);
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem('asst_admin_token');
     localStorage.removeItem('asst_admin_user');
     navigate('/admin/login');
   }, [navigate]);
+
+  const handleResendAllApprovedEmails = async () => {
+    if (!window.confirm('Do you want to resend approval emails to ALL approved members and delegates?')) {
+      return;
+    }
+    setResendingEmails(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/admin/resend-all-approved-emails`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        alert(`✅ ${data.message}`);
+        if (onShowToast) onShowToast(data.message);
+      } else {
+        alert(`❌ Error: ${data.error || 'Failed to resend approval emails'}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(`❌ Error connecting to server: ${err.message}`);
+    } finally {
+      setResendingEmails(false);
+    }
+  };
 
   const fetchRegistrations = useCallback(async (adminToken = token) => {
     try {
@@ -537,12 +565,22 @@ export default function AdminDashboard({ onShowToast }) {
             <h1 className="text-[#0d2d6b] font-black text-2xl font-sans tracking-tight">Admin Management Center</h1>
             <p className="text-gray-400 text-xs mt-0.5 font-medium">Logged in as: <strong className="text-gray-600">{localStorage.getItem('asst_admin_user') || 'Admin'}</strong></p>
           </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 border-2 border-rose-200 hover:bg-rose-500 text-rose-500 hover:text-white font-bold text-xs px-4 py-2 rounded-lg cursor-pointer transition-all duration-200"
-          >
-            <LogOut className="w-3.5 h-3.5" /> Logout
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleResendAllApprovedEmails}
+              disabled={resendingEmails}
+              className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-lg cursor-pointer transition-all duration-200 shadow-sm"
+            >
+              {resendingEmails ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle className="w-3.5 h-3.5" />}
+              Resend All Approval Emails
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 border-2 border-rose-200 hover:bg-rose-500 text-rose-500 hover:text-white font-bold text-xs px-4 py-2 rounded-lg cursor-pointer transition-all duration-200"
+            >
+              <LogOut className="w-3.5 h-3.5" /> Logout
+            </button>
+          </div>
         </div>
 
         {/* ── ANALYTICS COUNTERS ── */}
