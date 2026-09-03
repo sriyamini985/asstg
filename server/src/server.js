@@ -873,6 +873,33 @@ app.get('/api/debug-db', async (req, res) => {
   }
 });
 
+// Live Email Test Diagnostic Route
+app.get('/api/test-email-send', async (req, res) => {
+  const targetEmail = req.query.to || 'sriyamini659@gmail.com';
+  try {
+    const info = await sendContactEnquiryEmail({
+      name: 'ASST Test Visitor',
+      email: targetEmail,
+      phone: '9999999999',
+      subject: 'Live Render Email Test',
+      message: 'This is a test email sent directly from ASST Render Production Server.'
+    });
+    return res.json({
+      success: true,
+      message: `Email successfully sent to ${targetEmail}`,
+      smtpHost: process.env.SMTP_HOST || 'smtp.titan.email',
+      info
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+      smtpHost: process.env.SMTP_HOST || 'smtp.titan.email',
+      smtpUser: process.env.SMTP_USER || 'info@asstg.in'
+    });
+  }
+});
+
 // Start Server
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
