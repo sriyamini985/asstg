@@ -1,8 +1,19 @@
+import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import dns from 'dns';
 
 dotenv.config();
+
+// Create Resend client if API key is configured
+const resendClient = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+// Guarantee IPv4 DNS resolution via Google (8.8.8.8) & Cloudflare (1.1.1.1) to prevent queryA ETIMEOUT
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1', '8.8.4.4']);
+  dns.setDefaultResultOrder('ipv4first');
+} catch (e) {}
 
 const validateEmailFormat = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -15,6 +26,31 @@ export const sendEmail = async ({ to, subject, html, replyTo }) => {
   if (!to || !validateEmailFormat(to)) {
     console.error(`[EMAIL DEBUG] Invalid recipient email address: "${to}"`);
     throw new Error(`Invalid recipient email address: "${to}"`);
+  }
+
+  // 1. Try Resend HTTPS API (Port 443 - Bypasses Render/Cloud Provider socket 465/587 blocks!)
+  if (resendClient && process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.startsWith('re_')) {
+    try {
+      console.log(`[EMAIL DEBUG] Attempting email dispatch via Resend HTTPS API (Port 443)...`);
+      const resendFrom = process.env.RESEND_FROM || 'onboarding@resend.dev';
+      const response = await resendClient.emails.send({
+        from: resendFrom,
+        to: [to],
+        subject,
+        html,
+        reply_to: replyTo || fromEmail
+      });
+
+      if (response && response.data && !response.error) {
+        console.log(`[EMAIL DEBUG] ✅ Resend HTTPS API Connection Result: SUCCESS`);
+        console.log(`[EMAIL DEBUG] ✅ Resend Message ID: ${response.data.id}`);
+        return response.data;
+      }
+      const errMsg = response?.error ? JSON.stringify(response.error) : 'Resend API Error';
+      console.warn(`[EMAIL DEBUG] ⚠️ Resend API error, falling back to Nodemailer SMTP: ${errMsg}`);
+    } catch (resendErr) {
+      console.warn(`[EMAIL DEBUG] ⚠️ Resend API exception, falling back to Nodemailer SMTP: ${resendErr.message}`);
+    }
   }
 
   const primaryPort = parseInt(process.env.SMTP_PORT || '465');
