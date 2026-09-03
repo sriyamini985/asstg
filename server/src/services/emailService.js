@@ -17,20 +17,19 @@ const fastLookup = (hostname, options, callback) => {
   dns.lookup(hostname, { family: 4 }, callback);
 };
 
-// Create SMTP transporter (GoDaddy Microsoft 365 uses smtp.office365.com port 587 STARTTLS)
-const smtpPort = parseInt(process.env.SMTP_PORT || '587');
-const smtpHost = process.env.SMTP_HOST || 'smtp.office365.com';
+// Create SMTP transporter (Titan Email uses smtp.titan.email port 465 SSL)
+const smtpPort = parseInt(process.env.SMTP_PORT || '465');
+const smtpHost = process.env.SMTP_HOST || 'smtp.titan.email';
 
 const transporter = nodemailer.createTransport({
   host: smtpHost,
   port: smtpPort,
-  secure: false,
+  secure: smtpPort === 465,
   auth: {
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || ''
   },
   tls: {
-    ciphers: 'SSLv3',
     rejectUnauthorized: false
   },
   connectionTimeout: 15000,
@@ -43,7 +42,7 @@ import fs from 'fs';
 const FROM_EMAIL = process.env.SMTP_FROM || 'info@asstg.in';
 
 export const sendEmail = async ({ to, subject, html, replyTo }) => {
-  const fromHeader = FROM_EMAIL.includes('<') ? FROM_EMAIL : `ASST Registration <${FROM_EMAIL}>`;
+  const fromHeader = FROM_EMAIL;
 
   // 1. Try Resend API if valid API Key is configured
   if (resendClient && process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.startsWith('re_') && !process.env.RESEND_API_KEY.includes('invalid')) {
