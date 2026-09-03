@@ -519,6 +519,16 @@ app.put('/api/admin/memberships/:id/status', authenticateAdmin, async (req, res)
       return res.status(404).json({ error: 'Membership request not found.' });
     }
 
+    // Check if already approved to prevent duplicate approval emails
+    const isAlreadyApproved = current.status === 'Approved';
+    const forceResend = req.body.forceResend === true;
+
+    if (status === 'Approved' && isAlreadyApproved && !forceResend) {
+      console.log(`[EMAIL DEBUG] Membership ID ${current.id} is already Approved. Skipping duplicate approval email.`);
+      return res.json(current);
+    }
+
+    // 1. Update database status in MySQL FIRST
     const updated = await prisma.membershipRequest.update({
       where: { id: parseInt(id) },
       data: {
@@ -527,21 +537,27 @@ app.put('/api/admin/memberships/:id/status', authenticateAdmin, async (req, res)
       }
     });
 
-    // Send email when status transitions to Approved/Rejected or when re-triggered
-    const forceEmail = req.body.sendEmail !== false;
-    if (status === 'Approved' && (current.status !== 'Approved' || forceEmail)) {
+    // 2. Send email AFTER database update succeeds
+    if (status === 'Approved') {
+      console.log(`[EMAIL DEBUG] Membership approval email triggered for Applicant: ${updated.name}`);
+      console.log(`[EMAIL DEBUG] Recipient Email: ${updated.email}`);
       try {
         await sendMembershipApprovedEmail(updated);
-        console.log(`✅ Membership approval email sent to ${updated.email}`);
+        console.log(`[EMAIL DEBUG] ✅ Membership approval email successfully accepted by SMTP server for ${updated.email}`);
       } catch (emailErr) {
-        console.error(`❌ Membership approval email failed for ${updated.email}:`, emailErr.message);
+        console.error(`[EMAIL DEBUG] ❌ Membership approval email failed for ${updated.email}:`, emailErr.message);
+        return res.status(500).json({
+          error: `Membership status updated to Approved in database, but SMTP email delivery failed: ${emailErr.message}`,
+          membership: updated
+        });
       }
-    } else if (status === 'Rejected' && (current.status !== 'Rejected' || forceEmail)) {
+    } else if (status === 'Rejected' && (current.status !== 'Rejected' || forceResend)) {
+      console.log(`[EMAIL DEBUG] Membership rejection email triggered for Applicant: ${updated.name}`);
+      console.log(`[EMAIL DEBUG] Recipient Email: ${updated.email}`);
       try {
         await sendMembershipRejectedEmail(updated, adminNotes);
-        console.log(`✅ Membership rejection email sent to ${updated.email}`);
       } catch (emailErr) {
-        console.error(`❌ Membership rejection email failed for ${updated.email}:`, emailErr.message);
+        console.error(`[EMAIL DEBUG] ❌ Membership rejection email failed for ${updated.email}:`, emailErr.message);
       }
     }
 
@@ -717,6 +733,16 @@ app.put('/api/admin/registrations/:id/status', authenticateAdmin, async (req, re
       return res.status(404).json({ error: 'Registration not found.' });
     }
 
+    // Check if already approved to prevent duplicate approval emails
+    const isAlreadyApproved = current.registrationStatus === 'Approved';
+    const forceResend = req.body.forceResend === true;
+
+    if (regStatus === 'Approved' && isAlreadyApproved && !forceResend) {
+      console.log(`[EMAIL DEBUG] Registration ID ${current.registrationId} is already Approved. Skipping duplicate approval email.`);
+      return res.json(current);
+    }
+
+    // 1. Update database status in MySQL FIRST
     const updateData = {
       registrationStatus: regStatus || current.registrationStatus,
       paymentStatus: payStatus || current.paymentStatus,
@@ -737,21 +763,27 @@ app.put('/api/admin/registrations/:id/status', authenticateAdmin, async (req, re
       data: updateData
     });
 
-    // Send notifications on status transitions or when re-triggered
-    const forceEmail = req.body.sendEmail !== false;
-    if (regStatus === 'Approved' && (current.registrationStatus !== 'Approved' || forceEmail)) {
+    // 2. Send email AFTER database update succeeds
+    if (regStatus === 'Approved') {
+      console.log(`[EMAIL DEBUG] Registration approval email triggered for ID: ${updated.registrationId}`);
+      console.log(`[EMAIL DEBUG] Recipient Email: ${updated.email}`);
       try {
-        await sendRegistrationApprovedEmail(updated);
-        console.log(`✅ Registration approval email sent to ${updated.email}`);
+        const mailRes = await sendRegistrationApprovedEmail(updated);
+        console.log(`[EMAIL DEBUG] ✅ Registration approval email successfully accepted by SMTP server for ${updated.email}`);
       } catch (emailErr) {
-        console.error(`❌ Registration approval email failed for ${updated.email}:`, emailErr.message);
+        console.error(`[EMAIL DEBUG] ❌ Registration approval email failed for ${updated.email}:`, emailErr.message);
+        return res.status(500).json({
+          error: `Payment status updated to Approved in database, but SMTP email delivery failed: ${emailErr.message}`,
+          registration: updated
+        });
       }
-    } else if (regStatus === 'Rejected' && (current.registrationStatus !== 'Rejected' || forceEmail)) {
+    } else if (regStatus === 'Rejected' && (current.registrationStatus !== 'Rejected' || forceResend)) {
+      console.log(`[EMAIL DEBUG] Registration rejection email triggered for ID: ${updated.registrationId}`);
+      console.log(`[EMAIL DEBUG] Recipient Email: ${updated.email}`);
       try {
         await sendRegistrationRejectedEmail(updated, updateData.rejectionReason);
-        console.log(`✅ Registration rejection email sent to ${updated.email}`);
       } catch (emailErr) {
-        console.error(`❌ Registration rejection email failed for ${updated.email}:`, emailErr.message);
+        console.error(`[EMAIL DEBUG] ❌ Registration rejection email failed for ${updated.email}:`, emailErr.message);
       }
     }
 

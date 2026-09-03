@@ -1,105 +1,107 @@
-import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import fs from 'fs';
 
 dotenv.config();
 
-// Create Resend client if key is configured
-const resendClient = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
-
-import dns from 'dns';
-
-// Fast IPv4 lookup helper to bypass DNS timeouts
-const fastLookup = (hostname, options, callback) => {
-  if (hostname === 'smtp.titan.email' || hostname === 'smtp.flockmail.com') {
-    return callback(null, '44.213.37.52', 4);
-  }
-  dns.lookup(hostname, { family: 4 }, callback);
+const validateEmailFormat = (email) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
 };
 
-// Create SMTP transporter (Titan Email uses smtp.titan.email port 465 SSL)
-const smtpPort = parseInt(process.env.SMTP_PORT || '465');
-const smtpHost = process.env.SMTP_HOST || 'smtp.titan.email';
-
-const transporter = nodemailer.createTransport({
-  host: smtpHost,
-  port: smtpPort,
-  secure: smtpPort === 465,
-  auth: {
-    user: process.env.SMTP_USER || '',
-    pass: process.env.SMTP_PASS || ''
-  },
-  tls: {
-    rejectUnauthorized: false
-  },
-  connectionTimeout: 15000,
-  greetingTimeout: 15000,
-  socketTimeout: 15000
-});
-
-import fs from 'fs';
-
-const FROM_EMAIL = process.env.SMTP_FROM || 'info@asstg.in';
-
 export const sendEmail = async ({ to, subject, html, replyTo }) => {
-  const fromHeader = FROM_EMAIL;
+  const fromEmail = process.env.SMTP_FROM || 'info@asstg.in';
 
+  if (!to || !validateEmailFormat(to)) {
+    console.error(`[EMAIL DEBUG] Invalid recipient email address: "${to}"`);
+    throw new Error(`Invalid recipient email address: "${to}"`);
+  }
 
+  const primaryPort = parseInt(process.env.SMTP_PORT || '465');
+  const primaryHost = process.env.SMTP_HOST || 'smtp.titan.email';
+  const primarySecure = process.env.SMTP_SECURE !== undefined 
+    ? (process.env.SMTP_SECURE === 'true') 
+    : (primaryPort === 465);
 
-  // 2. Try Nodemailer SMTP
-  if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+  console.log(`[EMAIL DEBUG] Approval email triggered`);
+  console.log(`[EMAIL DEBUG] Recipient Email: ${to}`);
+  console.log(`[EMAIL DEBUG] Attempting SMTP connection (Host: ${primaryHost}, Port: ${primaryPort}, Secure: ${primarySecure}, From: ${fromEmail})...`);
+
+  // 1. Primary SMTP Transporter
+  try {
+    const primaryTransporter = nodemailer.createTransport({
+      host: primaryHost,
+      port: primaryPort,
+      secure: primarySecure,
+      auth: {
+        user: process.env.SMTP_USER || 'info@asstg.in',
+        pass: process.env.SMTP_PASS || ''
+      },
+      tls: {
+        rejectUnauthorized: false
+      },
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
+      socketTimeout: 15000
+    });
+
+    const info = await primaryTransporter.sendMail({
+      from: fromEmail,
+      to,
+      subject,
+      html,
+      replyTo: replyTo || fromEmail
+    });
+
+    console.log(`[EMAIL DEBUG] SMTP Connection Result: SUCCESS`);
+    console.log(`[EMAIL DEBUG] SMTP Response: ${info.response || 'OK'}`);
+    console.log(`[EMAIL DEBUG] Message ID: ${info.messageId || 'N/A'}`);
+    return info;
+  } catch (primaryErr) {
+    console.error(`[EMAIL DEBUG] Primary SMTP (Port ${primaryPort}) Error Message: ${primaryErr.message}`);
+
+    // 2. Fallback SMTP Transporter (Port 587 STARTTLS or Port 465 SSL)
+    const fallbackPort = primaryPort === 465 ? 587 : 465;
+    const fallbackSecure = fallbackPort === 465;
+    console.log(`[EMAIL DEBUG] Attempting Fallback SMTP (Host: ${primaryHost}, Port: ${fallbackPort}, Secure: ${fallbackSecure})...`);
+
     try {
-      const info = await transporter.sendMail({
-        from: fromHeader,
+      const fallbackTransporter = nodemailer.createTransport({
+        host: primaryHost,
+        port: fallbackPort,
+        secure: fallbackSecure,
+        auth: {
+          user: process.env.SMTP_USER || 'info@asstg.in',
+          pass: process.env.SMTP_PASS || ''
+        },
+        tls: {
+          rejectUnauthorized: false
+        },
+        connectionTimeout: 15000,
+        greetingTimeout: 15000,
+        socketTimeout: 15000
+      });
+
+      const info = await fallbackTransporter.sendMail({
+        from: fromEmail,
         to,
         subject,
         html,
-        replyTo
+        replyTo: replyTo || fromEmail
       });
-      console.log(`✅ Email sent via SMTP (Port ${process.env.SMTP_PORT || 465}) to ${to}`);
+
+      console.log(`[EMAIL DEBUG] Fallback SMTP Connection Result: SUCCESS`);
+      console.log(`[EMAIL DEBUG] Fallback SMTP Response: ${info.response || 'OK'}`);
+      console.log(`[EMAIL DEBUG] Fallback Message ID: ${info.messageId || 'N/A'}`);
       return info;
-    } catch (error) {
-      console.error(`SMTP send error (Port ${process.env.SMTP_PORT || 465}):`, error.message);
-      
-      // Fallback: Try port 587 with STARTTLS if primary port failed
+    } catch (fallbackErr) {
+      console.error(`[EMAIL DEBUG] Fallback SMTP (Port ${fallbackPort}) Error Message: ${fallbackErr.message}`);
       try {
-        console.log('Attempting fallback via SMTP port 587...');
-        const fallbackTransporter = nodemailer.createTransport({
-          host: process.env.SMTP_HOST || 'smtp.titan.email',
-          port: 587,
-          secure: false,
-          auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS
-          },
-          tls: { servername: 'smtp.titan.email', rejectUnauthorized: false },
-          lookup: fastLookup,
-          connectionTimeout: 10000,
-          greetingTimeout: 10000,
-          socketTimeout: 10000
-        });
-        const info = await fallbackTransporter.sendMail({
-          from: fromHeader,
-          to,
-          subject,
-          html,
-          replyTo
-        });
-        console.log(`✅ Email sent via SMTP Port 587 fallback to ${to}`);
-        return info;
-      } catch (fallbackErr) {
-        console.error('SMTP Port 587 fallback failed:', fallbackErr.message);
-        try {
-          fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] SMTP failed to ${to}: ${error.message} | 587: ${fallbackErr.message}\n`);
-        } catch (e) {}
-        throw error;
-      }
+        fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] SMTP failed to ${to}: Primary: ${primaryErr.message} | Fallback: ${fallbackErr.message}\n`);
+      } catch (e) {}
+      throw new Error(`SMTP email delivery failed: ${primaryErr.message} (Fallback: ${fallbackErr.message})`);
     }
   }
-
-  // 3. Mock fallback logging
-  console.log(`[Email Mock] To: ${to} | Subject: ${subject}`);
-  return { mock: true, messageId: 'mock-id-' + Math.random().toString(36).substring(7) };
 };
 
 export const sendContactEnquiryEmail = async (enquiry) => {
