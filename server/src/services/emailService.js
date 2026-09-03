@@ -211,6 +211,7 @@ export const sendRegistrationSubmittedEmail = async (reg) => {
 
 export const sendRegistrationApprovedEmail = async (reg) => {
   const subject = `Registration Approved`;
+  const fullName = `${reg.title || ''} ${reg.firstName || ''} ${reg.lastName || ''}`.trim() || 'Participant';
 
   const html = `
     <!DOCTYPE html>
@@ -230,7 +231,7 @@ export const sendRegistrationApprovedEmail = async (reg) => {
     </head>
     <body>
       <div class="card">
-        <p class="p-text">Dear Participant,</p>
+        <p class="p-text">Dear ${fullName},</p>
         <p class="p-text">Your payment has been verified successfully.</p>
         <p class="p-text">Your registration has been confirmed.</p>
         
