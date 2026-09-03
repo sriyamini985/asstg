@@ -32,7 +32,7 @@ export const sendEmail = async ({ to, subject, html, replyTo }) => {
   if (resendClient && process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.startsWith('re_')) {
     try {
       console.log(`[EMAIL DEBUG] Attempting email dispatch via Resend HTTPS API (Port 443)...`);
-      const resendFrom = process.env.RESEND_FROM || 'onboarding@resend.dev';
+      const resendFrom = process.env.RESEND_FROM || 'info@asstg.in';
       const response = await resendClient.emails.send({
         from: resendFrom,
         to: [to],
