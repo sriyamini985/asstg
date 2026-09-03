@@ -64,7 +64,7 @@ export const createRegistration = async (data, filename) => {
   const lastName = nameParts.slice(1).join(' ') || null;
 
   // Determine correct registration fee based on category
-  const fee = data.category === 'Postgraduate Student' ? 1000.0 : 3000.0;
+  const fee = (data.category === 'Postgraduate Student' || data.category === 'PG Student') ? 1000.0 : 3000.0;
 
   let attempts = 0;
   const maxAttempts = 10;
