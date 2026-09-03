@@ -44,32 +44,7 @@ const FROM_EMAIL = process.env.SMTP_FROM || 'info@asstg.in';
 export const sendEmail = async ({ to, subject, html, replyTo }) => {
   const fromHeader = FROM_EMAIL;
 
-  // 1. Try Resend API if valid API Key is configured
-  if (resendClient && process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.startsWith('re_') && !process.env.RESEND_API_KEY.includes('invalid')) {
-    try {
-      const response = await resendClient.emails.send({
-        from: fromHeader,
-        to: [to],
-        subject,
-        html,
-        reply_to: replyTo
-      });
-      if (response && response.data && !response.error) {
-        console.log(`✅ Email sent via Resend API to ${to}`);
-        return response;
-      }
-      const errMsg = response?.error ? JSON.stringify(response.error) : 'Resend API error';
-      console.warn('Resend API returned error, trying SMTP fallback:', errMsg);
-      try {
-        fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] Resend failed to ${to}: ${errMsg}\n`);
-      } catch (e) {}
-    } catch (error) {
-      console.error('Error sending email via Resend API, trying SMTP fallback:', error.message);
-      try {
-        fs.appendFileSync('email_error.log', `[${new Date().toISOString()}] Resend exception to ${to}: ${error.message}\n`);
-      } catch (e) {}
-    }
-  }
+
 
   // 2. Try Nodemailer SMTP
   if (process.env.SMTP_USER && process.env.SMTP_PASS) {
