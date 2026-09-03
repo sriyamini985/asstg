@@ -905,6 +905,58 @@ app.get('/api/debug-db', async (req, res) => {
   }
 });
 
+// Admin Batch Endpoint to Resend Approval Emails to All Approved Members & Registrations
+app.all('/api/admin/resend-all-approved-emails', async (req, res) => {
+  try {
+    const approvedRegistrations = await prisma.registration.findMany({
+      where: { registrationStatus: 'Approved' }
+    });
+
+    const approvedMemberships = await prisma.membershipRequest.findMany({
+      where: { status: 'Approved' }
+    });
+
+    const results = {
+      registrationsSent: 0,
+      registrationsFailed: 0,
+      membershipsSent: 0,
+      membershipsFailed: 0,
+      details: []
+    };
+
+    for (const reg of approvedRegistrations) {
+      try {
+        await sendRegistrationApprovedEmail(reg);
+        results.registrationsSent++;
+        results.details.push(`✅ Sent registration approval email to ${reg.email} (${reg.registrationId})`);
+      } catch (err) {
+        results.registrationsFailed++;
+        results.details.push(`❌ Failed sending registration email to ${reg.email}: ${err.message}`);
+      }
+    }
+
+    for (const mem of approvedMemberships) {
+      try {
+        await sendMembershipApprovedEmail(mem);
+        results.membershipsSent++;
+        results.details.push(`✅ Sent membership approval email to ${mem.email} (${mem.name})`);
+      } catch (err) {
+        results.membershipsFailed++;
+        results.details.push(`❌ Failed sending membership email to ${mem.email}: ${err.message}`);
+      }
+    }
+
+    return res.json({
+      success: true,
+      message: `Batch email dispatch completed. Sent ${results.registrationsSent} registration emails and ${results.membershipsSent} membership emails.`,
+      results
+    });
+  } catch (error) {
+    console.error('Batch resend error:', error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 // Live Email Test Diagnostic Route
 app.get('/api/test-email-send', async (req, res) => {
   const targetEmail = req.query.to || 'sriyamini659@gmail.com';
