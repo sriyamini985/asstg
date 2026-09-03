@@ -17,24 +17,25 @@ const fastLookup = (hostname, options, callback) => {
   dns.lookup(hostname, { family: 4 }, callback);
 };
 
-// Create SMTP transporter (Titan Email uses 465 SSL or 587 STARTTLS)
-const smtpPort = parseInt(process.env.SMTP_PORT || '465');
+// Create SMTP transporter (GoDaddy Microsoft 365 uses smtp.office365.com port 587 STARTTLS)
+const smtpPort = parseInt(process.env.SMTP_PORT || '587');
+const smtpHost = process.env.SMTP_HOST || 'smtp.office365.com';
+
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.titan.email',
+  host: smtpHost,
   port: smtpPort,
-  secure: smtpPort === 465,
+  secure: false,
   auth: {
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || ''
   },
   tls: {
-    servername: 'smtp.titan.email',
+    ciphers: 'SSLv3',
     rejectUnauthorized: false
   },
-  lookup: fastLookup,
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000
+  connectionTimeout: 15000,
+  greetingTimeout: 15000,
+  socketTimeout: 15000
 });
 
 import fs from 'fs';
