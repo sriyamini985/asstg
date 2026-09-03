@@ -11,7 +11,8 @@ import {
   createRegistration,
   checkDuplicates,
   validateEmail,
-  validateMobileNumber
+  validateMobileNumber,
+  migrateRegistrationIds
 } from './services/registrationService.js';
 import {
   sendRegistrationSubmittedEmail,
@@ -876,4 +877,5 @@ app.get('/api/debug-db', async (req, res) => {
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
   await seedDefaultAdmin();
+  await migrateRegistrationIds();
 });

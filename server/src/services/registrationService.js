@@ -3,8 +3,34 @@ import prisma from '../db.js';
 export const generateRegistrationId = async () => {
   const count = await prisma.registration.count();
   const nextId = count + 1;
-  const paddedId = String(nextId).padStart(5, '0');
-  return `ASST2026${paddedId}`;
+  const paddedId = String(nextId).padStart(3, '0');
+  return `ASSTG${paddedId}`;
+};
+
+export const migrateRegistrationIds = async () => {
+  try {
+    const allRegs = await prisma.registration.findMany({
+      orderBy: { id: 'asc' }
+    });
+    
+    let updatedCount = 0;
+    for (let i = 0; i < allRegs.length; i++) {
+      const reg = allRegs[i];
+      const newId = `ASSTG${String(i + 1).padStart(3, '0')}`;
+      if (reg.registrationId !== newId) {
+        await prisma.registration.update({
+          where: { id: reg.id },
+          data: { registrationId: newId }
+        });
+        updatedCount++;
+      }
+    }
+    if (updatedCount > 0) {
+      console.log(`✅ Successfully migrated ${updatedCount} existing registration IDs to 3-digit format (ASSTG000).`);
+    }
+  } catch (err) {
+    console.error('Error migrating registration IDs:', err);
+  }
 };
 
 export const validateMobileNumber = (mobile) => {
@@ -52,14 +78,15 @@ export const createRegistration = async (data, filename) => {
       });
       
       let nextId = 1;
-      if (lastReg) {
-        const lastIdStr = lastReg.registrationId; // e.g. "ASST202600007"
-        const suffix = lastIdStr.replace('ASST2026', ''); // "00007"
-        nextId = parseInt(suffix, 10) + 1;
+      if (lastReg && lastReg.registrationId) {
+        const numMatch = lastReg.registrationId.match(/\d+/);
+        if (numMatch) {
+          nextId = parseInt(numMatch[0], 10) + 1;
+        }
       }
       
-      const paddedId = String(nextId + attempts).padStart(5, '0');
-      const registrationId = `ASST2026${paddedId}`;
+      const paddedId = String(nextId + attempts).padStart(3, '0');
+      const registrationId = `ASSTG${paddedId}`;
 
       registration = await prisma.registration.create({
         data: {
@@ -94,7 +121,7 @@ export const createRegistration = async (data, filename) => {
          
       if (isIdViolation) {
         attempts++;
-        console.warn(`Registration ID collision detected (ASST2026 suffix conflict). Retrying transaction (${attempts}/${maxAttempts})...`);
+        console.warn(`Registration ID collision detected (ASSTG suffix conflict). Retrying transaction (${attempts}/${maxAttempts})...`);
         continue;
       }
       throw error;
