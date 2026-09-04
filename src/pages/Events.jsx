@@ -534,24 +534,20 @@ export default function Events({ onShowToast }) {
                   <div className="lg:col-span-4 bg-gradient-to-br from-[#f8fafc] to-blue-50/30 p-5 rounded-2xl border border-blue-100 flex flex-col justify-between gap-3 shadow-md text-left">
                     <div>
                       <span className="text-[#D4A53A] text-[10px] font-bold uppercase tracking-widest block mb-1">Beneficiary Bank Details</span>
-                      <h4 className="text-[#0d2d6b] font-bold text-sm mb-2.5">Association of Spine Surgeons of Telangana</h4>
+                      <h4 className="text-[#0d2d6b] font-bold text-sm mb-2.5">Conference Management Company</h4>
                       
                       <div className="flex flex-col gap-1.5 text-[11.5px] text-gray-700">
                         <div className="flex justify-between border-b border-gray-200/60 pb-1">
-                          <span className="text-gray-500">Account No:</span>
-                          <strong className="font-mono text-[#123E87]">052422010001401</strong>
+                          <span className="text-gray-500">Banking Name:</span>
+                          <strong className="font-semibold text-gray-800">Conference Management Company</strong>
                         </div>
                         <div className="flex justify-between border-b border-gray-200/60 pb-1">
-                          <span className="text-gray-500">Bank:</span>
-                          <strong className="font-semibold text-gray-800">Union Bank of India</strong>
-                        </div>
-                        <div className="flex justify-between border-b border-gray-200/60 pb-1">
-                          <span className="text-gray-500">Branch:</span>
-                          <span className="font-semibold text-gray-700">PBB - Nampally</span>
+                          <span className="text-gray-500">UPI ID:</span>
+                          <strong className="font-mono text-[#123E87] text-[10.5px]">conferencemanagement.36106309@hdfcbank</strong>
                         </div>
                         <div className="flex justify-between pt-0.5">
-                          <span className="text-gray-500">IFSC Code:</span>
-                          <strong className="font-mono text-[#123E87]">UBIN0905241</strong>
+                          <span className="text-gray-500">Bank:</span>
+                          <strong className="font-semibold text-gray-700">HDFC Bank</strong>
                         </div>
                       </div>
                     </div>
@@ -564,12 +560,12 @@ export default function Events({ onShowToast }) {
                   {/* Scan & Pay QR */}
                   <div className="lg:col-span-3 premium-card p-5 flex flex-col items-center justify-center gap-3 border border-amber-200/60 bg-amber-50/20 shadow-md">
                     <div className="bg-white p-3 rounded-xl border border-amber-200 shadow-sm flex items-center justify-center">
-                      <img src={regQrCode} alt="Association of Spine Surgeons of Telangana QR Code" className="w-40 h-40 object-contain rounded-lg" />
+                      <img src={regQrCode} alt="Conference Management Company QR Code" className="w-40 h-40 object-contain rounded-lg" />
                     </div>
                     <div className="flex flex-col items-center text-center gap-0.5">
                       <span className="text-[#0d2d6b] font-bold text-[11px] uppercase tracking-wider">Scan & Pay via UPI</span>
-                      <span className="text-gray-700 text-[10px] font-bold">Association of Spine Surgeons of Telangana</span>
-                      <span className="text-gray-400 font-mono text-[8.5px]">qr918143893638-1401@unionbankofindia</span>
+                      <span className="text-gray-700 text-[10px] font-bold">Conference Management Company</span>
+                      <span className="text-gray-400 font-mono text-[8.5px]">conferencemanagement.36106309@hdfcbank</span>
                     </div>
                   </div>
                 </div>

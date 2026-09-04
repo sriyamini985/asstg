@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Download, CheckCircle, FileText, Send, Users, Award, BookOpen, ShieldCheck, GraduationCap, Upload, QrCode, Building2, CreditCard } from 'lucide-react';
 import MedicalPageBackground from '../components/MedicalPageBackground';
 import { API_BASE_URL } from '../config';
-import regQrCode from '../assets/images/registration_qr_code.jpg';
+import membershipQrCode from '../assets/images/membership_qr_code.jpg';
 
 const cardTransition = {
   hidden: { opacity: 0, y: 20 },
@@ -572,7 +572,7 @@ export default function Membership({ onShowToast }) {
                       <div className="md:col-span-5 bg-amber-50/40 p-6 rounded-xl border border-amber-200/60 flex flex-col items-center justify-center gap-3 text-center">
                         <span className="text-[#0d2d6b] text-xs font-bold uppercase tracking-wider">Scan QR Code to Pay</span>
                         <div className="bg-white p-3 rounded-xl border border-amber-200 shadow-md">
-                          <img src={regQrCode} alt="ASST UPI Payment QR Code" className="w-44 h-44 object-contain rounded-lg" />
+                          <img src={membershipQrCode} alt="ASST UPI Payment QR Code" className="w-44 h-44 object-contain rounded-lg" />
                         </div>
                         <div className="flex flex-col gap-0.5 text-[10.5px] text-gray-600">
                           <span className="font-bold text-[#123E87]">Association of Spine Surgeons of Telangana</span>
