@@ -1050,11 +1050,17 @@ export default function AdminDashboard({ onShowToast }) {
 
                   {/* Payment Details */}
                   <div>
-                    <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5 mb-3">Payment details</h4>
-                    <div className="grid grid-cols-3 gap-4 text-xs bg-blue-50/20 border border-blue-50/50 p-4 rounded-xl">
+                    <h4 className="text-[#0d2d6b] font-black text-xs uppercase tracking-wider border-b border-gray-100 pb-1.5 mb-3">Payment details & PG Status</h4>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs bg-blue-50/20 border border-blue-50/50 p-4 rounded-xl">
                       <div>
                         <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Fee Category</span>
                         <strong className="text-[#123E87] font-bold block mt-0.5">{selectedReg.category}</strong>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">PG Training</span>
+                        <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold mt-0.5 ${selectedReg.pgTrainingProgram === 'Yes' ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-600'}`}>
+                          {selectedReg.pgTrainingProgram || 'No'}
+                        </span>
                       </div>
                       <div>
                         <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Amount Paid</span>
@@ -1062,9 +1068,32 @@ export default function AdminDashboard({ onShowToast }) {
                       </div>
                       <div>
                         <span className="text-gray-400 font-semibold uppercase text-[9px] tracking-wider block">Transaction ID</span>
-                        <strong className="text-gray-700 font-bold block mt-0.5">{selectedReg.transactionId}</strong>
+                        <strong className="text-gray-700 font-bold block mt-0.5 truncate">{selectedReg.transactionId}</strong>
                       </div>
                     </div>
+
+                    {selectedReg.bonafideUrl && (
+                      <div className="mt-3 p-3 bg-amber-50/40 border border-amber-200/60 rounded-xl flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <FileText className="w-4 h-4 text-[#D4A53A]" />
+                          <span className="text-xs font-bold text-gray-700">Bonafide Certificate / HOD Letter Attached</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (selectedReg.bonafideUrl.startsWith('data:')) {
+                              const w = window.open();
+                              w.document.write(`<iframe src="${selectedReg.bonafideUrl}" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>`);
+                            } else {
+                              window.open(selectedReg.bonafideUrl, '_blank');
+                            }
+                          }}
+                          className="text-[10px] bg-[#123E87] text-white font-bold px-3 py-1 rounded.lg hover:bg-[#0d2d6b] cursor-pointer"
+                        >
+                          View Certificate
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   {/* Status Verification Notes Form */}

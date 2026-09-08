@@ -57,7 +57,7 @@ export const checkDuplicates = async (email, mobile, transactionId) => {
   return duplicate;
 };
 
-export const createRegistration = async (data, filename) => {
+export const createRegistration = async (data, filename, bonafideFilename = null) => {
   // Parse full name into First & Last Name
   const nameParts = data.name.trim().split(/\s+/);
   const firstName = nameParts[0];
@@ -108,6 +108,8 @@ export const createRegistration = async (data, filename) => {
           fee,
           transactionId: data.referenceId.trim(),
           paymentScreenshot: filename,
+          pgTrainingProgram: data.pgTrainingProgram || 'No',
+          bonafideUrl: bonafideFilename || null,
           registrationStatus: 'Pending Verification',
           paymentStatus: 'Verification Pending',
           exportStatus: 'Pending'

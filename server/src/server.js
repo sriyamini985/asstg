@@ -139,7 +139,10 @@ const seedDefaultAdmin = async () => {
 // ── PUBLIC ENDPOINTS ─────────────────────────────────────────────
 
 // Submit Registration Form
-app.post('/api/registrations', upload.single('screenshot'), async (req, res) => {
+app.post('/api/registrations', upload.fields([
+  { name: 'screenshot', maxCount: 1 },
+  { name: 'bonafide', maxCount: 1 }
+]), async (req, res) => {
   try {
     const data = req.body;
     
@@ -149,57 +152,77 @@ app.post('/api/registrations', upload.single('screenshot'), async (req, res) => 
       'title', 'gender', 'address', 'city', 'state', 'pinCode'
     ];
 
+    const screenshotFile = req.files && req.files['screenshot'] ? req.files['screenshot'][0] : null;
+    const bonafideFile = req.files && req.files['bonafide'] ? req.files['bonafide'][0] : null;
+
+    const cleanupFiles = () => {
+      if (screenshotFile && fs.existsSync(screenshotFile.path)) fs.unlinkSync(screenshotFile.path);
+      if (bonafideFile && fs.existsSync(bonafideFile.path)) fs.unlinkSync(bonafideFile.path);
+    };
+
     for (const field of requiredFields) {
       if (!data[field] || String(data[field]).trim() === '') {
-        if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+        cleanupFiles();
         return res.status(400).json({ error: `Field '${field}' is required.` });
       }
     }
 
     if (!validateEmail(data.email)) {
-      if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+      cleanupFiles();
       return res.status(400).json({ error: 'Invalid email address format.' });
     }
 
     if (!validateMobileNumber(data.phone)) {
-      if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+      cleanupFiles();
       return res.status(400).json({ error: 'Invalid mobile number. Please enter a valid 10-digit number.' });
     }
 
-    if (!req.file) {
+    if (!screenshotFile) {
+      cleanupFiles();
       return res.status(400).json({ error: 'Payment transaction screenshot is required.' });
     }
 
     // Check duplicate email, mobile, or transaction ID
     const duplicate = await checkDuplicates(data.email, data.phone, data.referenceId);
     if (duplicate) {
-      // Remove uploaded file to prevent leakage/orphans
-      if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+      cleanupFiles();
       return res.status(409).json({
         error: 'A registration with this Email, Phone, or Transaction ID already exists.'
       });
     }
 
-    // Convert uploaded file to base64 string and delete local file immediately
+    // Convert uploaded screenshot file to base64
     let screenshotBase64 = null;
-    if (req.file) {
+    if (screenshotFile) {
       try {
-        const fileBuffer = fs.readFileSync(req.file.path);
-        const mimeType = req.file.mimetype;
+        const fileBuffer = fs.readFileSync(screenshotFile.path);
+        const mimeType = screenshotFile.mimetype;
         screenshotBase64 = `data:${mimeType};base64,${fileBuffer.toString('base64')}`;
-        
-        // Delete local temporary file immediately to keep disk clean
-        fs.unlinkSync(req.file.path);
+        fs.unlinkSync(screenshotFile.path);
       } catch (err) {
-        console.error('Error converting file to base64:', err);
-        screenshotBase64 = req.file.filename; // fallback
+        console.error('Error converting screenshot to base64:', err);
+        screenshotBase64 = screenshotFile.filename;
+      }
+    }
+
+    // Convert uploaded bonafide file to base64
+    let bonafideBase64 = null;
+    if (bonafideFile) {
+      try {
+        const fileBuffer = fs.readFileSync(bonafideFile.path);
+        const mimeType = bonafideFile.mimetype;
+        bonafideBase64 = `data:${mimeType};base64,${fileBuffer.toString('base64')}`;
+        fs.unlinkSync(bonafideFile.path);
+      } catch (err) {
+        console.error('Error converting bonafide to base64:', err);
+        bonafideBase64 = bonafideFile.filename;
       }
     }
 
     // Create database record
-    const reg = await createRegistration(data, screenshotBase64 || 'no-file');
+    const reg = await createRegistration(data, screenshotBase64 || 'no-file', bonafideBase64);
 
-    // Send confirmation email asynchronously (failure to send won't block registration success)
+    // Send confirmation email asynchronously
     sendRegistrationSubmittedEmail(reg).catch(err => console.error('Email send failed on submit:', err));
 
     return res.status(201).json({
@@ -213,7 +236,11 @@ app.post('/api/registrations', upload.single('screenshot'), async (req, res) => 
 
   } catch (error) {
     console.error('Registration error:', error);
-    if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+    if (req.files) {
+      Object.values(req.files).flat().forEach(file => {
+        if (file && fs.existsSync(file.path)) fs.unlinkSync(file.path);
+      });
+    }
     return res.status(500).json({ error: 'A server error occurred. Please try again.' });
   }
 });
@@ -687,6 +714,8 @@ app.get('/api/admin/registrations', authenticateAdmin, async (req, res) => {
         category: true,
         fee: true,
         transactionId: true,
+        pgTrainingProgram: true,
+        bonafideUrl: true,
         registrationStatus: true,
         paymentStatus: true,
         exportStatus: true,

@@ -27,6 +27,8 @@ model Registration {
   fee                Float
   transactionId      String    @unique
   paymentScreenshot  String    @db.LongText
+  pgTrainingProgram  String?   @default("No")
+  bonafideUrl        String?   @db.LongText
   registrationStatus String    @default("Pending Verification")
   paymentStatus      String    @default("Verification Pending")
   exportStatus       String    @default("Pending")
