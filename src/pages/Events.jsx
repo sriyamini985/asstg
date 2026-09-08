@@ -618,7 +618,7 @@ export default function Events({ onShowToast }) {
                       </span>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
                       {/* Title & Name */}
                       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                         <div className="flex flex-col gap-1.5 sm:col-span-1">
@@ -838,7 +838,7 @@ export default function Events({ onShowToast }) {
                           <input
                             type="file"
                             id="reg-screenshot"
-                            accept="image/*"
+                            accept="image/*,image/heic,image/heif"
                             required
                             onChange={handleFileChange}
                             className="absolute inset-0 opacity-0 cursor-pointer"

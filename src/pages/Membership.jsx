@@ -262,7 +262,7 @@ export default function Membership({ onShowToast }) {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+                <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-8">
                   <div className="bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5">
                     <h3 className="text-[#0d2d6b] font-bold text-lg mb-4 flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-[#123E87] text-white text-xs flex items-center justify-center font-bold">1</span>
