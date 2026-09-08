@@ -51,8 +51,6 @@ export default function Events({ onShowToast }) {
   const [loading, setLoading] = useState(false);
   const [screenshotFile, setScreenshotFile] = useState(null);
   const [screenshotName, setScreenshotName] = useState('');
-  const [bonafideFile, setBonafideFile] = useState(null);
-  const [bonafideName, setBonafideName] = useState('');
   const [successDetails, setSuccessDetails] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -97,29 +95,6 @@ export default function Events({ onShowToast }) {
       }
       setScreenshotFile(file);
       setScreenshotName(file.name);
-    }
-  };
-
-  const handleBonafideFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const allowedExts = ['.png', '.jpg', '.jpeg', '.pdf'];
-      const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
-      if (!allowedExts.includes(fileExt)) {
-        if (onShowToast) {
-          onShowToast('Only JPG, JPEG, PNG, and PDF documents are allowed for Bonafide Certificate.');
-        }
-        return;
-      }
-
-      if (file.size > 5 * 1024 * 1024) {
-        if (onShowToast) {
-          onShowToast('File size exceeds the 5MB maximum limit.');
-        }
-        return;
-      }
-      setBonafideFile(file);
-      setBonafideName(file.name);
     }
   };
 
@@ -219,12 +194,6 @@ export default function Events({ onShowToast }) {
       return;
     }
 
-    if (formData.category === 'Postgraduate Student' && !bonafideFile) {
-      if (onShowToast) onShowToast('Please upload your Bonafide Certificate / HOD Letter.');
-      setLoading(false);
-      return;
-    }
-
     try {
       const data = new FormData();
       data.append('title', formData.title);
@@ -241,9 +210,6 @@ export default function Events({ onShowToast }) {
       data.append('referenceId', formData.referenceId);
       data.append('pgTrainingProgram', formData.pgTrainingProgram || 'No');
       data.append('screenshot', screenshotFile);
-      if (bonafideFile) {
-        data.append('bonafide', bonafideFile);
-      }
 
       const response = await fetch(`${API_BASE_URL}/api/registrations`, {
         method: 'POST',
@@ -864,32 +830,6 @@ export default function Events({ onShowToast }) {
                           />
                         </div>
                       </div>
-
-                      {/* Bonafide Certificate Upload (Required for Postgraduate Student) */}
-                      {(formData.category === 'Postgraduate Student' || formData.category === 'PG Student') && (
-                        <div className="flex flex-col gap-1.5 mt-2 animate-fadeIn">
-                          <label htmlFor="reg-bonafide" className="text-[10px] font-bold text-[#123E87] uppercase tracking-widest flex items-center gap-1">
-                            Upload Bonafide Certificate / HOD Letter * (Required for PG Students)
-                          </label>
-                          <div className="border-2 border-dashed border-amber-200 hover:border-[#D4A53A] rounded-2xl p-5 text-center transition-colors relative cursor-pointer bg-amber-50/20">
-                            <input
-                              type="file"
-                              id="reg-bonafide"
-                              accept="image/*,.pdf"
-                              required
-                              onChange={handleBonafideFileChange}
-                              className="absolute inset-0 opacity-0 cursor-pointer"
-                            />
-                            <div className="flex flex-col items-center gap-2">
-                              <Upload className="w-7 h-7 text-[#D4A53A]" />
-                              <span className="text-[13px] font-bold text-gray-700">
-                                {bonafideName || 'Click to select Bonafide Certificate / HOD Letter'}
-                              </span>
-                              <span className="text-[11px] text-gray-400 font-medium">PNG, JPG, JPEG or PDF up to 5MB</span>
-                            </div>
-                          </div>
-                        </div>
-                      )}
 
                       {/* Screenshot File Upload */}
                       <div className="flex flex-col gap-1.5 mt-2">
