@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Calendar, MapPin, Users, Award, BookOpen, Stethoscope,
-  ChevronRight, Clock, Phone, Activity, Globe, ArrowRight
+  ChevronRight, Clock, Phone, Activity, Globe, ArrowRight,
+  FileText, Download, Eye, Sparkles
 } from 'lucide-react';
 import HomeHero from '../components/HomeHero';
 import asstconLogo from '../assets/images/asstcon_logo.png';
 import asstconBanner from '../assets/images/asstcon_landscape_poster.png';
+import scientificPoster from '../assets/images/scientific_programme_poster.jpg';
 
 
 // ── Countdown Timer ───────────────────────────────────────────────
@@ -128,17 +130,97 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: CTAs */}
-            <div className="flex flex-col gap-3">
-              <Link to="/events?tab=event-registration"
-                className="bg-[#D4A53A] hover:bg-[#b88c2b] text-white font-bold text-sm px-7 py-3 rounded-lg shadow-md transition-all text-center flex items-center gap-2 justify-center">
-                Register Now <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link to="/events?tab=event-details"
-                className="border border-white/25 hover:bg-white/10 text-white font-bold text-sm px-7 py-3 rounded-lg transition-all text-center">
-                View Details
-              </Link>
+              {/* Right: CTAs */}
+              <div className="flex flex-col gap-3">
+                <Link to="/events?tab=event-registration"
+                  className="bg-[#D4A53A] hover:bg-[#b88c2b] text-white font-bold text-sm px-7 py-3 rounded-lg shadow-md transition-all text-center flex items-center gap-2 justify-center">
+                  Register Now <ArrowRight className="w-4 h-4" />
+                </Link>
+                <a href="/scientific_programme.pdf" target="_blank" rel="noopener noreferrer"
+                  className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs px-5 py-2.5 rounded-lg border border-white/20 transition-all text-center flex items-center justify-center gap-2">
+                  <Eye className="w-3.5 h-3.5" /> Programme PDF
+                </a>
+              </div>
             </div>
+          </div>
+        </section>
+
+      {/* ════════════════════════════════════════════════════════════
+          SCIENTIFIC PROGRAMME FEATURED SECTION
+         ════════════════════════════════════════════════════════════ */}
+      <section className="relative z-10 bg-white py-12 border-b border-blue-100/60">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="bg-gradient-to-br from-[#0d2d6b] via-[#123E87] to-[#07193d] rounded-3xl p-6 sm:p-10 shadow-2xl border border-blue-800/50 text-white relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
+            
+            {/* Background decorative glows */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#D4A53A]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#123E87]/40 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Left Content Column */}
+            <div className="flex flex-col gap-4 text-left z-10 max-w-2xl">
+              <div className="inline-flex items-center gap-2 bg-[#D4A53A]/20 border border-[#D4A53A]/40 text-[#D4A53A] text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider w-fit">
+                <Sparkles className="w-3.5 h-3.5" /> Official Scientific Programme
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black font-sans leading-tight">
+                ASSTCON 2026 Scientific Schedule
+              </h2>
+              <p className="text-blue-100/80 text-sm leading-relaxed">
+                Explore the complete 2-day conference schedule featuring expert lectures, live cadaveric & saw-bone workshops, video sessions, and interactive case discussions by eminent spine faculty.
+              </p>
+
+              {/* Key Highlights grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-1 text-xs">
+                <div className="flex items-center gap-2.5 bg-white/10 p-3 rounded-xl border border-white/10">
+                  <Calendar className="w-4 h-4 text-[#D4A53A] shrink-0" />
+                  <span><strong>Dates:</strong> 26th & 27th September 2026</span>
+                </div>
+                <div className="flex items-center gap-2.5 bg-white/10 p-3 rounded-xl border border-white/10">
+                  <MapPin className="w-4 h-4 text-[#D4A53A] shrink-0" />
+                  <span><strong>Venues:</strong> NIMS Hospital & Taj Deccan</span>
+                </div>
+              </div>
+
+              {/* Action Buttons: View & Download */}
+              <div className="flex flex-wrap items-center gap-3.5 mt-2">
+                <a
+                  href="/scientific_programme.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#D4A53A] hover:bg-[#b88c2b] text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-amber-900/20 transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <Eye className="w-4 h-4" /> View Scientific Programme (PDF)
+                </a>
+                <a
+                  href="/scientific_programme.pdf"
+                  download="ASSTCON_2026_Scientific_Programme.pdf"
+                  className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl border border-white/25 transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <Download className="w-4 h-4" /> Download Programme (PDF)
+                </a>
+              </div>
+            </div>
+
+            {/* Right Poster Preview Column */}
+            <div className="z-10 shrink-0 w-full lg:w-72 flex flex-col items-center">
+              <div className="relative group cursor-pointer overflow-hidden rounded-2xl border-2 border-[#D4A53A]/60 shadow-2xl bg-black/40">
+                <img
+                  src={scientificPoster}
+                  alt="ASSTCON 2026 Scientific Programme Poster"
+                  className="w-full h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
+                <a
+                  href="/scientific_programme.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-white font-bold text-xs p-4 text-center"
+                >
+                  <Eye className="w-8 h-8 text-[#D4A53A] animate-bounce" />
+                  <span>Click to View Full Programme PDF</span>
+                </a>
+              </div>
+              <span className="text-gray-300 text-[11px] mt-2.5 italic">Click poster image or buttons to view / download PDF</span>
+            </div>
+
           </div>
         </div>
       </section>

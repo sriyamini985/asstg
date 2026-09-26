@@ -10,7 +10,11 @@ import {
   Send, 
   CheckCircle,
   FileText,
-  DollarSign
+  DollarSign,
+  Download,
+  Eye,
+  Calendar,
+  Sparkles
 } from 'lucide-react';
 import { scientificTimeline } from '../data/timeline';
 import { sightseeingPlaces } from '../data/places';
@@ -31,6 +35,7 @@ import regQrCode from '../assets/images/registration_qr_code.jpg';
 import drRaghavaDutt from '../assets/images/organizers/dr_raghava_dutt.jpg';
 import drPavanKumar from '../assets/images/organizers/dr_pavan_kumar.jpg';
 import asstconBanner from '../assets/images/asstcon_landscape_poster.png';
+import scientificPoster from '../assets/images/scientific_programme_poster.jpg';
 
 const placesImageMap = {
   'place_statue_of_equality.jpg': imgStatue,
@@ -432,7 +437,94 @@ export default function Events({ onShowToast }) {
                 transition={{ duration: 0.35 }}
                 className="flex flex-col gap-8"
               >
-                <div className="flex flex-col gap-4">
+                {/* ── Official Scientific Programme Banner Card ── */}
+                <div className="bg-gradient-to-br from-[#0d2d6b] via-[#123E87] to-[#07193d] p-6 sm:p-8 rounded-3xl text-white border border-blue-800/50 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+                  
+                  {/* Decorative background glow */}
+                  <div className="absolute top-0 right-0 w-80 h-80 bg-[#D4A53A]/10 rounded-full blur-3xl pointer-events-none" />
+
+                  <div className="flex flex-col gap-3 text-left z-10">
+                    <div className="inline-flex items-center gap-2 bg-[#D4A53A]/20 border border-[#D4A53A]/40 text-[#D4A53A] text-[11px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider w-fit">
+                      <Sparkles className="w-3.5 h-3.5" /> Official Programme Document
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-black font-sans">
+                      1st Annual Conference Scientific Programme
+                    </h3>
+                    <p className="text-blue-100/80 text-xs sm:text-sm leading-relaxed max-w-xl">
+                      Complete 2-day academic agenda covering Degenerative Spine, Trauma, Infections, Endoscopic & Robotic advances, and Saw-Bone Workshops.
+                    </p>
+                    <div className="flex flex-wrap items-center gap-4 text-xs text-[#D4A53A] font-bold mt-1">
+                      <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> 26th & 27th Sept 2026</span>
+                      <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> NIMS & Taj Deccan</span>
+                    </div>
+                  </div>
+
+                  {/* View & Download Action Buttons */}
+                  <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0 z-10 w-full md:w-auto">
+                    <a
+                      href="/scientific_programme.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#D4A53A] hover:bg-[#b88c2b] text-white font-bold text-xs px-5 py-3 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+                    >
+                      <Eye className="w-4 h-4" /> View Programme PDF
+                    </a>
+                    <a
+                      href="/scientific_programme.pdf"
+                      download="ASSTCON_2026_Scientific_Programme.pdf"
+                      className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs px-5 py-3 rounded-xl border border-white/25 transition-all flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+                    >
+                      <Download className="w-4 h-4" /> Download Programme PDF
+                    </a>
+                  </div>
+
+                </div>
+
+                {/* Poster Interactive Preview Block */}
+                <div className="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 sm:p-6 flex flex-col items-center gap-4">
+                  <div className="flex items-center justify-between w-full border-b border-gray-200 pb-3">
+                    <span className="text-xs font-bold text-[#0d2d6b] uppercase tracking-wider flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-[#D4A53A]" /> Programme Poster Document
+                    </span>
+                    <div className="flex items-center gap-3">
+                      <a
+                        href="/scientific_programme.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-bold text-[#123E87] hover:underline flex items-center gap-1"
+                      >
+                        <Eye className="w-3.5 h-3.5" /> View PDF
+                      </a>
+                      <a
+                        href="/scientific_programme.pdf"
+                        download="ASSTCON_2026_Scientific_Programme.pdf"
+                        className="text-xs font-bold text-[#D4A53A] hover:underline flex items-center gap-1"
+                      >
+                        <Download className="w-3.5 h-3.5" /> Download
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="relative group max-w-3xl w-full overflow-hidden rounded-xl border border-gray-200 shadow-md bg-white">
+                    <img
+                      src={scientificPoster}
+                      alt="ASSTCON 2026 Scientific Programme Poster"
+                      className="w-full h-auto object-contain max-h-[700px]"
+                    />
+                    <a
+                      href="/scientific_programme.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-white font-bold text-sm p-4 text-center"
+                    >
+                      <Eye className="w-8 h-8 text-[#D4A53A] animate-bounce" />
+                      <span>Click to Open High-Resolution PDF</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Timeline Grid */}
+                <div className="flex flex-col gap-4 border-t border-gray-100 pt-6">
                   <h2 className="text-[#0d2d6b] text-2xl font-black font-sans flex items-center gap-2">
                     <span>Scientific Program Timeline</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-[#D4A53A]" />
