@@ -97,7 +97,7 @@ export default function Contact({ onShowToast }) {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
-        className="max-w-6xl mx-auto px-6 py-12 relative z-10"
+        className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 relative z-10"
       >
         
         {/* ── Main Grid Section ── */}
@@ -178,7 +178,7 @@ export default function Contact({ onShowToast }) {
           </div>
 
           {/* Right Column: Contact Form */}
-          <motion.div variants={cardTransition} className="lg:col-span-7 bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5">
+          <motion.div variants={cardTransition} className="lg:col-span-7 bg-white border border-gray-100 p-4 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5">
             <h3 className="text-[#0d2d6b] text-xl font-bold font-sans mb-5 text-left flex items-center gap-2">
               <span>Send Us a Message</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4A53A]" />

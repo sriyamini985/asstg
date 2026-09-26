@@ -71,14 +71,14 @@ export default function Navbar() {
             : 'bg-white/80 backdrop-blur-md'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[68px] flex items-center justify-between gap-4 sm:gap-6">
 
           {/* ── Logo ────────────────────────────────────────── */}
-          <Link to="/" className="flex items-center gap-3 shrink-0 relative z-50">
-            <img src={asstLogo} alt="ASST Logo" className="h-11 w-auto object-contain" />
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 relative z-50">
+            <img src={asstLogo} alt="ASST Logo" className="h-9 sm:h-11 w-auto object-contain" />
             <div className="flex flex-col leading-none">
-              <span className="text-[#123E87] font-extrabold text-[15px] tracking-wide uppercase">ASST</span>
-              <span className="text-[#D4A53A] text-[9.5px] font-bold tracking-widest uppercase mt-0.5">Telangana</span>
+              <span className="text-[#123E87] font-extrabold text-[14px] sm:text-[15px] tracking-wide uppercase">ASST</span>
+              <span className="text-[#D4A53A] text-[9px] sm:text-[9.5px] font-bold tracking-widest uppercase mt-0.5">Telangana</span>
             </div>
           </Link>
 
@@ -178,7 +178,7 @@ export default function Navbar() {
         {/* ── Mobile Toggle ─────────────────────────────────── */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-[#123E87] p-1.5 bg-transparent border-none cursor-pointer"
+            className="lg:hidden text-[#123E87] p-2.5 bg-transparent border-none cursor-pointer"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -205,7 +205,7 @@ export default function Navbar() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: 'easeInOut' }}
-              className="lg:hidden fixed top-[68px] left-0 w-full bg-white border-b border-gray-100 shadow-2xl z-40 py-5 px-6 max-h-[80vh] overflow-y-auto"
+              className="lg:hidden fixed top-[68px] left-0 w-full bg-white border-b border-gray-100 shadow-2xl z-40 py-5 px-4 sm:px-6 max-h-[calc(100vh-68px)] overflow-y-auto"
             >
               <div className="flex flex-col gap-4">
                 {navLinks.map((link) => (

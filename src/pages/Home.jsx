@@ -290,17 +290,17 @@ export default function Home() {
           </svg>
         </div>
 
-        <div className="max-w-6xl mx-auto px-6 relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
           
           {/* Section Header */}
-          <div className="text-center mb-16 relative z-10">
+          <div className="text-center mb-12 sm:mb-16 relative z-10">
             <span className="text-[#D4A53A] font-bold text-xs tracking-[0.25em] uppercase block mb-2">Welcome to ASST</span>
             <h2 className="text-[#0d2d6b] text-3xl sm:text-4xl font-black">Welcome Message</h2>
             <div className="w-16 h-1 bg-gradient-to-r from-[#123E87] to-[#D4A53A] mx-auto mt-4 rounded-full" />
           </div>
 
           {/* Section Glass Wrapper */}
-          <div className="relative bg-white border-t-[8px] border-t-[#D4A53A] border-l-2 border-r-2 border-b-2 border-[#D4A53A]/85 rounded-[32px] p-8 sm:p-12 shadow-[0_25px_50px_rgba(18,62,135,0.14)] overflow-hidden z-10">
+          <div className="relative bg-white border-t-[8px] border-t-[#D4A53A] border-l-2 border-r-2 border-b-2 border-[#D4A53A]/85 rounded-2xl sm:rounded-[32px] p-4 sm:p-10 shadow-[0_25px_50px_rgba(18,62,135,0.14)] overflow-hidden z-10">
             {/* Light blue radial glow behind the section content */}
             <div className="absolute inset-0 bg-radial-glow opacity-80 z-0 pointer-events-none" style={{ background: 'radial-gradient(circle at center, rgba(18, 62, 135, 0.05) 0%, transparent 75%)' }} />
 

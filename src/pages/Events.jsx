@@ -277,7 +277,7 @@ export default function Events({ onShowToast }) {
       
       {/* ── Page Header / Hero ── */}
       <section className="page-hero text-white text-center">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -294,10 +294,10 @@ export default function Events({ onShowToast }) {
       </section>
 
       {/* Main tabbed layout */}
-      <section className="max-w-7xl mx-auto px-6 py-8 sm:py-12 flex flex-col md:flex-row gap-6 sm:gap-8 relative z-10 items-start">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12 flex flex-col md:flex-row gap-6 sm:gap-8 relative z-10 items-start">
         
         {/* Left Column Tabs Sidebar (Sticky Navigation Panel on Desktop, Scrollable Tab Bar on Mobile) */}
-        <div className="w-full md:w-[260px] flex-shrink-0 flex flex-row md:flex-col gap-2 bg-white/80 backdrop-blur-md p-3 md:p-5 rounded-[20px] md:rounded-[24px] border border-gray-150 shadow-xl md:sticky md:top-28 z-20 transition-all duration-300 overflow-x-auto md:overflow-x-visible whitespace-nowrap scrollbar-none">
+        <div className="w-full md:w-[260px] flex-shrink-0 flex flex-row md:flex-col gap-2 bg-white/80 backdrop-blur-md p-3 md:p-5 rounded-[20px] md:rounded-[24px] border border-gray-150 shadow-xl md:sticky md:top-28 z-20 transition-all duration-300 overflow-x-auto md:overflow-x-visible whitespace-nowrap scrollbar-none scroll-smooth pb-1">
           {menuItems.map(item => (
             <button
               key={item.id}
@@ -322,7 +322,7 @@ export default function Events({ onShowToast }) {
         </div>
 
         {/* Right Column Content Panel */}
-        <div className="flex-1 bg-white border border-gray-150 p-8 sm:p-10 rounded-[24px] shadow-xl shadow-blue-900/5 text-left min-h-[500px] w-full">
+        <div className="flex-1 bg-white border border-gray-150 p-4 sm:p-10 rounded-2xl sm:rounded-[24px] shadow-xl shadow-blue-900/5 text-left min-h-[500px] w-full">
           <AnimatePresence mode="wait">
             
             {/* Tab 1: Welcome Message */}
@@ -333,7 +333,7 @@ export default function Events({ onShowToast }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.35 }}
-                className="-m-6 sm:-m-8 flex flex-col overflow-hidden bg-[#fafcff]"
+                className="-m-4 sm:-m-10 flex flex-col overflow-hidden bg-[#fafcff]"
               >
                 {/* ── Conference Banner ── */}
                 <div className="w-full relative overflow-hidden border-b border-gray-100 shadow-sm">
@@ -345,7 +345,7 @@ export default function Events({ onShowToast }) {
                 </div>
 
                 {/* ── Letterhead Content Body ── */}
-                <div className="px-8 sm:px-12 py-10 text-gray-700 text-[14.5px] leading-relaxed flex flex-col gap-6 text-justify">
+                <div className="px-4 sm:px-12 py-6 sm:py-10 text-gray-700 text-[14px] sm:text-[14.5px] leading-relaxed flex flex-col gap-6 text-left sm:text-justify">
                   <p className="font-bold text-[#123E87] text-[16px] text-left">Dear Colleagues,</p>
                   
                   <p>
@@ -659,7 +659,7 @@ export default function Events({ onShowToast }) {
                     <div className="flex flex-col items-center text-center gap-0.5">
                       <span className="text-[#0d2d6b] font-bold text-[11px] uppercase tracking-wider">Scan & Pay via UPI</span>
                       <span className="text-gray-700 text-[10px] font-bold">Conference Management Company</span>
-                      <span className="text-gray-400 font-mono text-[8.5px]">conferencemanagement.36106309@hdfcbank</span>
+                      <span className="text-gray-400 font-mono text-[8.5px] break-all max-w-full">conferencemanagement.36106309@hdfcbank</span>
                     </div>
                   </div>
                 </div>

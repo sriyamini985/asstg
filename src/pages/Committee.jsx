@@ -74,7 +74,7 @@ export default function Committee() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
-        className="max-w-7xl mx-auto px-6 py-16 relative z-10"
+        className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16 relative z-10"
       >
         {/* ── Office Bearers Section ── */}
         <div className="mb-20 text-center">

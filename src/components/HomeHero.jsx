@@ -16,7 +16,7 @@ const NAV_H = 104; // px
 export default function HomeHero() {
   return (
     <div 
-      className="relative overflow-hidden w-full min-h-[540px] sm:min-h-[600px] lg:h-screen flex flex-col pt-[88px] lg:pt-[104px]"
+      className="relative overflow-hidden w-full min-h-[480px] sm:min-h-[600px] lg:h-screen flex flex-col pt-[88px] lg:pt-[104px] py-4 lg:py-0"
     >
       {/* Hero Background — Z-Index 0 */}
       <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
@@ -25,11 +25,11 @@ export default function HomeHero() {
 
       {/* Hero Content — Z-Index 10 */}
       <div className="relative flex-1 w-full overflow-hidden" style={{ zIndex: 10 }}>
-        <div className="h-full max-w-[1400px] mx-auto px-6 lg:px-8 flex items-center">
+        <div className="h-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
 
           {/* Content left */}
           <motion.div
-            className="flex flex-col justify-center z-10 w-full lg:w-[54%] lg:max-w-[54%] lg:pl-[8%] px-2 sm:px-6"
+            className="flex flex-col justify-center z-10 w-full lg:w-[54%] lg:max-w-[54%] lg:pl-[8%] px-0 sm:px-6"
             initial="hidden"
             animate="show"
           >
@@ -37,7 +37,7 @@ export default function HomeHero() {
               custom={0}
               variants={fadeUp}
               className="font-black text-[#0d2d6b] leading-[1.06] tracking-tight font-sans text-left"
-              style={{ fontSize: 'clamp(2.0rem, 4.5vw, 4.6rem)' }}
+              style={{ fontSize: 'clamp(1.65rem, 6.5vw, 4.6rem)' }}
             >
               Association of<br />
               <span className="text-[#123E87]">Spine Surgeons</span><br />
@@ -53,13 +53,13 @@ export default function HomeHero() {
               Dedicated to advancing spine surgery through education, research, collaboration, and professional excellence.
             </motion.p>
 
-            <motion.div custom={2} variants={fadeUp} className="flex flex-wrap gap-3 mt-6">
+            <motion.div custom={2} variants={fadeUp} className="flex flex-col xs:flex-row w-full xs:w-auto gap-3 mt-6">
               <Link to="/membership?tab=apply"
-                className="bg-[#D4A53A] hover:bg-[#b88c2b] text-white font-bold text-[13px] px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+                className="bg-[#D4A53A] hover:bg-[#b88c2b] text-white font-bold text-[13px] px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 w-full xs:w-auto text-center justify-center flex items-center">
                 Become a Member
               </Link>
               <Link to="/events"
-                className="border-2 border-[#123E87] hover:bg-[#123E87] text-[#123E87] hover:text-white font-bold text-[13px] px-6 py-2.5 rounded-lg transition-all duration-200">
+                className="border-2 border-[#123E87] hover:bg-[#123E87] text-[#123E87] hover:text-white font-bold text-[13px] px-6 py-2.5 rounded-lg transition-all duration-200 w-full xs:w-auto text-center justify-center flex items-center">
                 Upcoming Conference
               </Link>
             </motion.div>
@@ -67,7 +67,7 @@ export default function HomeHero() {
             <motion.div 
               custom={3} 
               variants={fadeUp}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-gray-200/80"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 mt-8 pt-6 border-t border-gray-200/80"
             >
               {[
                 { icon: '👥', value: '200+', label: 'Members' },
@@ -75,11 +75,11 @@ export default function HomeHero() {
                 { icon: '📖', value: '50+',  label: 'CMEs'    },
                 { icon: '🏆', value: 'Best', label: 'Commitment' },
               ].map((s) => (
-                <div key={s.label} className="flex items-center gap-2">
+                <div key={s.label} className="flex items-center gap-2 min-w-0">
                   <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shrink-0">{s.icon}</div>
-                  <div className="flex flex-col leading-tight text-left">
-                    <span className="text-[#123E87] text-[15px] font-extrabold">{s.value}</span>
-                    <span className="text-gray-400 text-[9.5px] uppercase tracking-wider font-semibold">{s.label}</span>
+                  <div className="flex flex-col leading-tight text-left min-w-0">
+                    <span className="text-[#123E87] text-[14px] sm:text-[15px] font-extrabold">{s.value}</span>
+                    <span className="text-gray-400 text-[9px] sm:text-[9.5px] uppercase tracking-wider font-semibold truncate">{s.label}</span>
                   </div>
                 </div>
               ))}

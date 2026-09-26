@@ -158,7 +158,7 @@ export default function Membership({ onShowToast }) {
       <MedicalPageBackground variant="membership" />
 
       <section className="page-hero text-white text-center">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -174,9 +174,9 @@ export default function Membership({ onShowToast }) {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-12 relative z-10">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-12 relative z-10">
 
-        <div className="flex border-b border-gray-200/60 mb-10 overflow-x-auto gap-2">
+        <div className="flex border-b border-gray-200/60 mb-8 sm:mb-10 overflow-x-auto gap-2 scrollbar-none scroll-smooth pb-1">
           {tabItems.map(tab => (
             <button
               key={tab.id}
@@ -263,7 +263,7 @@ export default function Membership({ onShowToast }) {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-8">
-                  <div className="bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5">
+                  <div className="bg-white border border-gray-100 p-4 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5">
                     <h3 className="text-[#0d2d6b] font-bold text-lg mb-4 flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-[#123E87] text-white text-xs flex items-center justify-center font-bold">1</span>
                       <span>Select Membership Type</span>
@@ -322,7 +322,7 @@ export default function Membership({ onShowToast }) {
                     </div>
                   </div>
 
-                  <div className="bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5 flex flex-col gap-4">
+                  <div className="bg-white border border-gray-100 p-4 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5 flex flex-col gap-4">
                     <h3 className="text-[#0d2d6b] font-bold text-lg mb-1 flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-[#123E87] text-white text-xs flex items-center justify-center font-bold">2</span>
                       <span>Personal & Professional Information</span>
@@ -483,7 +483,7 @@ export default function Membership({ onShowToast }) {
                     </div>
                   </div>
 
-                  <div className="bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5 flex flex-col gap-4">
+                  <div className="bg-white border border-gray-100 p-4 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5 flex flex-col gap-4">
                     <h3 className="text-[#0d2d6b] font-bold text-lg mb-1 flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-[#123E87] text-white text-xs flex items-center justify-center font-bold">3</span>
                       <span>Proposer & Seconder Details (Optional)</span>
@@ -532,7 +532,7 @@ export default function Membership({ onShowToast }) {
                     </div>
                   </div>
 
-                  <div className="bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5 flex flex-col gap-6">
+                  <div className="bg-white border border-gray-100 p-4 sm:p-8 rounded-2xl shadow-xl shadow-blue-900/5 flex flex-col gap-6">
                     <h3 className="text-[#0d2d6b] font-bold text-lg flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-[#123E87] text-white text-xs flex items-center justify-center font-bold">4</span>
                       <span>Payment & Bank Details</span>
@@ -576,7 +576,7 @@ export default function Membership({ onShowToast }) {
                         </div>
                         <div className="flex flex-col gap-0.5 text-[10.5px] text-gray-600">
                           <span className="font-bold text-[#123E87]">Association of Spine Surgeons of Telangana</span>
-                          <span className="font-mono text-gray-500 text-[10px]">qr918143893638-1401@unionbankofindia</span>
+                          <span className="font-mono text-gray-500 text-[10px] break-all max-w-full">qr918143893638-1401@unionbankofindia</span>
                         </div>
                       </div>
                     </div>
