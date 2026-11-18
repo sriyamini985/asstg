@@ -100,8 +100,8 @@ export default function Footer({ onShowToast }) {
         <div className="flex flex-col gap-6">
           <h4 className="text-white text-[16.5px] font-bold tracking-wider uppercase border-b border-[#0d2147] pb-2">Conference Manager</h4>
           <div className="flex flex-col gap-3 text-[14.5px]">
-            <div className="w-24 py-1.5 px-3 bg-white rounded flex items-center justify-center">
-              <img src={cmcLogo} alt="CMC Logo" className="max-h-7 object-contain" />
+            <div className="w-28 py-2 px-3 bg-white rounded-lg shadow-sm flex items-center justify-center">
+              <img src={cmcLogo} alt="CMC Logo" className="h-9 w-auto object-contain" />
             </div>
             <span className="text-[#c89b3c] text-xs font-semibold uppercase tracking-wider">CMC - Conference Management Company</span>
             <address className="not-italic leading-relaxed">
